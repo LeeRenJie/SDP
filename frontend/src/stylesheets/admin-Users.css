@@ -145,7 +145,7 @@ html, body {
 }
 
 /* Source: cssbuttons.io*/
-/* Hide the default checkbox */
+/* Hide default checkbox */
 .checkbox_container input {
     position: absolute;
     opacity: 0;
@@ -162,7 +162,7 @@ html, body {
     user-select: none;
 }
    
-/* Create a custom checkbox */
+/* Create custom checkbox */
 .checkmark {
  position: relative;
  top: 0;
