@@ -11,6 +11,7 @@
     <title>Users Page</title>
 </head>
 <body>
+    <?php include '../shared/navbar.php';?>
     <div style="height:100% ; width: 100%;">
         <div class="row" style="height: 100%;">
             <!--1 column space reserved for side bar menu-->
@@ -38,7 +39,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="row general_container mx-auto" style="width: 1050px;">
+                        <div class="row general_container mx-auto" style="width: 1050px; margin-top: 3%;">
                             <!--header content-->
                             <!--Admin need to click on user name or other personal detail to view profile-->
                             <div class="row">
