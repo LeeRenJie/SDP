@@ -1,0 +1,219 @@
+/* The main block for contents*/
+.general_container {
+    border-radius: 50px;
+    background: #e0e0e0;
+    margin-top: 50px;
+    box-shadow:  35px 35px 70px #9b9b9b,
+                 -35px -35px 70px #ffffff;    
+}
+
+.set_radius{
+    border-radius: 25px;
+}
+
+.bg_color {
+    background-color: #E6E7EE;
+}
+
+html, body {
+    margin-right: 0%;
+    padding-right: 0%;
+    width: 100%;
+    height: 100%;
+}
+
+/* Source: cssbuttons.io */
+.red_button {
+    border: none;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    transition: all .3s;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+   
+.red_button:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5,
+                inset -4px -4px 12px #ffffff;
+}
+
+.red_button:hover {
+    background-color: #e41717;
+    box-shadow: 0px 15px 20px rgba(221, 97, 97, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.normal_button {
+    border: none;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    transition: all .3s;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+   
+.normal_button:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5,
+                inset -4px -4px 12px #ffffff;
+}
+
+.green_button {
+    border: none;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    transition: all .3s;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+   
+.green_button:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5,
+                inset -4px -4px 12px #ffffff;
+}
+
+.green_button:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+/*
+.css_buttons {
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.css_buttons:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+   
+.css_buttons:active {
+ transform: translateY(-1px);
+}
+
+*/
+
+.center_element {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.row_header {
+    border-radius: 50px;
+    background: #f3f3f3;
+    box-shadow:  20px 20px 60px #cfcfcf,
+             -20px -20px 60px #ffffff;
+}
+
+/* Source: cssbuttons.io*/
+/* Hide the default checkbox */
+.checkbox_container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+   
+.checkbox_container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+}
+   
+/* Create a custom checkbox */
+.checkmark {
+ position: relative;
+ top: 0;
+ left: 0;
+ height: 1.3em;
+ width: 1.3em;
+ background-color: #ccc;
+ transition: all 0.3s;
+ border-radius: 5px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_container input:checked ~ .checkmark {
+ background-color: #47da99;
+ animation: pop 0.5s;
+ animation-direction: alternate;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+ content: "";
+ position: absolute;
+ display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_container input:checked ~ .checkmark:after {
+ display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_container .checkmark:after {
+ left: 0.45em;
+ top: 0.25em;
+ width: 0.3em;
+ height: 0.7em;
+ border: solid white;
+ border-width: 0 0.15em 0.15em 0;
+ transform: rotate(45deg);
+}
+
+@keyframes pop {
+ 0% {
+  transform: scale(1);
+ }
+
+ 50% {
+  transform: scale(0.9);
+ }
+
+ 100% {
+  transform: scale(1);
+ }
+}
