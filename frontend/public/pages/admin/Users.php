@@ -15,11 +15,11 @@
     <div style="height:100% ; width: 100%;">
         <div class="row" style="height: 100%;">
             <!--1 column space reserved for side bar menu-->
-            <div class="col-2">
+            <div class="col-1">
                 <p class="d-none">Side Bar Menu Space</p>
             </div>
             <!--Content Starts here-->
-            <div class="col-10 bg_color" style="height:100%;">
+            <div class="col-11 bg_color" style="height:100%;">
                 <div class="row">
                     <!--Return Page icon-->
                     <div class="col-2">
