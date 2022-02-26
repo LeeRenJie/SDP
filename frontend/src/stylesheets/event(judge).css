@@ -1,6 +1,11 @@
 html,body{
     height: 100%;
 }
+.maincontainer{
+    width: 1200px;
+    margin-left: 250px; 
+    padding: 50px;
+}
 .card{
     height: 100%;
 }
