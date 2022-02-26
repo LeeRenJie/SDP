@@ -1,0 +1,26 @@
+.normal_button {
+    border: none;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e6e7ee;
+    border: 1px solid #e6e7ee;
+    transition: all .3s;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+   
+.normal_button:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5,
+                inset -4px -4px 12px #ffffff;
+}
+
+.general_container {
+    border-radius: 50px;
+    background: #e6e7ee;
+    margin-top: 50px;
+    box-shadow:  35px 35px 70px #9b9b9b,
+                 -35px -35px 70px #ffffff;    
+}
