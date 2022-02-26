@@ -13,7 +13,6 @@
 <body>
   <!-- nav side-->
   <?php include '../shared/navbar.php';?>
-
   <form method="post" ENCTYPE="multipart/form-data">
     <div class="main-container">
       <div class = "lft-con">
@@ -54,7 +53,7 @@
             <label for="gender" class="col-sm-6 col-form-label">
               Gender 
             </label>
-            <select class="col-sm-6 btn sel">
+            <select class="custom-select col-sm-6 btn sel">
               <option class="al ok" disabled selected>Please Select</option>
               <option class="al ok" value="male">Male</option>
               <option class="al ok" value="female">Female</option>
@@ -98,12 +97,14 @@
               <image class="imge" id="img" name="img" src="../../images/default.jpg" alt="Profile Pic" />
             </label>
           </div>
-            <input id="imageUpload" class="imgload" type="file" name="profilePic" onchange="preimg(img)" capture>
-            <div id="display-image"></div>
+          <div class="custom-file">
+            <input id="imageUpload" class="imgload custom-file-input" type="file" name="profilePic" onchange="preimg(img)" capture>
+            <label class="custom-file-label" for="imageUpload">Choose file</label>
+          </div>
         </div>
         <div class="">
-          <input class="btn btn_size dis" id="button" value="Discard" onclick="discard()">
-          <input class="btn btn_size sub" id="button" type="submit" value="Save" name="saveInfoBtn">
+          <input class="btn btn_size" id="button" value="Discard" onclick="discard()">
+          <input class="btn btn_size" id="button" type="submit" value="Save" name="saveInfoBtn">
         </div>
       </div>
     </div>
