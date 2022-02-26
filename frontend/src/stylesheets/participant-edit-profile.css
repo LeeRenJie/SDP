@@ -1,0 +1,97 @@
+body{
+    height:100%
+}
+.main-container{
+    display:flex;
+    flex-direction: row;
+    background-color:#E6E7EE;
+    width: 1300px;
+    height: 720px;
+    margin-left:auto;
+}
+
+.main-container .lft-con{
+    width: 600px;
+}
+
+.lft-con .name-card{
+    height:40px;
+    width:fit-content;
+    padding: 10px 20px 40px 20px; /*up right down left*/
+    /* container design */
+    border-radius: 50px;
+    background: linear-gradient(145deg, #cfd0d6, #f6f7ff);
+    box-shadow:  20px 20px 60px #c4c4ca, -20px -20px 60px #ffffff;
+    
+    /* -- */
+    margin: 0 auto;
+}
+
+.lft-con .name-card h2{
+    font-family: "Times New Roman", Times, serif;
+    text-align: center;
+    font-size: 25px;
+    margin: 0 auto;
+}
+
+.lft-con .edit-con{
+    padding-top:40x;
+    width:500px;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #cfd0d6, #f6f7ff);
+    box-shadow:  6px 6px 12px #d8d9e0,
+    -6px -6px 12px #f4f5fc;
+    margin: 0 auto;
+}
+
+.edit-con .input-row{
+    display:flex;
+    flex-direction: row;
+    z-index: 1;
+    padding: 20px 20px 20px 20px;
+}
+
+.input-row .input-col{
+    margin: 0 auto;
+    width: 300px;
+}
+
+.sel .al{
+    text-align: left !important;
+}
+
+.sel option{
+    background-color: #f6f7ff;   
+}
+
+.right-con{
+    padding-top: 75px;
+    width: 350px;
+    margin: 0 auto;
+}
+
+.profile-container {
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 50px;
+    background:linear-gradient(145deg, #cfd0d6, #f6f7ff);
+    box-shadow:20px 20px 60px #c4c4ca, -20px -20px 60px #ffffff;
+    margin-bottom: 20px;
+}
+
+.imge {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.imgload{
+    display:none;
+}
+
+.btn_size{
+    width: 130px;
+    margin: 100px 30px 0px 10px;
+}
