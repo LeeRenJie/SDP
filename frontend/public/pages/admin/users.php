@@ -14,7 +14,7 @@
 	<?php include '../shared/navbar.php';?>
 	<div style="height:100% ; width: 100%;">
 		<div class="row" style="height: 100%;">
-			<!--1 column space reserved for side bar menu-->
+		  <!--1 column space reserved for side bar menu-->
 			<div class="" style="width: 250px;">
 				<p class="d-none">Side Bar Menu Space</p>
 			</div>
