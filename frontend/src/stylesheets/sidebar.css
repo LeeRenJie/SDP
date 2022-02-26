@@ -31,7 +31,7 @@
 }
 
 /* hover effect */
-ul li:hover a {
+ul li:hover .sidebar-link {
   transform: scale(1.15);
   color: rgb(0, 158, 216);
 }

@@ -11,13 +11,13 @@
   <div class="sidebar basis-2/12">
     <ul>
       <li class="cursor-pointer">
-        <a href="#" class="">
+        <a href="#" class="sidebar-link">
           <i class="fa fa-book"></i>
           My Events
         </a>
       </li>
       <li class="cursor-pointer">
-        <a href="#" class="">
+        <a href="#" class="sidebar-link">
         <i class="fa fa-list"></i>
           All Events
         </a>
@@ -25,19 +25,19 @@
     </ul>
     <ul>
       <li class="cursor-pointer">
-        <a href="#" class="">
+        <a href="#" class="sidebar-link">
           <i class="fa fa-question-circle"></i>
           About Us
         </a>
       </li>
       <li class="cursor-pointer">
-        <a href="#">
+        <a href="#" class="sidebar-link">
         <i class="fa-solid fa-note-sticky"></i>
           T&C
         </a>
       </li>
       <li class="cursor-pointer">
-        <a href="#">
+        <a href="#" class="sidebar-link">
           <i class="fas fa-user-shield"></i>
           Contact Us
         </a>
