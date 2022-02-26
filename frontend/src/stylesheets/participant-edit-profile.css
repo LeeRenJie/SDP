@@ -4,7 +4,7 @@ body{
 .main-container{
   display:flex;
   flex-direction: row;
-  background-color:#E6E7EE;
+  background-color:#e6e7ee;
   width: 1300px;
   height: 720px;
   margin-left:auto;
