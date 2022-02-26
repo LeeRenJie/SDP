@@ -11,9 +11,9 @@
 
   </head>
   <body>
-		<nav id="navbar-main" class="navbar navbar-expand-lg navbar-transparent navbar-light border-light shadow-soft navbar-theme-primary">
-			<div class="container-fluid position-relative px-5">
-				<a href="">
+		<nav id="navbar-main" class="navbar navbar-expand-lg navbar-transparent">
+			<div class="container-fluid position-relative">
+				<a href="" class="mr-5">
 					<img src="../../images/logo.svg" alt="logo" class="logo" >
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
