@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  <div class="sidebar h-full sticky">
+  <div class="sidebar basis-2/12">
     <ul>
       <li class="cursor-pointer">
         <a href="#" class="">

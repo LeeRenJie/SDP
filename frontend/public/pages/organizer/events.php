@@ -8,6 +8,10 @@
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-
+  <div class="flex flex-row h-screen">
+    <?php include '../shared/sidebar.php';?>
+    <div class="basis-10/12 overflow-auto">
+    </div>
+  </div>
 </body>
 </html>
