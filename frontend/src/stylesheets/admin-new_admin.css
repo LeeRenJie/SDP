@@ -4,8 +4,8 @@
     padding: 0.7em 1.7em;
     font-size: 18px;
     border-radius: 0.5em;
-    background: #e8e8e8;
-    border: 1px solid #e8e8e8;
+    background: #e6e7ee;
+    border: 1px solid #e6e7ee;
     transition: all .3s;
     box-shadow: 6px 6px 12px #c5c5c5,
                 -6px -6px 12px #ffffff;
@@ -19,7 +19,7 @@
 
 .general_container {
     border-radius: 50px;
-    background: #e0e0e0;
+    background: #e6e7ee;
     margin-top: 50px;
     box-shadow:  35px 35px 70px #9b9b9b,
                  -35px -35px 70px #ffffff;    

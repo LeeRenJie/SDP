@@ -29,7 +29,7 @@
                         <!--Need to add js script later to hide the feedback by default and show when username is valid and not repeated in database-->
                         <div class="valid-feedback">
                             Looks good!
-                        </div>                
+                        </div>
                     </div>
                     <div class="form-group mb-4" style="margin-left:8.7%; margin-top:3%;">
                         <label for="validationServerUsername">Name</label>
@@ -37,12 +37,12 @@
                         <!--Need to add js script later to hide the classes invalid-feedback and is-invalid by default and show when invalid-->
                         <div class="invalid-feedback">
                             Please enter your name.
-                        </div>               
+                        </div>
                     </div>
                     <!--Disabled Input for Privilege-->
                     <div class="form-group mb-4" style="margin-left:8.7%; margin-top:3%;">
                         <label for="validationServerUsername">Privilege</label>
-                        <input type="text" class="form-control is-valid" id="validationServerUsername" style="width: 390px;" value="Admin" disabled>              
+                        <input type="text" class="form-control is-valid" id="validationServerUsername" style="width: 390px;" value="Admin" disabled>
                     </div>
                     <!--Password Input (password length validation)-->
                     <div class="form-group" style="margin-left:8.7%; margin-top:3%; margin-bottom: 5%;">
@@ -51,7 +51,7 @@
                         <!--Need to add js script later to hide the feedback by default and show when invalid-->
                         <div class="invalid-feedback">
                             Please use a password that has at least 5 characters.
-                        </div>               
+                        </div>
                     </div>
                     <div class="row" style="margin-bottom: 6%;">
                         <div class="col">
@@ -65,6 +65,5 @@
             </div>
         </div>
     </div>
-    
 </body>
 </html>

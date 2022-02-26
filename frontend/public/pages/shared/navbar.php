@@ -11,9 +11,9 @@
 
   </head>
   <body>
-		<nav id="navbar-main" class="navbar navbar-expand-lg navbar-transparent navbar-light border-light shadow-soft navbar-theme-primary">
-			<div class="container-fluid position-relative px-5">
-				<a href="">
+		<nav id="navbar-main" class="navbar navbar-expand-lg navbar-transparent">
+			<div class="container-fluid position-relative">
+				<a href="" class="mr-5">
 					<img src="../../images/logo.svg" alt="logo" class="logo" >
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,6 @@
 				</div>
 			</div>
 		</nav>
-
-		<?php include 'sidebar.php';?>
     <!-- Jquery and Bootstrap CDN link for JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
