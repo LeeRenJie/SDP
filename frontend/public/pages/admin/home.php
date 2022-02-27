@@ -24,7 +24,7 @@
         <div class="col" style="width: 437.2px; margin-top: 2%;">
           <div class="card bg-primary shadow-inset border-light p-3" style="height:232.6px;">
             <div class="card-body shadow-soft border border-light rounded p-3">
-              <h3 class="h5 card-title">User Count Per Type Of User</h3>
+              <h3 class="h5 card-title">User Type</h3>
               <ul class="list-group text-gray">
                 <!--Use PHP to get Number of admins, participants, judges and organizers from the DB-->
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small">
@@ -51,7 +51,7 @@
         <div class="col" style="margin-top: 2%;">
           <div class="card bg-primary shadow-inset border-light p-3" style="height:232.6px;">
             <div class="card-body shadow-soft border border-light rounded p-3">
-              <h3 class="h5 card-title">Events Ordered By Highest Prize Pool</h3>
+              <h3 class="h5 card-title">Events Prize Pool</h3>
               <ul class="list-group text-gray">
                 <!--Use PHP to get Top 4 highest prize pool from the DB-->
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small">
