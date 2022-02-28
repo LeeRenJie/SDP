@@ -35,7 +35,7 @@
           <div class="col" style="margin-top: 2%; margin-right:-5%;">
             <div class="card bg-primary shadow-inset border-light p-3 mx-auto" style="height:232.6px; width: 450px;">
               <div class="card-body shadow-soft border border-light rounded p-3">
-                <h3 class="h5 card-title">User Type</h3>
+                <h3 class="h5 card-title">User Type <i class="fa-solid fa-user-group"></i></h3>
                 <ul class="list-group text-gray">
                   <!--Use PHP to get Number of admins, participants, judges and organizers from the DB-->
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small">
@@ -62,7 +62,7 @@
           <div class="col" style="margin-top: 2%; margin-left:-5%;">
             <div class="card bg-primary shadow-inset border-light p-3 mx-auto" style="height:232.6px; width: 450px;">
               <div class="card-body shadow-soft border border-light rounded p-3">
-                <h3 class="h5 card-title">Events Prize Pool</h3>
+                <h3 class="h5 card-title">Events Prize Pool <i class="fa-solid fa-money-bill-wave"></i></h3>
                 <ul class="list-group text-gray">
                   <!--Use PHP to get Top 4 highest prize pool from the DB-->
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small">
@@ -96,7 +96,7 @@
               </div>
               <div class="card-body">
                 <!--Use PHP to get value from the other 4 and sum them up to display-->
-                <p style="font-size:39px;">123</p>
+                <p style="font-size:39px;">123 <i class="fa-solid fa-users"></i></p>
               </div>
               <div class="card-footer">
               </div>
@@ -109,7 +109,7 @@
               </div>
               <div class="card-body">
                 <!--PHP code retrieve no of events then display-->
-                <p style="font-size:39px;">65</p>
+                <p style="font-size:39px;">65 <i class="fa-solid fa-calendar-days"></i></p>
               </div>
               <div class="card-footer">
               </div>
@@ -122,7 +122,7 @@
               </div>
               <div class="card-body" style="">
                 <!--PHP code retrieve no of active events(events that had not pass the start date) then display-->
-                <p style="font-size:39px;">10</p>
+                <p style="font-size:39px;">10 <i class="fa-solid fa-calendar-check"></i></p>
               </div>
               <div class="card-footer">
               </div>
