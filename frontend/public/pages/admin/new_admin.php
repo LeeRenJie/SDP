@@ -14,7 +14,7 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto shadow">
+    <div class="basis-10/12 overflow-auto dark_shadow">
       <div style="height:100% ; width: 100%;">
         <div class="row" style="height: 100%; margin-top:3%">
           <div class="col">

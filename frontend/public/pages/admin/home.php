@@ -14,7 +14,7 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto shadow">
+    <div class="basis-10/12 overflow-auto dark_shadow">
       <!--Content Starts here-->
       <div style="">
         <!--1st row 1st col-->
@@ -23,8 +23,9 @@
             <p class="d-none">Empty</p>
           </div>
           <div class="col">
-            <button class="normal_button" style="margin-top: 5%;"><i class="fa-solid fa-download"></i> Backup Database</button>
-            <button class="normal_button" style="margin-top: 5%; margin-left: 10%;"><i class="fa-solid fa-upload"></i>  Restore Database</button>
+            <!--Animate-up-2 is a class to implement up animation when hovered-->
+            <button class="normal_button animate-up-2" style="margin-top: 5%;"><i class="fa-solid fa-download"></i> Backup Database</button>
+            <button class="normal_button animate-up-2" style="margin-top: 5%; margin-left: 10%;"><i class="fa-solid fa-upload"></i>  Restore Database</button>
           </div>
         </div>
         </div>
@@ -90,7 +91,7 @@
         <div class="row" style="margin-top: 4%;">
           <!--3rd row 1st col-->
           <div class="" style="width: 275px; margin-left:4%;">
-            <div class="card bg-primary shadow-soft text-center border-light">
+            <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
               <div class="card-header">
                 <h3 class="h5 card-title">Total User Count</h3>
               </div>
@@ -103,7 +104,7 @@
             </div>
           </div>
           <div class="" style="width: 275px; margin-left:2.5%;">
-            <div class="card bg-primary shadow-soft text-center border-light">
+            <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
               <div class="card-header" style="">
                 <h3 class="h5 card-title"> Total Event Count</h3>
               </div>
@@ -116,7 +117,7 @@
             </div>
           </div>
           <div class="" style="width: 275px; margin-left:2.5%;">
-            <div class="card bg-primary shadow-soft text-center border-light">
+            <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
               <div class="card-header" style="height:87px">
                 <h4 class="h5 card-title">Active Event Count</h4>
               </div>
@@ -129,7 +130,7 @@
             </div>
           </div>
           <div class="" style="width: 275px; margin-left:2.5%;">
-            <div class="card bg-primary shadow-soft text-center border-light">
+            <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
               <div class="card-header">
                 <h3 class="h5 card-title">Prize Money Won</h3>
               </div>
