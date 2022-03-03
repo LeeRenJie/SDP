@@ -10,7 +10,7 @@
     height: 450px;
 }
 .form-control:focus{
-    box-shadow: inherit;
+    box-shadow: none;
 }
 .enter-btn{
     width: 125px;

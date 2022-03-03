@@ -12,12 +12,7 @@
     </head>
     <body>
         <!-- Nav Bar -->
-        <nav id="navbar-main" class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid position-relative px-5">
-                <a href="">
-                    <img src="../../images/logo.svg" alt="logo" class="logo" >
-                </a>        
-        </nav>    
+        <?php include '../shared/navbar.php';?>
         <div class="container-fluid text-black text-center fs-1">
             <h1>Welcome to JUDGEABLE!</h1>
             <div class="row mt-2 justify-content-center align-items-center">

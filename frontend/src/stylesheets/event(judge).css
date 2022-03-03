@@ -1,19 +1,44 @@
-html,body{
-    height: 100%;
+.shadow {
+    box-shadow:  -5px -5px 10px #bdbdc3,
+                 5px 5px 10px #ffffff;
 }
 .maincontainer{
     width: 1200px;
-    margin-left: 250px; 
     padding: 50px;
-}
-.card{
-    height: 100%;
 }
 #card1{
     height: 350px;
 }
 
+.normal_button {
+    border: none;
+    color: #44476A;
+    padding: 0.7em 1.7em;
+    border-radius: 0.5em;
+    background: #e6e7ee;
+    border: 1px solid #e6e7ee;
+    transition: all .3s;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+   
+.normal_button:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5,
+                inset -4px -4px 12px #ffffff;
+}
 
-
+.card2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #e6e7ee;
+    background-clip: border-box;
+    outline: 0;
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
+    border-radius: 0.55rem;
+}
 
 
