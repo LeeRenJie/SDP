@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!--BootStrap/css stylesheets-->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-      <link href="../../../src/stylesheets/enter-event.css" rel="stylesheet">
+      <link href="../../../src/stylesheets/judge-enter-event.css" rel="stylesheet">
       <link href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
       <title>Enter Event</title>
     </head>
@@ -28,7 +28,7 @@
                                 <div class="row px-5 justify-content-center">
                                     <div class="col-11">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Please enter the event's unique code" name="uniquecode" autofocus="none">
+                                            <input type="text" class="form-control" placeholder="Please enter the event's unique code" name="uniquecode">
                                         </div>
                                     </div>
                                 </div>
