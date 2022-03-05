@@ -12,10 +12,12 @@
 </head>
 <body>
   <!-- nav side-->
+  <div id="navbar">
   <?php include '../shared/navbar.php';?>
+  </div>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto shadow">
+    <div class="basis-10/12 overflow-auto shadow" style="border-radius:30px;">
       <form method="post" ENCTYPE="multipart/form-data">
         <div class="main-container">
           <div class = "lft-con">
@@ -57,9 +59,9 @@
                   Gender 
                 </label>
                 <select class="custom-select col-sm-6 btn sel">
-                  <option class="al ok" disabled selected>Please Select</option>
-                  <option class="al ok" value="male">Male</option>
-                  <option class="al ok" value="female">Female</option>
+                  <option class="al" disabled selected>Please Select</option>
+                  <option class="al" value="male">Male</option>
+                  <option class="al" value="female">Female</option>
                 </select>
               </div>
               <!--change telephone-->
