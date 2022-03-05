@@ -14,7 +14,7 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto hahahah">
+    <div class="basis-10/12 overflow-auto back-shadow">
       <br>
       <div class="main-container">
         <form method="post" class="search-box">
@@ -30,7 +30,7 @@
         </form>
         <!-- Event Details -->
         <div class="event-con">
-          <a href="">
+          <a href=""> <!--href to event-->
             <button class="btn btn-primary animate-up-2" type="button">
               <div class="event-con">
                 <div class="col-8">
