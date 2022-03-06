@@ -1,0 +1,11 @@
+.shadow {
+    box-shadow:  -5px -5px 10px #bdbdc3,
+                 5px 5px 10px #ffffff;
+}
+.maincontainer{
+    padding: 40px;
+}
+.noHover:hover{
+    opacity:1.0;
+    box-shadow:none;
+}
