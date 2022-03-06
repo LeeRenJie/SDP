@@ -54,10 +54,10 @@
               </div>
               <div class="row" style="margin-bottom: 6%;">
                 <div class="col">
-                  <button class="btn btn-primary btn-pill text-success" type="button" style="margin-left:45%; width:100px;">Create</button>
+                  <button class="btn btn-primary btn-pill text-success animate-up-2" type="button" style="margin-left:45%; width:100px;">Create</button>
                 </div>
                 <div class="col">
-                  <button class="btn btn-primary btn-pill text-danger" type="button"  style="margin-left:20%; width:100px;">Cancel</button>
+                  <button class="btn btn-primary btn-pill text-danger animate-up-2" type="button"  style="margin-left:20%; width:100px;">Cancel</button>
                 </div>
               </div>
             </div>

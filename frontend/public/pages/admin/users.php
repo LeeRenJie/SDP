@@ -22,7 +22,7 @@
 	    			<div class="row">
               <!--Return Page icon-->
               <div class="col-2">
-                <a href="Home.html">
+                <a href="home.php">
                   <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
                 </a>
               </div>
@@ -32,8 +32,8 @@
               </div>
               <!--Buttons from cssbuttons.io-->
               <div class="col-6">
-                <button class="normal_button" style="margin-top: 5%;"><i class="fa-solid fa-download"></i> Backup Database</button>
-                <button class="normal_button" style="margin-top: 5%; margin-left: 10%;"><i class="fa-solid fa-upload"></i>  Restore Database</button>
+                <button class="normal_button animate-up-2" style="margin-top: 5%;"><i class="fa-solid fa-download"></i> Backup Database</button>
+                <button class="normal_button animate-up-2" style="margin-top: 5%; margin-left: 10%;"><i class="fa-solid fa-upload"></i>  Restore Database</button>
               </div>
 	    			</div>
 
@@ -45,7 +45,7 @@
                   <div class="row">
                   <!--Buttons from cssbuttons.io-->
                     <div class="col">
-                      <button class="normal_button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" style="width: 20%; margin-left: 8%; height: 65px; margin-top: 4%;">Filter</button>
+                      <button class="normal_button animate-up-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" style="width: 20%; margin-left: 8%; height: 65px; margin-top: 4%;">Filter</button>
                     </div>
                   </div>
                   <!--Start of Offcanvas structure-->
