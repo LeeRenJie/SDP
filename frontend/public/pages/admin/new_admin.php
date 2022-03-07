@@ -39,12 +39,12 @@
                 </div>
               </div>
               <!--Disabled Input for Privilege-->
-              <div class="form-group mb-4" style="margin-left:8.7%; margin-top:3%;">
+              <div class="form-group mb-4 privilege_div">
                 <label for="validationServerUsername">Privilege</label>
                 <input type="text" class="form-control is-valid" id="validationServerUsername" style="width: 390px;" value="Admin" disabled>
               </div>
               <!--Password Input (password length validation)-->
-              <div class="form-group" style="margin-left:8.7%; margin-top:3%; margin-bottom: 5%;">
+              <div class="form-group pass_div">
                 <label for="validationServerUsername">Password</label>
                 <input type="text" class="form-control is-invalid" id="validationServerUsername" style="width: 390px;" required>
                 <!--Need to add js script later to hide the feedback by default and show when invalid-->
@@ -54,10 +54,10 @@
               </div>
               <div class="row" style="margin-bottom: 6%;">
                 <div class="col">
-                  <button class="btn btn-primary btn-pill text-success animate-up-2" type="button" style="margin-left:45%; width:100px;">Create</button>
+                  <button class="btn btn-primary btn-pill text-success animate-up-2 create_button" type="button">Create</button>
                 </div>
                 <div class="col">
-                  <button class="btn btn-primary btn-pill text-danger animate-up-2" type="button"  style="margin-left:20%; width:100px;">Cancel</button>
+                  <button class="btn btn-primary btn-pill text-danger animate-up-2 cancel_button" type="button">Cancel</button>
                 </div>
               </div>
             </div>

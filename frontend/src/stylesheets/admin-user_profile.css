@@ -5,6 +5,41 @@
   padding-bottom: 45px;
 }
 
+.text-format{
+  margin-top: 18% !important;
+  color: black;
+}
+
+.first_row_second_col{
+  margin-left: -5%;
+}
+
+.first_row_third_col{
+  margin-left: 2% !important; 
+  margin-top: 4% !important;
+}
+
+.body_footer_size{
+  width: 70%;
+  margin: auto;
+}
+
+.first_row_fifth_col{
+  margin-top: 4% !important; 
+  margin-left: -5% !important;
+}
+
+.first_row{
+  margin-bottom: 5%;
+}
+
+.second_row{
+  margin-top: 5% ; 
+  height: 500px !important;
+  width: 90% !important;
+  margin: auto !important;
+}
+
 body{
   overflow: hidden;
 }
@@ -20,6 +55,15 @@ body{
   box-shadow: inset 6px 6px 12px #b8b9be, inset -6px -6px 12px #ffffff !important;
 }
 
+.big-text{
+  font-size: 18px; 
+  margin-bottom: -10%;
+}
+
+.small-text{
+  font-size: 12px; margin-top: 0%;
+}
+
 .circle_img{
   margin-top: 40%;
   border: 1px solid #ddd;
@@ -30,6 +74,11 @@ body{
   border-radius: 50%;
   background-size: cover;
   background-position: center center;
+}
+
+.card-center{
+  margin: auto; 
+  width: 55%;
 }
 
 .center-division{

@@ -1,9 +1,65 @@
 /* The main block for contents*/
 .general_container {
   border-radius: 50px;
+  width: 1050px; 
+  margin-top: 3%;
   margin-top: 50px;
   box-shadow:  35px 35px 70px #9b9b9b,
               -35px -35px 70px #ffffff;    
+}
+
+.first_row{
+  margin-top: 2%;
+  margin-bottom: 4%;
+}
+
+.search_button{
+  width:73.03px !important; 
+  height:38px !important; 
+  padding: 0% !important;
+}
+
+.search_button_label{
+  font-size: 14px !important; 
+  padding-top:8% !important;
+}
+
+.table_row{
+  width: 94% !important; 
+  margin-left: 3% !important; 
+  margin-top: 3% !important; 
+  padding-bottom: 3% !important;
+}
+
+.input_box{
+  width:188.8px !important; 
+  height:30px !important; 
+  margin-top:3.5% !important; 
+  margin-left:0% !important;
+}
+
+.filter_button{
+  width: 20% !important; 
+  margin-left: 8% !important; 
+  height: 65px !important; 
+  margin-top: 4% !important;
+}
+
+.backup_button{
+  margin-top: 5% !important;
+}
+
+.restore_button{
+  margin-top: 5% !important; 
+  margin-left: 10% !important;
+}
+
+.addadmin_button{
+  margin-top: 8% !important;
+}
+
+.border_extra{
+  border-bottom:  #d1d9e6 !important; 
 }
 
 .dark_shadow {

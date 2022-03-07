@@ -10,7 +10,28 @@
     box-shadow: 6px 6px 12px #c5c5c5,
                 -6px -6px 12px #ffffff;
 }
-   
+
+.privilege_div{
+  margin-left:8.7%; 
+  margin-top:3%;
+}
+
+.pass_div{
+  margin-left:8.7%; 
+  margin-top:3%; 
+  margin-bottom: 5%;
+}
+
+.cancel_button{
+  margin-left:20%; 
+  width:100px;
+}
+
+.create_button{
+  margin-left:45%; 
+  width:100px;
+}
+
 .normal_button:active {
     color: #666;
     box-shadow: inset 4px 4px 12px #c5c5c5,

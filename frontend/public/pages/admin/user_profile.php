@@ -17,7 +17,7 @@
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto dark_shadow">
       <!--1st row-->
-      <div class="row" style="height:">
+      <div class="row first_row">
         <!--1st row 1st col-->
         <div class="col-2">
           <a href="home.php">
@@ -25,45 +25,46 @@
           </a>
         </div>
         <!--1st row 2nd col-->
-        <div class="col-2 justify-content-center" style="margin-left: -5%;">
+        <div class="col-2 justify-content-center first_row_second_col">
           <div class="profile-container">
             <!--echo ($userdata['user_image']) ADD this to the src attribute to fetch img from db-->
             <img class="circle_img" id="img" name="img" src="../../images/testing.jpg" > 
           </div>
         </div>
         <!--1st row 3rd col-->
-        <div class="col-2 justify-content-center" style="margin-left: 2%; margin-top: 4%;">
+        <div class="col-2 justify-content-center first_row_third_col">
           <div class="row">
-            <p class="fs-5 animate-up-2" style="margin-top: 18%; color: black;">Username :</p>
+            <p class="fs-5 animate-up-2 text-format">Username :</p>
           </div>
           <div class="row">
-            <p class="fs-5 animate-up-2" style="margin-top:18%; color: black;">Name :</p>
+            <p class="fs-5 animate-up-2 text-format">Name :</p>
           </div>
           <div class="row">
-            <p class="fs-5 animate-up-2" style="margin-top:18%; color: black;">Privilege :</p>
+            <p class="fs-5 animate-up-2 text-format">Privilege :</p>
           </div>
         </div>
         <!--1st row 4th col-->
         <div class="col-2 justify-content-center" style="margin-top: 4%;">
           <div class="row">
             <!--add php to fetch data from db-->
-            <p class="fs-5 fw-bold animate-up-2" style="margin-top: 18%; color: black;">Chiang 69</p>
+            <p class="fs-5 fw-bold animate-up-2 text-format">Chiang 69</p>
           </div>
           <div class="row">
-            <p class="fs-5 fw-bold animate-up-2" style="margin-top: 18%; color: black;">Chiang Juo Han</p>
+            <p class="fs-5 fw-bold animate-up-2 text-format">Chiang Juo Han</p>
           </div>
           <div class="row">
-            <p class="fs-5 fw-bold animate-up-2" style="margin-top: 18%; color: black;">Participant</p>
+            <p class="fs-5 fw-bold animate-up-2 text-format">Participant</p>
           </div>
         </div>
-        <div class="col" style="margin-top: 4%; margin-left: -5%;">
-          <div class="card bg-primary shadow-soft text-center border-light animate-up-2" style="margin: auto; width: 55%;">
-            <div class="card-header" style="">
+        <!--1st row 5th col-->
+        <div class="col first_row_fifth_col">
+          <div class="card bg-primary shadow-soft text-center border-light animate-up-2 card-center">
+            <div class="card-header">
               <h3 class="h5 card-title"> Events Participated</h3>
             </div>
             <div class="card-body">
               <!--PHP code retrieve no of events then display-->
-              <p style="font-size:39px;">23 <i class="fa-solid fa-calendar-days text-decoration-underline"></i></p>
+              <p style="font-size:39px;">23 <i class="fa-solid fa-calendar-days"></i></p>
             </div>
             <div class="card-footer">
             </div>
@@ -71,43 +72,77 @@
         </div>
       </div>
       <!--2nd row-->
-      <div class="row" style="margin-top: 5%; height: 350px;">
-        <div class="col-6">
-          <div class="card bg-primary shadow-bg text-center border-light animate-up-2 center-division">
-            <div class="row">
-              <div class="col">
-                <div class="circular">
-                  <div class="inner">
+        <div class="row second_row">
+          <div class="col">
+            <!-- Tab Nav -->
+            <div class="nav-wrapper position-relative mb-4">
+              <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fas fa-tint"></i>Design</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-bug"></i>Code</a>
+                </li>
+              </ul>
+            </div>
+            <!-- End of Tab Nav -->
+            <!-- Tab Content -->
+            <div class="card shadow-inset bg-primary border-light p-4 rounded">
+              <div class="card-body p-0">
+                <div class="tab-content" id="tabcontent2">
+                  <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                    <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
+                      Marfa eiusmod Pinterest in do umami readymade swag.</p>
+                    <p>Day handsome addition horrible sensible goodness two contempt. Evening for married his account removal. Estimable me disposing of be moonlight cordially curiosity.</p>
                   </div>
-                  <div class="number">
-                    <p style="font-size: 18px; margin-bottom: -10%;">13</p>
-                    <p style="font-size: 12px; margin-top: 0%;">out of 14</p>
+                  <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                      <p>Photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod
+                          Pinterest in do umami readymade swag.</p>
+                      <p>Day handsome addition horrible sensible goodness two contempt. Evening for married his account removal. Estimable me disposing of be moonlight cordially curiosity.</p>
                   </div>
-                  <div class="circle">
-                    <div class="bar left">
-                      <div class="progress">
-                      </div>
-                    </div>
-                    <div class="bar right">
-                      <div class="progress">
-                      </div>
-                    </div>
+                  <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                      <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
+                          Marfa eiusmod Pinterest in do umami readymade swag.</p>
+                      <p>Day handsome addition horrible sensible goodness two contempt. Evening for married his account removal. Estimable me disposing of be moonlight cordially curiosity.</p>
                   </div>
                 </div>
-              </div>
-              <div class="" style="width: 40px; margin-top: 15%;">
-                <div class="self_circle text-end" id="small_circle">
-                  
-                </div>
-                <label for="small_circle" class="label_format">Completed </label>
-              </div>
-              <div class="col">
-                
               </div>
             </div>
+            <!-- End of Tab Content -->
           </div>
         </div>
+      
+      <!--OLD CODE
+      <div class="row second_row">
+        <div class="col-6">
+          <div class="card bg-primary shadow-bg text-center border-light animate-up-2 center-division">
+            <div class="card-header">
+                <h3 class="h3 card-title fw-bold"> Events</h3>
+              </div>
+              <div class="card-body body_footer_size">
+                <div class="nav-wrapper position-relative mb-4">
+                  <ul class="nav nav-pills flex-column flex-sm-row" id="tabs-text" role="tablist">
+                    <li class="nav-item mr-sm-3 mr-md-0">
+                      <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-text-1" aria-selected="true">Completed</a>
+                    </li>
+                    <li class="nav-item mr-sm-3 mr-md-0">
+                      <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">Ongoing</a>
+                    </li>
+                  </ul>
+                </div>
+                
+                <p class="fw-normal" style="float: left;">Completed</p>
+                <p style="float: right;">Ongoing</p>
+              
+              </div>
+              <div class="card-footer">
+                PHP code retrieve no of events then display-
+                <p style="font-size:39px;">23 <i class="fa-solid fa-calendar-days"></i></p>
+              </div>
+            </div>
+        </div>
       </div>
+      -->
     </div>
   </div>
 <script>
