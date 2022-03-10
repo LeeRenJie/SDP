@@ -76,7 +76,7 @@
               <!--change dob-->
               <div class="input-row">
                 <label for="dob" class="col-sm-6 col-form-label">
-                  DOB 
+                  Date Of Birth 
                 </label>
                 <div class="input-col">
                   <input type="date" class="form-control" id="dob" name="dob" value="" placeholder="dob" required="required">
