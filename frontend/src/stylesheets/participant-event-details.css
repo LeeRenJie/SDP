@@ -1,0 +1,132 @@
+body{
+  height:100%;
+  width: 100%;
+}
+
+.main-container{
+  display:flex;
+  flex-direction: column;
+  background-color:#e6e7ee;
+  width: 1250px;
+  margin-left: auto;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+h1{
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  font-size: 35px;
+  margin: 0 auto;
+  padding-bottom: 15px;
+  font-weight: 500;
+  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
+}
+
+.img-container{
+  width: 1120px;
+  height: 200px;
+  border-radius: 20px;
+  padding-top: 10px;
+}
+
+.img-container .img-size {
+  border-radius: 20px;
+  width: 1100px;
+  height: 180px;
+  object-fit:cover;
+}
+
+.detail-container {
+  border-radius: 20px;
+  box-shadow: inset 5px 5px 10px #c5c5c5,
+              inset -5px -5px 10px #fbfbfb;
+  max-width: 1120px;
+}
+
+.details {
+  width: 150px;
+  height: 100px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #fff;
+  border-color: #D1D9E6;
+}
+
+.description {
+  border-radius: 20px;
+  width: 700px;
+  height: 210px;
+  box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #fff;
+  border-color: #D1D9E6;
+  overflow: auto;
+}
+
+.prizes {
+  width: 333px;
+  height: 250px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #fff;
+  border-color: #D1D9E6;
+  overflow: auto;
+}
+
+.rules {
+  width: 700px;
+  height: 250px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #fff;
+  border-color: #D1D9E6;
+  margin-left: 20px;
+  overflow: auto;
+}
+
+.width {
+  max-width: 1120px;
+}
+
+.judge-table {
+  border-radius: 20px;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #fbfbfb;
+  max-width: 560px;
+  display: block !important;
+  height: 300px;
+}
+
+.participant-table {
+  border-radius: 20px;
+  box-shadow: inset 5px 5px 10px #c5c5c5,
+              inset -5px -5px 10px #fbfbfb;
+  max-width: 560px;
+  display: block !important;
+  height: 300px;
+}
+
+.contact {
+  width: 1070px !important;
+  height: 100px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 12px #b8b9be, -6px -6px 12px #fff;
+  border-color: #D1D9E6;
+  margin-left: 20px;
+  overflow: hidden;
+}
+
+.contact p{
+  padding: 0px 5px 0px 5px;
+}
+
+.btn-con{
+  margin-left: auto;
+  padding: 30px 70px 0px 0px;
+}
+
+.btn_size{
+  width: 200px;
+  border-radius: 50px !important;
+}
+
+.btn_size:hover{
+  width: 400px;
+  font-family: "Times New Roman", Times, serif;
+  color: #0fa046 !important;
+}

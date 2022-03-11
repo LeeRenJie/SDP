@@ -107,10 +107,8 @@
                 <label class="custom-file-label" for="imageUpload">Choose file</label>
               </div>
             </div>
-            <div class="">
-              <input class="btn btn_size" id="button" value="Discard" onclick="discard()">
-              <input class="btn btn_size" id="button" type="submit" value="Save" name="saveInfoBtn">
-            </div>
+            <input class="btn btn_size" id="button" value="Discard" onclick="discard()">
+            <input class="btn btn_size" id="button" type="submit" value="Save" name="saveInfoBtn">
           </div>
         </div>
       </form>
