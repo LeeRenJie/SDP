@@ -73,10 +73,10 @@
                 </div>
               </div>
             </div>
-            <div class = "hint-cont">
-              <p>Hint: Unique Code is to check result and act as a referral code for your team members if it is a team event.</p>
-            </div>
           </div> <!--col-box-->
+        </div>
+        <div class = "hint-cont">
+          <p>Hint: Unique Code is to check result and act as a referral code for your team members if it is a team event.</p>
         </div>
       </div> <!--main-container-->
     </div>

@@ -14,7 +14,7 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto back-shadow">
+    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <br>
       <div class="main-container">
         <form method="post" class="search-box">
