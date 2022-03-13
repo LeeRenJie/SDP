@@ -11,13 +11,10 @@
   <title>Edit Profile</title>
 </head>
 <body>
-  <!-- nav side-->
-  <div id="navbar">
-  <?php include '../shared/navbar.php';?>
-  </div>
+<?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto shadow" style="border-radius:30px;">
+    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <form method="post" ENCTYPE="multipart/form-data">
         <div class="main-container">
           <div class = "lft-con">
@@ -107,8 +104,10 @@
                 <label class="custom-file-label" for="imageUpload">Choose file</label>
               </div>
             </div>
-            <input class="btn btn_size" id="button" value="Discard" onclick="discard()">
-            <input class="btn btn_size" id="button" type="submit" value="Save" name="saveInfoBtn">
+            <div class="btn-size">
+              <input class="btn discard" id="button" value="Discard" onclick="discard()">
+              <input class="btn save" id="button" type="submit" value="Save" name="saveInfoBtn">
+            </div>
           </div>
         </div>
       </form>

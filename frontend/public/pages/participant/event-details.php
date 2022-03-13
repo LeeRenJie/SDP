@@ -11,12 +11,10 @@
   <title>Event Details</title>
 </head>
 <body>
-  <div id="navbar">
-    <?php include '../shared/navbar.php';?>
-  </div>
+  <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto shadow" style="border-radius:30px;">
+    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <div class="main-container">
         <!-- Event name and status -->
         <h1>Event Name</h1>
@@ -27,7 +25,7 @@
         <!-- Details of event -->
         <div class="row detail-container">
           <div class="col-4"> <!--left details-->
-            <div class="row py-2">  <!--row for date and time-->
+            <div class="row py-3">  <!--row for date and time-->
               <div class="col-6 text-center">
                 <div class="inline-block details pt-3">
                   <span class="h5">
@@ -68,7 +66,7 @@
               </div>
             </div> <!--row for max person and type-->
           </div> <!--left details-->
-          <div class="col-8 text-center pt-2"> <!--right details description-->
+          <div class="col-8 text-center py-3"> <!--right details description-->
             <div class="description pt-3">
               <span class="h5">
                 <i class="fa-solid fa-message"></i>
@@ -79,12 +77,14 @@
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </p>
             </div>
           </div> <!--right details description-->
           <div class="row py-3">
             <div class="col-4 text-center"> <!--Prizes-->
-              <div class="prizes pt-3 ml-3">
+              <div class="prizes pt-3">
                 <span class="h5">
                   <i class="fa-solid fa-trophy"></i>
                   Prizes
@@ -99,7 +99,7 @@
               </div>
             </div> <!--Prizes-->
             <div class="col-8 text-center"> <!--Rules-->
-              <div class="rules pt-3">
+              <div class="rules pt-3 ml-2.5">
                 <span class="h5">
                   <i class="fa-solid fa-scroll"></i>
                   Rules
@@ -116,8 +116,8 @@
               </div>
             </div> <!--Rules-->
           </div>
-          <div class="row py-3 ml-1">
-            <div class="contact text-center">
+          <div class="row py-1 mb-3">
+            <div class="contact text-center py-3">
               <span class="h5">
                 <i class="fa-solid fa-address-book"></i>
                 Contact Information
@@ -136,7 +136,7 @@
             </div>
           </div>
         </div> <!-- Details of event -->
-        <form class="btn-con">
+        <form method="post" class="btn-con">
           <input class="btn btn_size" id="button" type="submit" value="Participate" name="participate">
         </form>
       </div> <!--Main Container-->
