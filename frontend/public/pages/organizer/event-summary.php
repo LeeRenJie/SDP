@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../../src/stylesheets/org-event.css" />
-  <title>Organizer Home Page</title>
+  <link rel="stylesheet" href="../../../src/stylesheets/event-summary.css" />
+  <title>Event Summary</title>
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
@@ -14,15 +14,12 @@
     <div class="basis-10/12 bg-shadow overflow-auto">
       <div class="row pt-4 pl-5">
         <!-- Event name and status -->
-        <div class="col-8">
-          <h1 class="inline-block"><b>Event Name</b></h1>
-          <h5 class="inline-block pl-2 text-green-600">active</h5>
+        <div class="col-9">
+          <h1 class="inline-block"><b>Event Summary</b></h1>
         </div>
         <!-- Button actions for the event -->
-        <div class="col-4">
-          <button type="button" class="green-button mx-2 cursor-pointer">Edit</button>
-          <button type="button" class="red-button mx-2 cursor-pointer">End</button>
-          <button type="button" class="red-button mx-2 cursor-pointe">Delete</button>
+        <div class="col-3">
+          <button type="button" class="grey-button ml-5 cursor-pointer">Save As PDF</button>
         </div>
       </div>
       <!-- Image of event -->
@@ -105,11 +102,29 @@
                 Prizes
               </span>
               <div  style="text-align: center;">
-                <div style="display: inline-block; text-align: left;" class="pt-5">
-                  <p>1st prize: RM5000</p>
-                  <p>2nd prize: RM3000</p>
-                  <p>3rd prize: RM1000</p>
-                </div>
+                <!-- table to display winner and money prizes -->
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Winners</th>
+                      <th>Prizes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>John Doe</td>
+                      <td>RM 5000</td>
+                    </tr>
+                    <tr>
+                      <td>John Doe</td>
+                      <td>RM 3000</td>
+                    </tr>
+                    <tr>
+                      <td>John Doe</td>
+                      <td>RM 1500</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
