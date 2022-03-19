@@ -5,6 +5,14 @@
   padding-bottom: 45px;
 }
 
+.enlarge-content:hover{
+  transform: scale(1.01);
+}
+
+.cancel-box-shadow{
+  box-shadow: none !important;
+}
+
 .text-format{
   margin-top: 18% !important;
   color: black;
@@ -26,7 +34,7 @@
 
 .first_row_fifth_col{
   margin-top: 4% !important; 
-  margin-left: -5% !important;
+  margin-left: -0% !important;
 }
 
 .first_row{
@@ -36,7 +44,7 @@
 .second_row{
   margin-top: 5% ; 
   height: 500px !important;
-  width: 90% !important;
+  width: 78% !important;
   margin: auto !important;
 }
 
@@ -77,8 +85,7 @@ body{
 }
 
 .card-center{
-  margin: auto; 
-  width: 55%;
+  width: 65%;
 }
 
 .center-division{
