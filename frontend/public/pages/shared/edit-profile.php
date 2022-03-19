@@ -5,19 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/d7affc88cb.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../../../src/stylesheets/participant-edit-profile.css">
+  <link rel="stylesheet" href="../../../src/stylesheets/edit-profile.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <link type="text/css" href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
   <title>Edit Profile</title>
 </head>
 <body>
-  <!-- nav side-->
-  <div id="navbar">
-  <?php include '../shared/navbar.php';?>
-  </div>
+<?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto shadow" style="border-radius:30px;">
+    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <form method="post" ENCTYPE="multipart/form-data">
         <div class="main-container">
           <div class = "lft-con">
@@ -29,7 +26,7 @@
               <!--Show default username-->
               <div class="input-row">
                 <label for="username" class="col-sm-6 col-form-label">
-                  Username 
+                  Username
                 </label>
                 <div class="input-col">
                   <input type="text" class="form-control" id="username" name="username" value="LYH" placeholder="Username" required="required">
@@ -38,7 +35,7 @@
               <!--Name section-->
               <div class="input-row">
                 <label for="name" class="col-sm-6 col-form-label">
-                  Name 
+                  Name
                 </label>
                 <div class="input-col">
                   <input type="text" class="form-control" id="name" name="name" value="LYH" placeholder="Name" required="required">
@@ -47,7 +44,7 @@
               <!--Email section-->
               <div class="input-row">
                 <label for="email" class="col-sm-6 col-form-label">
-                  Email 
+                  Email
                 </label>
                 <div class="input-col">
                   <input type="text" class="form-control" id="email" name="email" value="LYH@sample.mail.com" placeholder="Email" required="required">
@@ -56,7 +53,7 @@
               <!--Gender section-->
               <div class="input-row">
                 <label for="gender" class="col-sm-6 col-form-label">
-                  Gender 
+                  Gender
                 </label>
                 <select class="custom-select col-sm-6 btn sel">
                   <option class="al" disabled selected>Please Select</option>
@@ -67,7 +64,7 @@
               <!--change telephone-->
               <div class="input-row">
                 <label for="telephone" class="col-sm-6 col-form-label">
-                  Telephone 
+                  Telephone
                 </label>
                 <div class="input-col">
                   <input type="tel" class="form-control" id="telephone" name="telephone" value="0112223333" placeholder="Telephone" required="required">
@@ -76,7 +73,7 @@
               <!--change dob-->
               <div class="input-row">
                 <label for="dob" class="col-sm-6 col-form-label">
-                  DOB 
+                  Date Of Birth
                 </label>
                 <div class="input-col">
                   <input type="date" class="form-control" id="dob" name="dob" value="" placeholder="dob" required="required">
@@ -85,7 +82,7 @@
               <!--change privilege-->
               <div class="input-row">
                 <label for="privilege" class="col-sm-6 col-form-label">
-                  Privilege 
+                  Privilege
                 </label>
                 <div class="input-col">
                   <fieldset disabled>
@@ -107,9 +104,9 @@
                 <label class="custom-file-label" for="imageUpload">Choose file</label>
               </div>
             </div>
-            <div class="">
-              <input class="btn btn_size" id="button" value="Discard" onclick="discard()">
-              <input class="btn btn_size" id="button" type="submit" value="Save" name="saveInfoBtn">
+            <div class="btn-size">
+              <input class="btn discard" id="button" value="Discard" onclick="discard()">
+              <input class="btn save" id="button" type="submit" value="Save" name="saveInfoBtn">
             </div>
           </div>
         </div>
@@ -119,7 +116,7 @@
   <script>
     function discard(){
       window.location.reload();
-    } 
+    }
   //this script use to preview image before upload
   // (Nkron, 2014)
     function preimg(img) {

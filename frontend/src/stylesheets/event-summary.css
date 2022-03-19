@@ -3,7 +3,7 @@
   padding-bottom: 80px;
 }
 
-.green-button {
+.grey-button {
   border: none;
   color: #090909;
   padding: 0.7em 1.7em;
@@ -12,46 +12,10 @@
   background: #e6e7ee;
   border: 1px solid #e6e7ee;
   transition: all .3s;
-  box-shadow: 6px 6px 12px #c5c5c5,
-              -6px -6px 12px #ffffff;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
 }
 
-.green-button:active {
-  color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5,
-              inset -4px -4px 12px #ffffff;
-}
-
-.green-button:hover {
-  background-color: #2EE59D;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
-
-.red-button {
-  border: none;
-  color: #090909;
-  padding: 0.7em 1.7em;
-  font-size: 14px;
-  border-radius: 0.5em;
-  background: #e6e7ee;
-  border: 1px solid #e6e7ee;
-  transition: all .3s;
-  box-shadow: 6px 6px 12px #c5c5c5,
-              -6px -6px 12px #ffffff;
-}
-
-.red-button:active {
-  color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5,
-              inset -4px -4px 12px #ffffff;
-}
-
-.red-button:hover {
-  background-color: #e5592e;
-  box-shadow: 0px 15px 20px rgba(229, 58, 46, 0.4);
-  color: #fff;
+.grey-button:hover {
   transform: translateY(-7px);
 }
 
@@ -59,8 +23,7 @@
   width: 1120px;
   height: 200px;
   border-radius: 20px;
-  box-shadow: inset 5px 5px 10px #c5c5c5,
-              inset -5px -5px 10px #fbfbfb;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #fbfbfb;
   padding-top: 10px;
 }
 
@@ -73,8 +36,7 @@
 
 .detail-container {
   border-radius: 20px;
-  box-shadow: inset 5px 5px 10px #c5c5c5,
-              inset -5px -5px 10px #fbfbfb;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #fbfbfb;
   max-width: 1120px;
 }
 
@@ -125,8 +87,7 @@
 
 .participant-table {
   border-radius: 20px;
-  box-shadow: inset 5px 5px 10px #c5c5c5,
-              inset -5px -5px 10px #fbfbfb;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #fbfbfb;
   max-width: 560px;
   display: block !important;
   height: 300px;

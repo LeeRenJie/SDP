@@ -36,7 +36,7 @@ ul li:hover .sidebar-link {
   color: rgb(0, 158, 216);
 }
 
-ul li:hover {
+.sidebar ul li:hover {
   border-radius: 10px;
   box-shadow: -3px -3px 7px #ffffff73,
               2px 2px 5px rgba(128, 135, 148, 0.562);

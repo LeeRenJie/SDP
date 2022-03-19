@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/d7affc88cb.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../../../src/stylesheets/participant-view-event.css">
+  <link rel="stylesheet" href="../../../src/stylesheets/view-event.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <link type="text/css" href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
   <title>Judgeable</title>
@@ -14,7 +14,7 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto back-shadow">
+    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <br>
       <div class="main-container">
         <form method="post" class="search-box">
@@ -58,7 +58,7 @@
             </button>
           </a>
         </div><!--event-con-->
-    
+
         <div class="event-con">
           <a href="">
             <button class="btn btn-primary animate-up-2" type="button">
@@ -147,7 +147,7 @@
           </a>
         </div><!--event-con-->
 
-        
+
       </div> <!--main container-->
     </div>
   </div>
