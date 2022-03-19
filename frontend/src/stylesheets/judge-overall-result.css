@@ -1,0 +1,30 @@
+.shadow {
+    box-shadow:  -5px -5px 10px #bdbdc3,
+                 5px 5px 10px #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #ffffff;
+  border-radius: 50px;
+  margin: .5em 0em .5em 0em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(160, 152, 152);
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(73, 72, 72);
+}
+
+.result{    
+    border-collapse: separate;
+    border-spacing: 20px;
+}
+
