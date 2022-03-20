@@ -11,10 +11,13 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 bg-shadow overflow-auto">
+    <div class="basis-10/12 bg-shadow overflow-auto" style="border-radius:30px;">
+      <div onclick="history.back()" class="pl-5 cursor-pointer pt-4">
+        <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+      </div>
       <div class="row pt-4 pl-5">
         <!-- Event name and status -->
-        <div class="col-8">
+        <div class="col-8 align-items-center">
           <h1 class="inline-block"><b>Event Name</b></h1>
           <h5 class="inline-block pl-2 text-green-600">active</h5>
         </div>

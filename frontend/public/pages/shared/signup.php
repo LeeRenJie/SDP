@@ -11,30 +11,37 @@
   <title>Sign Up</title>
 </head>
 <body>
-  <!-- nav side-->
-  <div id="navbar">
-    <?php include '../shared/navbar.php';?>
-    </div>
-    <div class="flex flex-row h-screen">
-      <?php include '../shared/sidebar.php';?>
-      <div class="basis-10/12 overflow-auto shadow" style="border-radius:30px;">
+<?php include '../shared/navbar.php';?>
+  <div class="flex flex-row h-screen">
+    <?php include '../shared/sidebar.php';?>
+    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
+      <br>
       <div class="main-container">
-        <h2>Sign Up</h2>
+        <h2 class="mt-3">Sign Up</h2>
         <form class="mid-con" action="signup.php" method="post" enctype="multipart/form-data">
           <div class="edit-con">
-            <!--Show default username-->
+            <!--username-->
             <div class="input-row">
               <label for="username" class="col-sm-6 col-form-label">
-                Username 
+                Username
               </label>
               <div class="input-col">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required="required" autofocus>
               </div>
             </div>
+            <!-- password -->
+            <div class="input-row">
+              <label for="password" class="col-sm-6 col-form-label">
+                Password
+              </label>
+              <div class="input-col">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
+              </div>
+            </div>
             <!--Name section-->
             <div class="input-row">
               <label for="name" class="col-sm-6 col-form-label">
-                Name 
+                Name
               </label>
               <div class="input-col">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required">
@@ -43,7 +50,7 @@
             <!--Email section-->
             <div class="input-row">
               <label for="email" class="col-sm-6 col-form-label">
-                Email 
+                Email
               </label>
               <div class="input-col">
                 <input type="text" class="form-control" id="email" name="email" placeholder="Email" required="required">
@@ -52,7 +59,7 @@
             <!--Gender section-->
             <div class="input-row">
               <label for="gender" class="col-sm-6 col-form-label">
-                Gender 
+                Gender
               </label>
               <select class="custom-select col-sm-6 btn sel">
                 <option class="al" selected disabled>Please Select</option>
@@ -63,7 +70,7 @@
             <!--change telephone-->
             <div class="input-row">
               <label for="telephone" class="col-sm-6 col-form-label">
-                Telephone 
+                Telephone
               </label>
               <div class="input-col">
                 <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Telephone" required="required">
@@ -72,7 +79,7 @@
             <!--change dob-->
             <div class="input-row">
               <label for="dob" class="col-sm-6 col-form-label">
-                Date Of Birth 
+                Date Of Birth
               </label>
               <div class="input-col">
                 <input type="date" class="form-control" id="dob" name="dob" value="" placeholder="dob" required="required">
@@ -83,7 +90,7 @@
           <div class="sub-con">
             <button class="btn dis-btn" id="button" onclick="discard()">Discard</button>
             <button class="btn sign-btn" id="button" type="submit" name="signup-btn">Sign up</button>
-            <p class="link">Already have an account? Log in <a href="login.php">HERE</a></p>
+            <p class="link mt-2">Already have an account? Log in <a href="login.php">HERE</a></p>
           </div>
         </form>
       </div><!--main-->
@@ -92,7 +99,7 @@
   <script>
     function discard(){
       window.location.reload();
-    } 
+    }
   </script>
 </body>
 </html>
