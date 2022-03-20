@@ -62,6 +62,9 @@
 
                   $judge_query = "SELECT COUNT(judge_id) FROM judge";
                   $judge_query_run = mysqli_query($con, $judge_query); 
+
+                  $total_user_query = "SELECT COUNT(user_id) FROM user";
+                  $total_user_query_run = mysqli_query($con, $total_user_query);
                 ?>
                 <ul class="list-group text-gray">
                   <!--Use PHP to get Number of admins, participants, judges and organizers from the DB-->
@@ -159,14 +162,22 @@
         <!--3rd row-->
         <div class="row" style="margin-top: 4%;">
           <!--3rd row 1st col-->
-          <div class="row-3-col-1">
+          <div class="row-3-col-1 bot_padd">
             <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
               <div class="card-header">
                 <h3 class="h5 card-title">Total User Count</h3>
               </div>
               <div class="card-body">
                 <!--Use PHP to get value from the other 4 and sum them up to display-->
-                <p>123 <i class="fa-solid fa-users"></i></p>
+                <p>
+                  <?php
+                    WHILE($total_user_row = mysqli_fetch_array($total_user_query_run))
+                    {
+                      echo $total_user_row[0];
+                    }
+                  ?>   
+                  <i class="fa-solid fa-users"></i>
+                </p>
               </div>
               <div class="card-footer">
               </div>

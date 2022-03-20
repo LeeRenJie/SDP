@@ -78,7 +78,7 @@
             <div class="nav-wrapper position-relative mb-4">
               <ul class="nav nav-pills nav-fill flex-column flex-md-row cancel-box-shadow" id="tabs-icons-text" role="tablist">
                 <li class="nav-item cancel-box-shadow">
-                  <a class="nav-link mb-sm-3 mb-md-0 active enlarge-content" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa-solid fa-calendar-days"></i>Ongoing Events</a>
+                  <a class="nav-link mb-sm-3 mb-md-0 active enlarge-content" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa-solid fa-calendar-days"></i>Number of Events</a>
                 </li>
                 <li class="nav-item cancel-box-shadow">
                   <a class="nav-link mb-sm-3 mb-md-0 enlarge-content" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fa-solid fa-calendar-days"></i>Past Events</a>
@@ -87,13 +87,50 @@
             </div>
             <!-- End of Tab Nav -->
             <!-- Tab Content -->
-            <div class="card shadow-inset bg-primary border-light p-4 rounded">
+            <div class="card shadow-inset bg-primary border-light p-4 rounded ">
               <div class="card-body p-0">
                 <div class="tab-content" id="tabcontent2">
                   <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                    <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
-                      Marfa eiusmod Pinterest in do umami readymade swag.</p>
-                    <p>Day handsome addition horrible sensible goodness two contempt. Evening for married his account removal. Estimable me disposing of be moonlight cordially curiosity.</p>
+                    <div class="b-skills">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-2">
+                            <p class="d-none">Empty</p>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="skill-item center-block">
+                              <div class="chart-container">
+                                <div class="chart" data-percent="80%" data-bar-color="#52565f">
+                                  <span class="percent" data-after="%"> 90</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col col-margin">
+                            <div class="row">
+                              <p class="fs-5 animate-up-2 title">Ongoing Events</p>
+                            </div>
+                            <div class="row">
+                              <p class="fs-5 animate-up-2 title">Completed Events</p>
+                            </div>
+                          </div>
+                          <div class="col col-margin">
+                            <div class="row">
+                              <p class="fs-5 fw-bold animate-up-2 title">
+                                14 
+                                <i class="fa-solid fa-calendar-days"></i>
+                              </p>
+                            </div>
+                            <div class="row">
+                              <p class="fs-5 fw-bold animate-up-2 title">
+                                10 
+                                <i class="fa-solid fa-calendar-days"></i>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                     <p>Photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod
@@ -140,8 +177,45 @@
       -->
     </div>
   </div>
-<script>
+  <script src="jquery-2.2.4.min.js"></script>
+  <script src="profile.min.js"></script>
+  <script>
+      var $window = $(window);
 
-</script>
+      function run() {
+        var fName = arguments[0],
+          aArgs = Array.prototype.slice.call(arguments, 1);
+        try {
+          fName.apply(window, aArgs);
+        } catch (err) {}
+      }
+
+      /* chart
+================================================== */
+      function _chart() {
+        $(".b-skills").appear(function () {
+          setTimeout(function () {
+            $(".chart").easyPieChart({
+              easing: "easeOutElastic",
+              delay: 3000,
+              barColor: "#369670",
+              trackColor: "#fff",
+              scaleColor: false,
+              lineWidth: 21,
+              trackWidth: 21,
+              size: 250,
+              lineCap: "round",
+              onStep: function (from, to, percent) {
+                this.el.children[0].innerHTML = Math.round(percent);
+              },
+            });
+          }, 150);
+        });
+      }
+
+      $(document).ready(function () {
+        run(_chart);
+      });
+  </script>
 </body>
 </html>

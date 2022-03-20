@@ -43,7 +43,7 @@
 
 .second_row{
   margin-top: 5% ; 
-  height: 500px !important;
+  height: 450px !important;
   width: 78% !important;
   margin: auto !important;
 }
@@ -73,6 +73,7 @@ body{
 }
 
 .circle_img{
+  
   margin-top: 40%;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -82,6 +83,12 @@ body{
   border-radius: 50%;
   background-size: cover;
   background-position: center center;
+  /*
+  height: 150px;
+  width: 150px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+  */
 }
 
 .card-center{
@@ -185,4 +192,81 @@ img:hover{
   100%{
     transform: rotate(180deg);
   }
+}
+
+/*CHART*/
+.b-skills {
+  /*border-top: 1px solid #f9f9f9;*/
+  text-align: center;
+}
+
+.b-skills:last-child {
+  margin-bottom: -30px;
+}
+
+.b-skills h2 {
+  margin-bottom: 50px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.skill-item {
+  position: relative;
+  max-width: 250px;
+  width: 100%;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  margin-bottom: 27px;
+}
+
+.skill-item .chart,
+.skill-item .chart canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.skill-item .chart:before {
+  content: "";
+  width: 0;
+  height: 100%;
+}
+
+.skill-item .chart:before,
+.skill-item .percent {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.skill-item .percent {
+  position: relative;
+  line-height: 1;
+  font-size: 40px;
+  font-weight: 900;
+  z-index: 2;
+}
+
+.skill-item .percent:after {
+  content: attr(data-after);
+  font-size: 20px;
+}
+
+.title{
+  text-align: left !important;
+  margin-top: 8% !important;
+  font-weight: 500 !important;
+}
+
+.col-margin{
+  margin-left: 8% !important;
+  margin-top: 4% !important;
 }
