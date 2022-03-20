@@ -21,7 +21,7 @@
           <span onclick="history.back()" class="pt-3 mr-2 cursor-pointer">
             <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
           </span>
-          <form method="post" class="search-box">
+          <form method="post" class="search-box inline-block">
             <!-- Search Container -->
             <div class="search-con">
               <div class="input-group">
