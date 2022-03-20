@@ -1,0 +1,71 @@
+/* Start of home.php css classes*/
+.restore-db-button{
+  margin-top: 5% !important; 
+  margin-left: 13% !important;
+}
+
+.backup-db-button{
+  margin-left: 2.2% !important;
+}
+
+.row-2-col-1{
+  margin-top: 2% !important; 
+  margin-right:-1.5% !important;
+  margin-left: -0.5% !important;
+}
+
+.card_style_1{
+  height:232.6px !important; 
+  width: 560px !important;
+}
+
+.inner_card_1{
+  width: 550px !important;
+  height: 232.6px !important;
+  margin: auto !important;
+}
+
+.inner_card_2{
+  width: 550px !important;
+  height: 232.6px !important;
+  margin: auto !important;
+}
+
+.row-2-col-2{
+  margin-top: 2% !important; 
+  margin-left:-5% !important;
+}
+
+.card_style_2{
+  height:232.6px !important; 
+  width: 450px !important;
+}
+
+.row-3-col-1{
+  width: 275px !important; 
+  margin-left:4% !important;
+  padding-bottom: 8%;
+}
+
+.row-3-col-2{
+  width: 275px !important; 
+  margin-left:2% !important;
+}
+
+.row-3-col-3{
+  width: 275px !important; 
+  margin-left:2.7% !important;
+}
+
+.row-3-col-4{
+  width: 275px !important; 
+  margin-left:2% !important;
+}
+
+p{
+  font-size: 39px !important;
+}
+
+.margin-list{
+  margin-top: 1.5%;
+}
