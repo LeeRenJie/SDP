@@ -12,14 +12,14 @@
 }
 
 .privilege_div{
-  margin-left:8.7%; 
-  margin-top:3%;
+  margin-left:8.7% !important; 
+  margin-top:3% !important;
 }
 
 .pass_div{
-  margin-left:8.7%; 
-  margin-top:3%; 
-  margin-bottom: 5%;
+  margin-left:8.7% !important; 
+  margin-top:3% !important; 
+  margin-bottom: 5% !important;
 }
 
 .cancel_button{
@@ -50,4 +50,14 @@
   box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
   /* box-shadow:  2px 2px 5px #b8b9be,  -3px -3px 7px #FFFFFF; */
   /* box-shadow:  -5px -5px 10px #bdbdc3, 5px 5px 10px #ffffff; */
+}
+
+.form_margin_1{
+  margin-left:8.7% !important; 
+  margin-top:8% !important;
+}
+
+.form_margin_2{
+  margin-left:8.7% !important; 
+  margin-top:3% !important;
 }

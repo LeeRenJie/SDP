@@ -1,3 +1,20 @@
+<?php
+  //Connection to Database
+  include("../../../../backend/conn.php");
+  // start the session
+  //if(!isset($_SESSION)) {
+  //  session_start();
+  //}
+
+  //get user id from url
+  //$userid = $_SESSION['user_id'];
+
+  //run query and get sql result
+  //$user_query = "SELECT * FROM user INNER JOIN privilege ON user.privilege_id = privilege.privilege_id WHERE user_id = $userid";
+  //$user_query_run = mysqli_query($con, $user_query);
+  
+  //$userdata = mysqli_fetch_assoc($user_query_run);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +24,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/28d45fc291.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../../src/stylesheets/neumorphism.css">
+  <link rel="stylesheet" href="../../../src/stylesheets/view-event.css">
   <link rel="stylesheet" href="../../../src/stylesheets/admin-user_profile.css">
   <title>User Profile</title>
 </head>
@@ -47,13 +65,15 @@
         <div class="col-2 justify-content-center" style="margin-top: 4%;">
           <div class="row">
             <!--add php to fetch data from db-->
-            <p class="fs-5 fw-bold animate-up-2 text-format">Chiang 69</p>
+            <p class="fs-5 fw-bold animate-up-2 text-format">
+              
+            </p>
           </div>
           <div class="row">
-            <p class="fs-5 fw-bold animate-up-2 text-format">Chiang Juo Han</p>
+
           </div>
           <div class="row">
-            <p class="fs-5 fw-bold animate-up-2 text-format">Participant</p>
+
           </div>
         </div>
         <!--1st row 5th col-->
@@ -133,9 +153,66 @@
                     </div>
                   </div>
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                    <p>Photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod
-                      Pinterest in do umami readymade swag.</p>
-                    <p>Day handsome addition horrible sensible goodness two contempt. Evening for married his account removal. Estimable me disposing of be moonlight cordially curiosity.</p>
+                    <div class="content-cont">
+                      <div class="event-con col-12">
+                        <a href=""> <!--href to event-->
+                          <button class="btn btn-primary animate-up-2" type="button">
+                            <div class="event-con">
+                              <div class="col-8">
+                                <div class="title-con">
+                                  <h2>Event Name</h2> <!--change event name-->
+                                  <div class="status-con">
+                                    <small class="status-on">Active</small> <!--change event status-->
+                                  </div>
+                                </div>
+                                <div class="details-con"> <!--event info-->
+                                  <div class="info-con">
+                                    <p>Date: xx/xx/xxxx </p>
+                                    <p>Judges : 4</p>
+                                  </div>
+                                  <div class="info-con">
+                                    <p>Time: 18:00 - 22:00 </p>
+                                    <p>Participant : 70</p>
+                                  </div>
+                                </div> <!--info-->
+                              </div>
+                              <div class="col-4">
+                                <i class="icon-size fa-solid fa-angle-right"></i>
+                              </div>
+                            </div>
+                          </button>
+                        </a>
+                      </div><!--event-con-->
+                      <div class="event-con col-12">
+                        <a href=""> <!--href to event-->
+                          <button class="btn btn-primary animate-up-2" type="button">
+                            <div class="event-con">
+                              <div class="col-8">
+                                <div class="title-con">
+                                  <h2>Event Name</h2> <!--change event name-->
+                                  <div class="status-con">
+                                    <small class="status-on">Active</small> <!--change event status-->
+                                  </div>
+                                </div>
+                                <div class="details-con"> <!--event info-->
+                                  <div class="info-con">
+                                    <p>Date: xx/xx/xxxx </p>
+                                    <p>Judges : 4</p>
+                                  </div>
+                                  <div class="info-con">
+                                    <p>Time: 18:00 - 22:00 </p>
+                                    <p>Participant : 70</p>
+                                  </div>
+                                </div> <!--info-->
+                              </div>
+                              <div class="col-4">
+                                <i class="icon-size fa-solid fa-angle-right"></i>
+                              </div>
+                            </div>
+                          </button>
+                        </a>
+                      </div><!--event-con-->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -143,38 +220,6 @@
             <!-- End of Tab Content -->
           </div>
         </div>
-      
-      <!--OLD CODE
-      <div class="row second_row">
-        <div class="col-6">
-          <div class="card bg-primary shadow-bg text-center border-light animate-up-2 center-division">
-            <div class="card-header">
-                <h3 class="h3 card-title fw-bold"> Events</h3>
-              </div>
-              <div class="card-body body_footer_size">
-                <div class="nav-wrapper position-relative mb-4">
-                  <ul class="nav nav-pills flex-column flex-sm-row" id="tabs-text" role="tablist">
-                    <li class="nav-item mr-sm-3 mr-md-0">
-                      <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-text-1" aria-selected="true">Completed</a>
-                    </li>
-                    <li class="nav-item mr-sm-3 mr-md-0">
-                      <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">Ongoing</a>
-                    </li>
-                  </ul>
-                </div>
-                
-                <p class="fw-normal" style="float: left;">Completed</p>
-                <p style="float: right;">Ongoing</p>
-              
-              </div>
-              <div class="card-footer">
-                PHP code retrieve no of events then display-
-                <p style="font-size:39px;">23 <i class="fa-solid fa-calendar-days"></i></p>
-              </div>
-            </div>
-        </div>
-      </div>
-      -->
     </div>
   </div>
   <script src="jquery-2.2.4.min.js"></script>
