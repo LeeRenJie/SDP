@@ -12,7 +12,11 @@
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 bg-shadow overflow-auto">
-
+      <div class="row">
+        <a onclick="history.back()">
+          <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
+        </a>
+      </div>
     </div>
   </div>
 </body>

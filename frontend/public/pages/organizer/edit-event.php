@@ -12,8 +12,13 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 bg-shadow overflow-auto">
-      <h1 class="pl-5 py-2"><b>Tell Us About Your Event</b></h1>
+    <div class="basis-10/12 bg-shadow overflow-auto" style="border-radius:30px;">
+      <div class="flex flex-row">
+        <span onclick="history.back()" class="pl-5 pt-4 pr-3">
+          <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+        </span>
+        <h1 class="py-2 inline-block"><b>Tell Us About Your Event</b></h1>
+      </div>
       <div class="text-center img-container ml-5">
         <img src="../../images/default.jpg" class="mx-auto d-block img-size shadow-inset" alt="Event Image">
       </div>
