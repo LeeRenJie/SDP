@@ -4,5 +4,9 @@
 }
 
 .card-height {
-  height: 550px;
+  min-height: 550px;
+}
+
+.textarea1 {
+  resize: none;
 }
