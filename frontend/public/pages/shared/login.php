@@ -1,6 +1,8 @@
 <?php
 //Start session
-session_start();
+if(!isset($_SESSION)) {
+  session_start();
+}
 //Connection to database
 include("../../../../backend/conn.php");
 
@@ -45,7 +47,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['email']=$email;
     $_SESSION['dob']=$dob;
     $_SESSION['telephone']=$telephone;
-    echo("<script>alert('Welcome Back User $name')</script>");
+    ?>
+    <div class="position-absolute bottom-2.5 right-2.5">
+      <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-dark">
+          <span class="fab fa-bootstrap"></span>
+          <strong class="mr-auto ml-2">Successfully Logged In</strong>
+          <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="toast-body">Welcome <?php echo $name; ?>!</div>
+      </div>
+    </div>
+    <?php
     switch($user_privilege){
       case 'participant':
         echo("<script>window.location.href = '../shared/view-event.php'</script>");
@@ -66,7 +81,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 //Close connection of database
 mysqli_close($con);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
