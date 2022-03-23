@@ -37,10 +37,8 @@
       <!--1st row-->
       <div class="row first_row">
         <!--1st row 1st col-->
-        <div class="col-2">
-          <a href="home.php">
-            <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
-          </a>
+        <div onclick="history.back()" class="col-2">
+          <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
         </div>
         <!--1st row 2nd col-->
         <div class="col-2 justify-content-center first_row_second_col">
@@ -70,10 +68,14 @@
             </p>
           </div>
           <div class="row">
+            <p class="fs-5 fw-bold animate-up-2 text-format">
 
+            </p>
           </div>
           <div class="row">
-
+            <p class="fs-5 fw-bold animate-up-2 text-format">
+              
+            </p>
           </div>
         </div>
         <!--1st row 5th col-->

@@ -1,3 +1,66 @@
+<?php
+  //Connection to Database
+  include("../../../../backend/conn.php");
+  //$tableName  = 'user';
+  //$backupFile = "D:/wamp64/tmp/$tableName.sql";
+  //echo $backupFile;
+  if (isset($_POST['backupBtn']))
+  {
+    header('Refresh:5; url=http://localhost:8080/phpmyadmin/index.php?route=/server/export');
+    //start of toast message
+    ?>
+    <div class="toast_css">
+      <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-dark">
+            <strong class="mr-auto ml-2">Toast Message</strong>
+            <small>1 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+          Please log into phpMyAdmin by clicking the 'Go' button, then select 'Export' from the navigation bar.
+        </div>
+      </div>
+    </div>
+    <?php
+    //end of toast message
+
+    //$tableName  = 'user';
+    //$backupFile = "D:/wamp64/tmp/$tableName.sql";
+    //$query      = "SELECT * INTO OUTFILE '$backupFile' FROM $tableName";
+    //$result = mysqli_query($con,$query);
+    //SELECT * INTO OUTFILE 'D:/wamp64/tmp/all.sql' FROM user, admin, comment, criteria, event, judge,judgement_list,judges_list,organizer,participant,privilege,prize,prizes_list,result,rule,rules_list,score,score_list,team_list
+  }
+  if (isset($_POST['restoreBtn']))
+  {
+    header('Refresh:5; url=http://localhost:8080/phpmyadmin/index.php?route=/server/import');
+    //start of toast message
+    ?>
+    <div class="toast_css">
+      <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-dark">
+            <strong class="mr-auto ml-2">Toast Message</strong>
+            <small>1 mins ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+          Please log into phpMyAdmin by clicking the 'Go' button, then select 'Import' from the navigation bar.
+        </div>
+      </div>
+    </div>
+    <?php
+    //end of toast message
+
+    //$tableName  = 'user';
+    //$backupFile = "D:/wamp64/tmp/$tableName.sql";
+    //$query      = "LOAD DATA INFILE '$backupFile' INTO TABLE $tableName";
+    //$result = mysqli_query($con, $query);
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,24 +76,19 @@
 <body>
   <!--Include navbar and sidebar-->
 	<?php include '../shared/navbar.php';?>
-  <!--Connection to Database-->
-  <?php include("../../../../backend/conn.php")?>
-
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto dark_shadow">
+    <div class="basis-10/12 overflow-auto dark_shadow ">
       <!--Start of form-->
       <form action="" method="post">
-	    <div style="height:100% ; width: 100%;">
+	    <div class="large-con">
 	    	<div class="row" style="height: 100%;">
 	    		<!--Content Starts here-->
 	    		<div class="col" style="height:100%;">
 	    			<div class="row first_row">
               <!--Return Page icon-->
-              <div class="col-2">
-                <a href="home.php">
-                  <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
-                </a>
+              <div onclick="history.back()" class="col-2">
+                <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
               </div>
               <!--Spacing-->
               <div class="col-4">
@@ -38,41 +96,21 @@
               </div>
               <!--Buttons from cssbuttons.io-->
               <div class="col-6">
-                <button type="button" class="button normal_button animate-up-2 backup_button" onclick="Redirect_backup()">
+                <button type="submit" name="backupBtn" class="button normal_button animate-up-2 backup_button" >
                   <i class="fa-solid fa-download"></i> Backup Database
                 </button>
-                <button type="button" class="button normal_button animate-up-2 restore_button" onclick="Redirect_restore()" name="restoreBtn" value="restore">
+                <button type="submit" name="restoreBtn" class="button normal_button animate-up-2 restore_button" >
                   <i class="fa-solid fa-upload" ></i>  Restore Database
                 </button>
               </div>
 	    			</div>
             <!--start of testing-->
-            <?php
-              //$tableName  = 'user';
-              //$backupFile = "D:/wamp64/tmp/$tableName.sql";
-              //echo $backupFile;
-              if (isset($_POST['backupBtn']))
-              {
-                //$tableName  = 'user';
-                //$backupFile = "D:/wamp64/tmp/$tableName.sql";
-                //$query      = "SELECT * INTO OUTFILE '$backupFile' FROM $tableName";
-                //$result = mysqli_query($con,$query);
-                //SELECT * INTO OUTFILE 'D:/wamp64/tmp/all.sql' FROM user, admin, comment, criteria, event, judge,judgement_list,judges_list,organizer,participant,privilege,prize,prizes_list,result,rule,rules_list,score,score_list,team_list
-              }
-              if (isset($_POST['restoreBtn']))
-              {
-                //$tableName  = 'user';
-                //$backupFile = "D:/wamp64/tmp/$tableName.sql";
-                //$query      = "LOAD DATA INFILE '$backupFile' INTO TABLE $tableName";
-                //$result = mysqli_query($con, $query);
-              }
-            ?>
+
             <!--end of testing-->
-	    			<div class="row">
+	    			<div class="row pad">
               <div class="col">
                 <div class="row general_container mx-auto">
                   <!--header content-->
-                  <!--Admin need to click on user name or other personal detail to view profile-->
                   <div class="row">
                   <!--Buttons from cssbuttons.io-->
                     <div class="col">
@@ -178,9 +216,9 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                           </button>
                                           <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="user_profile.php">View Profile</a>
+                                            <a class="dropdown-item" href="user_profile.php?<?=$privilege_result['user_id']?>">View Profile</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Delete</a>
+                                            <a class="dropdown-item" href="delete-user.php?<?=$privilege_result['user_id']?>">Delete</a>
                                           </div>
                                         </div>
                                       </th>
@@ -215,9 +253,9 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                       </button>
                                       <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="user_profile.php">View Profile</a>
+                                        <a class="dropdown-item" href="user_profile.php?<?=$static_data['user_id']?>">View Profile</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Delete</a>
+                                        <a class="dropdown-item" href="delete-user.php?<?=$static_data['user_id']?>">Delete</a>
                                       </div>
                                     </div>
                                   </th>
@@ -251,9 +289,9 @@
                                       <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="user_profile.php">View Profile</a>
+                                      <a class="dropdown-item" href="user_profile.php?<?=$static_data['user_id']?>">View Profile</a>
                                       <div class="dropdown-divider"></div>
-                                      <a class="dropdown-item" href="#">Delete</a>
+                                      <a class="dropdown-item" href="delete-user.php?<?=$static_data['user_id']?>">Delete</a>
                                     </div>
                                   </div>
                                 </th>
@@ -279,16 +317,16 @@
     {
       window.location = "http://localhost:8080/SDP/frontend/public/pages/admin/new_admin.php";
     }
-    function Redirect_backup()
-    {
-      location.href = "http://localhost:8080/phpmyadmin/index.php?route=/server/export";
-      alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Export' from the navigation bar.");
-    }
-    function Redirect_restore()
-    {
-      window.location = "http://localhost:8080/phpmyadmin/index.php?route=/server/import";
-      alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Import' from the navigation bar.");
-    }
+    //function Redirect_backup()
+    //{
+    //  location.href = "http://localhost:8080/phpmyadmin/index.php?route=/server/export";
+    //  alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Export' from the navigation bar.");
+    //}
+    //function Redirect_restore()
+    //{
+    //  window.location = "http://localhost:8080/phpmyadmin/index.php?route=/server/import";
+    //  alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Import' from the navigation bar.");
+    //}
   </script>
 </body>
 </html>
