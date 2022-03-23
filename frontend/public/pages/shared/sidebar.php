@@ -9,15 +9,15 @@
 </head>
 <body>
   <div class="sidebar basis-2/12">
-    <ul>
+    <ul class="mr-2" id="sidebar">
       <li class="cursor-pointer">
-        <a href="#" class="sidebar-link">
+        <a href="../organizer/my-event.php" class="sidebar-link">
           <i class="fa fa-book"></i>
           My Events
         </a>
       </li>
       <li class="cursor-pointer">
-        <a href="#" class="sidebar-link">
+        <a href="../shared/view-event.php" class="sidebar-link">
         <i class="fa fa-list"></i>
           All Events
         </a>
@@ -25,19 +25,19 @@
     </ul>
     <ul>
       <li class="cursor-pointer">
-        <a href="#" class="sidebar-link">
+        <a href="../shared/about-us.php" class="sidebar-link">
           <i class="fa fa-question-circle"></i>
           About Us
         </a>
       </li>
       <li class="cursor-pointer">
-        <a href="#" class="sidebar-link">
+        <a href="../shared/t&c.php" class="sidebar-link">
         <i class="fa-solid fa-note-sticky"></i>
           T&C
         </a>
       </li>
       <li class="cursor-pointer">
-        <a href="#" class="sidebar-link">
+        <a href="../shared/contact-us.php" class="sidebar-link">
           <i class="fas fa-user-shield"></i>
           Contact Us
         </a>

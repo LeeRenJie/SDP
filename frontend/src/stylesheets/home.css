@@ -1,19 +1,70 @@
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 0px;
+  height: 0px;
 }
 
-::-webkit-scrollbar-track {
-  box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #ffffff;
-  border-radius: 50px;
-  margin: .5em 0em .5em 0em;
+.home-container {
+  padding-bottom: 100px;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgb(160, 152, 152);
-  border-radius: 50px;
+.title-container {
+  position: relative;
+  height: 500px;
+  width: 100%;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(73, 72, 72);
+.title-text {
+  position: absolute;
+  height: 300px;
+  width: 35%;
+  left: 100px;
+  bottom: 120px;
+}
+
+.box-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.mission-container {
+  padding: 50px 100px 0 100px;
+  height: 500px;
+}
+
+.about-container {
+  position: relative;
+  height: 500px;
+  width: 100%;
+}
+
+.about-text {
+  position: absolute;
+  height: 300px;
+  width: 40%;
+  bottom: 120px;
+  right: 100px;
+}
+
+.faq-container {
+  min-height: 700px;
+  width: 100%;
+  padding: 50px 100px 0 100px;
+}
+
+.faq-text {
+  height: 300px;
+}
+
+.contact-container {
+  position: relative;
+  height: 500px;
+  width: 100%;
+}
+
+.contact-text {
+  position: absolute;
+  height: 300px;
+  width: 35%;
+  left: 100px;
+  bottom: 120px;
 }

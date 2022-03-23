@@ -10,7 +10,28 @@
     box-shadow: 6px 6px 12px #c5c5c5,
                 -6px -6px 12px #ffffff;
 }
-   
+
+.privilege_div{
+  margin-left:8.7% !important; 
+  margin-top:3% !important;
+}
+
+.pass_div{
+  margin-left:8.7% !important; 
+  margin-top:3% !important; 
+  margin-bottom: 5% !important;
+}
+
+.cancel_button{
+  margin-left:20%; 
+  width:100px;
+}
+
+.create_button{
+  margin-left:45%; 
+  width:100px;
+}
+
 .normal_button:active {
     color: #666;
     box-shadow: inset 4px 4px 12px #c5c5c5,
@@ -23,4 +44,20 @@
     margin-top: 50px;
     box-shadow:  35px 35px 70px #9b9b9b,
                  -35px -35px 70px #ffffff;    
+}
+
+.dark_shadow {
+  box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
+  /* box-shadow:  2px 2px 5px #b8b9be,  -3px -3px 7px #FFFFFF; */
+  /* box-shadow:  -5px -5px 10px #bdbdc3, 5px 5px 10px #ffffff; */
+}
+
+.form_margin_1{
+  margin-left:8.7% !important; 
+  margin-top:8% !important;
+}
+
+.form_margin_2{
+  margin-left:8.7% !important; 
+  margin-top:3% !important;
 }

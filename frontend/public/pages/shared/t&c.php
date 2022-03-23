@@ -11,8 +11,15 @@
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 bg-shadow overflow-auto">
-
+    <div class="basis-10/12 bg-shadow overflow-y-auto" style="border-radius:30px;">
+      <div class="overflow-y-auto">
+        <div onclick="history.back()" class="pl-5 cursor-pointer pt-4">
+          <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+        </div>
+        <div class="text-center">
+          <h1 class="display-2">Terms and Conditions</h1>
+        </div>
+      </div>
     </div>
   </div>
 </body>
