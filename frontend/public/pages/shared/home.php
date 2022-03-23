@@ -56,6 +56,12 @@
           <a href="../shared/t&c.php" class="ml-3 btn btn-primary mt-5 animate-up-3">Terms & Conditions</a>
         </div>
       </section>
+      <section id="contact" class="contact-container">
+        <div class="contact-text text-center">
+          <h2 class="bold">Reach Out To Us</h2>
+          <a href="../shared/contact-us.php" class="btn btn-primary mt-5 animate-up-3">Contact Us</a>
+        </div>
+      </section>
       <section id="faq" class="faq-container">
         <div class="faq-text text-center">
           <h2 class="bold mb-5">Frequently Asked Questions</h2>
@@ -101,12 +107,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section id="contact" class="contact-container">
-        <div class="contact-text text-center">
-          <h2 class="bold">Reach Out To Us</h2>
-          <a href="../shared/contact-us.php" class="btn btn-primary mt-5 animate-up-3">Contact Us</a>
         </div>
       </section>
     </div>

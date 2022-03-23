@@ -78,20 +78,34 @@
 						</div>
 					</div>
 					<ul class="navbar-nav navbar-nav-hover ml-auto">
-						<li class="nav-item dropdown mr-3">
-							<a href="#" class="nav-link" data-toggle="dropdown" >
-								<span class="nav-link-inner-text">
-									<i class="fas fa-user"></i>
-									User Name
-								</span>
-								<span class="fas fa-angle-down nav-link-arrow ml-1"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="../shared/edit-profile.php">Profile</a></li>
-								<li><a class="dropdown-item" data-toggle="modal" data-target="#modal-form">Edit Password</a></li>
-								<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>
-							</ul>
-						</li>
+						<?php if(isset($_SESSION['username'])){
+							echo('
+								<li class="nav-item dropdown mr-3">
+									<a href="#" class="nav-link" data-toggle="dropdown" >
+										<span class="nav-link-inner-text">
+											<i class="fas fa-user"></i>
+											');
+											echo $_SESSION['username'];
+							echo('
+										</span>
+										<span class="fas fa-angle-down nav-link-arrow ml-1"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="../shared/edit-profile.php">Profile</a></li>
+										<li><a class="dropdown-item" data-toggle="modal" data-target="#modal-form">Edit Password</a></li>
+										<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>
+									</ul>
+								</li>
+							');
+						} ?>
+						<?php
+                if(!isset($_SESSION['username'])) {
+                  echo(
+                  '<li class="nav-item">
+                    <a class="btn btn-primary" href="../shared/login.php">Login</a>
+                  </li>');
+                }
+              ?>
 					</ul>
 				</div>
 			</div>
