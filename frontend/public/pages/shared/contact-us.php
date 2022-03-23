@@ -28,8 +28,8 @@
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
               </div>
               <div class="form-group px-5 pt-3">
-                <label for="exampleFormControlTextarea2">Message</label>
-                <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                <label for="message">Message</label>
+                <textarea class="form-control textarea1" id="message" name="message" rows="5"></textarea>
               </div>
               <button type="submit" class="ml-5 mt-3 btn btn-primary">Submit</button>
             </form>
