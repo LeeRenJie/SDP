@@ -102,8 +102,12 @@
                 if(!isset($_SESSION['username'])) {
                   echo(
                   '<li class="nav-item">
-                    <a class="btn btn-primary" href="../shared/login.php">Login</a>
-                  </li>');
+                    <a class="btn btn-primary mr-2" href="../shared/signup.php">Sign Up</a>
+                  </li>
+								  <li class="nav-item">
+                    <a class="btn btn-primary mr-2" href="../shared/login.php">Log In</a>
+                  </li>
+									');
                 }
               ?>
 					</ul>
