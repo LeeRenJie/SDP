@@ -67,7 +67,7 @@
                   Unique Code
                 </label>
                 <div class="col-6">
-                  <p class="col-sm col-form-label" id="unq-code" name="unq-code">
+                  <p class="col-sm col-form-label animate-up-2" id="unq-code" name="unq-code">
                     ABCDE
                   </p>
                 </div>
