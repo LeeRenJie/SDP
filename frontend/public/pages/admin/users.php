@@ -6,24 +6,6 @@
   //echo $backupFile;
   if (isset($_POST['backupBtn']))
   {
-    header('Refresh:5; url=http://localhost:8080/phpmyadmin/index.php?route=/server/export');
-    //start of toast message
-    ?>
-    <div class="toast_css">
-      <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header text-dark">
-            <strong class="mr-auto ml-2">Toast Message</strong>
-            <small>1 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="toast-body">
-          Please log into phpMyAdmin by clicking the 'Go' button, then select 'Export' from the navigation bar.
-        </div>
-      </div>
-    </div>
-    <?php
     //end of toast message
 
     //$tableName  = 'user';
@@ -34,24 +16,6 @@
   }
   if (isset($_POST['restoreBtn']))
   {
-    header('Refresh:5; url=http://localhost:8080/phpmyadmin/index.php?route=/server/import');
-    //start of toast message
-    ?>
-    <div class="toast_css">
-      <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header text-dark">
-            <strong class="mr-auto ml-2">Toast Message</strong>
-            <small>1 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="toast-body">
-          Please log into phpMyAdmin by clicking the 'Go' button, then select 'Import' from the navigation bar.
-        </div>
-      </div>
-    </div>
-    <?php
     //end of toast message
 
     //$tableName  = 'user';
@@ -96,10 +60,10 @@
               </div>
               <!--Buttons from cssbuttons.io-->
               <div class="col-6">
-                <button type="submit" name="backupBtn" class="button normal_button animate-up-2 backup_button" >
+                <button type="button" class="button normal_button animate-up-2 backup_button" onclick="Redirect_backup()">
                   <i class="fa-solid fa-download"></i> Backup Database
                 </button>
-                <button type="submit" name="restoreBtn" class="button normal_button animate-up-2 restore_button" >
+                <button type="button" class="button normal_button animate-up-2 restore_button" onclick="Redirect_restore()">
                   <i class="fa-solid fa-upload" ></i>  Restore Database
                 </button>
               </div>
@@ -204,7 +168,6 @@
                                   {
                                     ?>
                                     <tr>
-                                      <!--Insert user id into the end of the (?) href link-->
                                       <th scope="row" id="firstyear3"><a href="User_profile.html?"> <p class="enlarge-content bold-font"><?=$privilege_result['username']?></p> </a></th>
                                       <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><a href="User_profile.html?"><p class="enlarge-content"><?=$privilege_result['name']?></a></th>
                                       <td headers="firstyear3 Bolter3 males3"><p class="enlarge-content"><?=$retrieve_result['user_privilege']?></a></td>
@@ -317,16 +280,16 @@
     {
       window.location = "http://localhost:8080/SDP/frontend/public/pages/admin/new_admin.php";
     }
-    //function Redirect_backup()
-    //{
-    //  location.href = "http://localhost:8080/phpmyadmin/index.php?route=/server/export";
-    //  alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Export' from the navigation bar.");
-    //}
-    //function Redirect_restore()
-    //{
-    //  window.location = "http://localhost:8080/phpmyadmin/index.php?route=/server/import";
-    //  alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Import' from the navigation bar.");
-    //}
+    function Redirect_backup()
+    {
+      location.href = "http://localhost:8080/phpmyadmin/index.php?route=/server/export";
+      alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Export' from the navigation bar.");
+    }
+    function Redirect_restore()
+    {
+      window.location = "http://localhost:8080/phpmyadmin/index.php?route=/server/import";
+      alert("Please log into phpMyAdmin by clicking the 'Go' button, then select 'Import' from the navigation bar.");
+    }
   </script>
 </body>
 </html>

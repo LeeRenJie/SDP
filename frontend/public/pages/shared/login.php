@@ -17,6 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($result=mysqli_query($con,$sql))  {
 	  // Return the number of rows in result set
     $rownum=mysqli_num_rows($result);
+
 	};
 
 
@@ -32,11 +33,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $privilege_id = $row['privilege_id'];
 	};
 
-  $privilege_sql="SELECT * FROM privilege WHERE privilege_id='$privilege_id'";
-  $privilege_result=mysqli_query($con,$privilege_sql);
-  while($privlege_row=mysqli_fetch_array($privilege_result)){
-    $user_privilege = $privlege_row['user_privilege'];
-  };
+
+  if(mysqli_num_rows($result) > 0)
+  {
+    $privilege_sql="SELECT * FROM privilege WHERE privilege_id='$privilege_id'";
+    $privilege_result=mysqli_query($con,$privilege_sql);
+    
+    while($privlege_row=mysqli_fetch_array($privilege_result)){
+      $user_privilege = $privlege_row['user_privilege'];
+    };
+  }
+
 
   //Store user data into session
 	if($rownum==1)  {
@@ -69,7 +76,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         echo("<script>window.location.href = '../organizer/my-event.php'</script>");
         break;
       case 'admin':
-        echo("<script>window.location.href = '../admin/users.php'</script>");
+        header('Refresh:3; url=http://localhost:8080/SDP/frontend/public/pages/admin/home.php');
+        //echo("<script>window.location.href = '../admin/home.php'</script>");
         break;
     }
 	}

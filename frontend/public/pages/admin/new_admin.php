@@ -102,7 +102,25 @@
         }
         //If the sql fail, notify user
         else{
-          echo("<script>alert('Error! pls try again')</script>");
+          //start of toast message
+          ?>
+          <div class="toast_css">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                  <strong class="mr-auto ml-2">Toast Message</strong>
+                  <small>1 mins ago</small>
+                  <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="toast-body">
+                Registration failed. 
+              </div>
+            </div>
+          </div>
+          <?php
+          //end of toast message
+          //echo("<script>alert('Error! pls try again')</script>");
         }
       }
     }
@@ -184,7 +202,6 @@
     }
     function username_is_valid() {
       var element = document.getElementById("id_username");
-      //element.classList.add("is-valid");
       element.classList.remove("is-invalid");
       var p_element = document.getElementById("username_bad");
       p_element.classList.add("d-none");
@@ -230,13 +247,11 @@
     $check_password = $_POST['password'];
     //convert to length of password
     $num_length = strlen($check_password);
-  
-    if ($check_username == ''){
-      echo "<script> username_is_invalid(); </script>";
-    }
+
     if (TRUE){
       echo "<script> name_is_invalid(); </script>";
       echo "<script> password_is_invalid(); </script>";
+      echo "<script> username_is_invalid(); </script>";
     }
   ?>
 </body>
