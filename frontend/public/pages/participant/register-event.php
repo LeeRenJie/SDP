@@ -1,3 +1,46 @@
+<?php
+  //Connection to Database
+  include("../../../../backend/conn.php");
+  // start the session
+  if(!isset($_SESSION)) {
+    session_start();
+  }
+  //get user id from url
+  $userid = $_SESSION['user_id'];
+  //get event id from url
+  $event_id = intval($_SERVER['QUERY_STRING']);
+  // get the individual event details
+  $evt_des = mysqli_query($con,
+    "SELECT * FROM event
+    WHERE event_id = $event_id");
+  // get result row
+  $event_des = mysqli_fetch_assoc($evt_des);
+
+  $evt_rules = mysqli_query($con,
+    "SELECT rule, COUNT(rule) FROM rules_list
+    INNER JOIN rule ON rule.rule_id = rules_list.rule_id
+    INNER JOIN event on rules_list.rules_list_id = event.rules_list_id
+    WHERE event_id = $event_id");
+  // get result row
+  $event_rules = mysqli_fetch_assoc($evt_rules);
+
+  //Query to get all data
+  $user_query = "SELECT * FROM user AS pl
+  INNER JOIN participant ON pl.user_id = participant.user_id
+  INNER JOIN team_list ON team_list.participant_id = participant.participant_id
+  WHERE pl.user_id = $userid";
+  // Execute the query
+  $user_query_run = mysqli_query($con, $user_query);
+  // Fetch data
+  $userdata = mysqli_fetch_assoc($user_query_run);
+
+  // not complete query, this is to get event details based on its own id either href from previous page or what
+  $event_query = "SELECT * FROM event AS evt
+  WHERE pl.user_id = $userid";
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +59,7 @@
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <div class="main-container">
-        <h2>Registration Event Name</h2>
+        <h2>Registration <?php echo ($userdata['event_name'])?></h2>
         <div class="event-details">
           <div class="left-cont">
             <div class="description">
@@ -25,18 +68,7 @@
                 Event Description
               </span>
               <div class="details-cont">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                <p><?php echo ($event_des['event_description'])?>
                 </p>
               </div>
             </div>
@@ -46,12 +78,14 @@
                 Rules
               </span>
               <div class="details-cont">
-                <p>•  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                </p>
+                <?php
+                  for ($x = 0; $x <= $event_rules['COUNT(rule)']; $x++) {
+                    echo (
+                      "<p><?php echo ($event_rules[rule])?>
+                      </p>"
+                    );
+                  }
+                ?>
               </div>
             </div>
           </div>
@@ -61,7 +95,7 @@
                 Username
               </label>
               <p class="col-sm-6 col-form-label" id="username" name="username">
-                LEEYEEHAU
+              <?php echo ($userdata['username'])?>
               </p>
             </div>
             <div class="row py-2">
@@ -69,7 +103,7 @@
                 Name
               </label>
               <p class="col-sm-6 col-form-label" id="name" name="name">
-                HAUBOSS
+              <?php echo ($userdata['name'])?>
               </p>
             </div>
             <div class="row py-2">
@@ -77,7 +111,7 @@
                 Email
               </label>
               <p class="col-sm-6 col-form-label" id="email" name="email">
-                yeehau@sample.mailyeehau@sample.mailyeehau@sample.mail
+              <?php echo ($userdata['email'])?>
               </p>
             </div>
             <div class="row py-2">
@@ -85,25 +119,29 @@
                 Telephone
               </label>
               <p class="col-sm-6 col-form-label" id="telephone" name="telephone">
-                LEEYEEHAU
+              <?php echo ($userdata['telephone'])?>
               </p>
             </div>
-            <div class="row py-2">
-              <label for="team-role" class="col-sm-6 col-form-label">
-                Team Role 
-              </label>
-              <select class="custom-select col-sm-6 btn sel">
-                <option class="al" disabled selected>Please Select</option>
-                <option class="al" value="leader">Leader</option>
-                <option class="al" value="member">Member</option>
-              </select>
-            </div>
-            <div class="row py-2">
-              <label for="unique-code" class="col-sm-6 col-form-label">
-                Unique Code 
-              </label>
-              <input type="text" class="form-control col-sm-6" id="unique-code" name="unique-code" placeholder="Unique Code" required="required">
-            </div>
+            <?php
+            if($userdata['participant_type'] == "solo") {
+              echo '<div class="row py-2">';
+                echo '<label for="team-role" class="col-sm-6 col-form-label">';
+                  echo 'Team Role ';
+                echo '</label>';
+                echo '<select class="custom-select col-sm-6 btn sel">';
+                  echo '<option class="al" disabled selected>Please Select</option>';
+                  echo '<option class="al" value="leader">Leader</option>';
+                  echo '<option class="al" value="member">Member</option>';
+                echo '</select>';
+              echo '</div>';
+              echo '<div class="row py-2">';
+                echo '<label for="unique-code" class="col-sm-6 col-form-label">';
+                  echo 'Unique Code';
+                echo '</label>';
+                echo '<input type="text" class="form-control col-sm-6" id="unique-code" name="unique-code" placeholder="Unique Code" required="required">';
+              echo '</div>';
+            }
+            ?>
           </div> <!--right-cont-->
         </div> <!--event-details-->
         <form method="post" class="btn-con">
