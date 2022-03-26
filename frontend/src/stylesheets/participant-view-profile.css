@@ -303,7 +303,7 @@ img:hover{
 
 /*Events css*/
 .event-cont{
-  width: 800px;
+  width: 800px !important;
   display: flex;
 }
 

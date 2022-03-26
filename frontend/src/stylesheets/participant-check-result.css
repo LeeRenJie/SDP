@@ -34,13 +34,11 @@ body{
 }
 
 .main-container h2{
-  font-family: "Times New Roman", Times, serif;
   text-align: center;
   font-size: 35px;
   margin: 0 auto;
   padding: 10px 0px 10px 0px;
   font-weight: 500;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
 }
 
 .back-shadow {
@@ -91,7 +89,6 @@ input[type="text"]::placeholder{
 }
 
 .item-con h2{
-  font-family: "Times New Roman", Times, serif;
   text-align: center;
   font-weight:300;
   font-size: 27px;
@@ -109,19 +106,15 @@ input[type="text"]::placeholder{
 }
 
 .item-con .result-details label{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 700;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
   text-align: left;
   padding-left: 30px;
 }
 
 .item-con .result-details p{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 400;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
   margin: 0 auto;
   text-align: center;
   overflow: auto;
@@ -137,9 +130,7 @@ input[type="text"]::placeholder{
 }
 
 .comment-details label{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 700;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
 }
 

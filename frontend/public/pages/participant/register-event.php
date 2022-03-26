@@ -2,18 +2,32 @@
   //Connection to Database
   include("../../../../backend/conn.php");
   // start the session
-  // if(!isset($_SESSION)) {
-  //   session_start();
-  // }
-  $userid = intval($_GET['id']); //remove
+  if(!isset($_SESSION)) {
+    session_start();
+  }
   //get user id from url
-  // $userid = $_SESSION['user_id'];
+  $userid = $_SESSION['user_id'];
+  //get event id from url
+  $event_id = intval($_SERVER['QUERY_STRING']);
+  // get the individual event details
+  $evt_des = mysqli_query($con,
+    "SELECT * FROM event
+    WHERE event_id = $event_id");
+  // get result row
+  $event_des = mysqli_fetch_assoc($evt_des);
+
+  $evt_rules = mysqli_query($con,
+    "SELECT rule, COUNT(rule) FROM rules_list
+    INNER JOIN rule ON rule.rule_id = rules_list.rule_id
+    INNER JOIN event on rules_list.rules_list_id = event.rules_list_id
+    WHERE event_id = $event_id");
+  // get result row
+  $event_rules = mysqli_fetch_assoc($evt_rules);
 
   //Query to get all data
   $user_query = "SELECT * FROM user AS pl
   INNER JOIN participant ON pl.user_id = participant.user_id
   INNER JOIN team_list ON team_list.participant_id = participant.participant_id
-  INNER JOIN event ON event.event_id = team_list.event_id
   WHERE pl.user_id = $userid";
   // Execute the query
   $user_query_run = mysqli_query($con, $user_query);
@@ -44,7 +58,6 @@
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
-    <input type = "hidden" name = "id" value ="<?php echo $userdata['user_id']?>"> <!--remove -->
       <div class="main-container">
         <h2>Registration <?php echo ($userdata['event_name'])?></h2>
         <div class="event-details">
@@ -55,7 +68,7 @@
                 Event Description
               </span>
               <div class="details-cont">
-                <p><?php echo ($userdata['event_description'])?>
+                <p><?php echo ($event_des['event_description'])?>
                 </p>
               </div>
             </div>
@@ -65,12 +78,14 @@
                 Rules
               </span>
               <div class="details-cont">
-                <p>•  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    •  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                </p>
+                <?php
+                  for ($x = 0; $x <= $event_rules['COUNT(rule)']; $x++) {
+                    echo (
+                      "<p><?php echo ($event_rules[rule])?>
+                      </p>"
+                    );
+                  }
+                ?>
               </div>
             </div>
           </div>
