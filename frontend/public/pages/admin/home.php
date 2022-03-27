@@ -168,7 +168,7 @@
                 <ul class="list-group text-gray">
                   <!--Use PHP to get Number of admins, participants, judges and organizers from the DB-->
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content">
-                    <a href="#">Admins</a>
+                    <a href="home-users.php?1">Admins</a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)
@@ -182,7 +182,7 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="#">Organizers</a>
+                    <a href="home-users.php?2">Organizers</a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)
@@ -196,7 +196,7 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="#">Participants</a>
+                    <a href="home-users.php?3">Participants</a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)

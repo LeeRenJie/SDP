@@ -190,6 +190,18 @@
                                   }
                                 }
                               }
+                              else
+                              {
+                                ?>
+                                <tr>
+                                  <th></th>
+                                  <th></th>
+                                  <th>
+                                <?="No Results Found"?>
+                                  </th>
+                                </tr>
+                                <?php
+                              }
                             }
                           }
                           //search button pressed, checkboxes not checked
