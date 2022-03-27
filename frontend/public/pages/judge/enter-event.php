@@ -19,6 +19,7 @@
         if($rownum==1){
             $_SESSION['judge_id']=$judgeid;
             $_SESSION['judge_name']=$judgename;
+            $_SESSION['privilege']="judge";
             echo("<script>alert('Welcome, $judgename')</script>");
             echo("<script>window.location = 'event(judge).php'</script>");
         }
