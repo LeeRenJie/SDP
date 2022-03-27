@@ -54,30 +54,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['email']=$email;
     $_SESSION['dob']=$dob;
     $_SESSION['telephone']=$telephone;
-    ?>
-    <div class="position-absolute bottom-2.5 right-2.5">
-      <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header text-dark">
-          <span class="fab fa-bootstrap"></span>
-          <strong class="mr-auto ml-2">Successfully Logged In</strong>
-          <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="toast-body">Welcome <?php echo $name; ?>!</div>
-      </div>
-    </div>
-    <?php
+
     switch($user_privilege){
       case 'participant':
-        echo("<script>window.location.href = '../shared/view-event.php'</script>");
+        echo("<script>window.location = '../shared/view-event.php'</script>");
         break;
       case 'organizer':
-        echo("<script>window.location.href = '../organizer/my-event.php'</script>");
+        echo("<script>window.location = '../organizer/my-event.php'</script>");
         break;
       case 'admin':
-        header('Refresh:3; url=http://localhost:8080/SDP/frontend/public/pages/admin/home.php');
-        //echo("<script>window.location.href = '../admin/home.php'</script>");
+        echo("<script>window.location = '../admin/home.php'</script>");
         break;
     }
 	}
@@ -97,7 +83,7 @@ mysqli_close($con);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../../src/stylesheets/login.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Sign Up</title>
+  <title>Log In</title>
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
@@ -114,7 +100,7 @@ mysqli_close($con);
         </div>
         <div class="form-group px-5 pt-3">
           <label for="password">Password</label>
-          <input type="text" class="form-control" name="password" placeholder="Password" required="required">
+          <input type="password" class="form-control" name="password" placeholder="Password" required="required">
         </div>
         <div class="text-center mt-5">
           <button class="btn btn-primary w-32 mr-4" type="reset">Clear</button>

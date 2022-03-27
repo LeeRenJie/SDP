@@ -36,13 +36,11 @@ body{
 }
 
 .main-container h2{
-  font-family: "Times New Roman", Times, serif;
   text-align: center;
   font-size: 35px;
   margin: 0 auto;
   padding-top: 20px;
   font-weight: 500;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
 }
 
 .main-container .event-details{
@@ -64,31 +62,37 @@ body{
   text-align: center;
 }
 
-.description, .rules{
+.description{
   padding: 10px 20px 30px 20px;
   height: 250px;
 }
 
+.rules{
+  padding: 10px 20px 30px 20px;
+  height: 250px;
+  margin-top: -3%;
+}
+
 .details-cont{
+  box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
+  border-radius: 10px;
   height: 170px;
   width: 550px;
   overflow: auto;
 }
 
 .left-cont span{
-  font-family: "Times New Roman", Times, serif;
   font-size: 25px;
   font-weight: 100;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
   color: rgb(37, 35, 35);
 }
 
 .left-cont p{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 400;
   text-align: justify;
   white-space:pre-line;
+  padding: 7px 7px 7px 7px;
 }
 
 .event-details .right-cont{
@@ -107,17 +111,13 @@ body{
 }
 
 .right-cont label{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 700;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
 }
 
 .right-cont p{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 400;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
   margin: 0 auto;
   text-align: center;
   overflow: auto;
@@ -137,15 +137,14 @@ body{
 }
 
 select,option{
-  font-family: "Times New Roman", Times, serif;
   font-size: 16px;
   font-weight: 400;
-  text-shadow: 5px 5px 5px rgba(33,45,58,0.3);
 }
 
 .btn-con{
   margin-left: auto;
   padding: 0px 70px 0px 0px;
+  margin-top: -3%;
 }
 
 .btn_size{

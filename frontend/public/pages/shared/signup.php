@@ -1,105 +1,126 @@
+<?php
+//Connection to database
+if (isset($_POST['registerBtn'])) {
+  // include the database connection
+  include("../../../../backend/conn.php");
+  $username = strtolower($_POST['username']);
+  $name = $_POST['name'];
+  $password = $_POST['password'];
+  $privilege = $_POST['privilege'];
+  $privilege == "Organizer" ? $privilege=2 : $privilege=3;
+
+  //Get all user data
+  $validation_query = "SELECT * FROM user WHERE privilege_id = '2' OR privilege_id = '3'";
+  $validation_query_run = mysqli_query($con, $validation_query);
+
+  // form validation for username to prevent repeating
+  if(mysqli_num_rows($validation_query_run) > 0)
+  {
+    $register = TRUE;
+    foreach($validation_query_run as $row)
+    {
+      // ("Form Validation in PHP - javatpoint", 2021);
+      if($row['username'] == $username)
+      {
+        echo("<script>alert('Username already exists!')</script>");
+        $register = FALSE;
+        break;
+      }
+    }
+
+    if($register == TRUE){
+      // if user passed all validation, then register user
+      $username = strtolower($_POST['username']);
+      $name = $_POST['name'];
+      $password = $_POST['password'];
+      $privilege = $_POST['privilege'];
+      $privilege == "Organizer" ? $privilege=2 : $privilege=3;
+      $sql = "INSERT INTO user (privilege_id, username, name, password, email, dob, telephone)
+              VALUES ('$privilege', '$username', '$name', '$password', NULL, NULL, NULL)";
+      $result = mysqli_query($con, $sql);
+      // if user registered successfully, add data into specific user table
+      if ($result){
+        $last_id = mysqli_insert_id($con);
+
+        if ($privilege === 2) {
+          $organizer_sql = "INSERT INTO organizer (user_id, organizer_website) VALUES ('$last_id', NULL)";
+          $organizer_result = mysqli_query($con, $organizer_sql);
+          if ($organizer_result){
+            echo("<script>alert('Registered as an organizer')</script>");
+          }else{
+            echo("Error description: " . mysqli_error($con));
+          }
+        } elseif ($privilege === 3) {
+          $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, NULL)";
+          $participant_result = mysqli_query($con, $participant_sql);
+          if ($participant_result){
+            echo("<script>alert('Registered as an participant');</script>");
+          }else{
+            echo("Error description: " . mysqli_error($con));
+          }
+        };
+        //If the sql run successful, notify the user and redirect to log in page
+        echo("<script>window.location = '../shared/login.php'</script>");
+      }
+      //If the sql fail, notify user
+      else{
+        echo("Error description: " . mysqli_error($con));
+      }
+    }
+  }
+  // Close the database connection
+  mysqli_close($con);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://kit.fontawesome.com/d7affc88cb.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../../src/stylesheets/signup.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <link type="text/css" href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <title>Sign Up</title>
 </head>
 <body>
-<?php include '../shared/navbar.php';?>
-  <div class="flex flex-row h-screen">
-    <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
-      <br>
-      <div class="main-container">
-        <h2 class="mt-3">Sign Up</h2>
-        <form class="mid-con" action="signup.php" method="post" enctype="multipart/form-data">
-          <div class="edit-con">
-            <!--username-->
-            <div class="input-row">
-              <label for="username" class="col-sm-6 col-form-label">
-                Username
-              </label>
-              <div class="input-col">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required="required" autofocus>
-              </div>
-            </div>
-            <!-- password -->
-            <div class="input-row">
-              <label for="password" class="col-sm-6 col-form-label">
-                Password
-              </label>
-              <div class="input-col">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
-              </div>
-            </div>
-            <!--Name section-->
-            <div class="input-row">
-              <label for="name" class="col-sm-6 col-form-label">
-                Name
-              </label>
-              <div class="input-col">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required">
-              </div>
-            </div>
-            <!--Email section-->
-            <div class="input-row">
-              <label for="email" class="col-sm-6 col-form-label">
-                Email
-              </label>
-              <div class="input-col">
-                <input type="text" class="form-control" id="email" name="email" placeholder="Email" required="required">
-              </div>
-            </div>
-            <!--Gender section-->
-            <div class="input-row">
-              <label for="gender" class="col-sm-6 col-form-label">
-                Gender
-              </label>
-              <select class="custom-select col-sm-6 btn sel">
-                <option class="al" selected disabled>Please Select</option>
-                <option class="al" value="male">Male</option>
-                <option class="al" value="female">Female</option>
-              </select>
-            </div>
-            <!--change telephone-->
-            <div class="input-row">
-              <label for="telephone" class="col-sm-6 col-form-label">
-                Telephone
-              </label>
-              <div class="input-col">
-                <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Telephone" required="required">
-              </div>
-            </div>
-            <!--change dob-->
-            <div class="input-row">
-              <label for="dob" class="col-sm-6 col-form-label">
-                Date Of Birth
-              </label>
-              <div class="input-col">
-                <input type="date" class="form-control" id="dob" name="dob" value="" placeholder="dob" required="required">
-              </div>
-            </div>
-          </div> <!--edit-con-->
-          <br>
-          <div class="sub-con">
-            <button class="btn dis-btn" id="button" onclick="discard()">Discard</button>
-            <button class="btn sign-btn" id="button" type="submit" name="signup-btn">Sign up</button>
-            <p class="link mt-2">Already have an account? Log in <a href="login.php">HERE</a></p>
+  <?php include '../shared/navbar.php';?>
+  <div class="overflow-auto h-screen">
+    <div class="d-flex justify-content-center signup-container pt-3">
+      <div class="card bg-primary border-light shadow-soft w-60 px-5">
+        <div class="text-center">
+          <h1 class="display-2 mt-4">Sign Up</h1>
+        </div>
+        <form method="post">
+          <div class="form-group mb-3 px-5 pt-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter your username for the system.." required="required" maxlength="50">
+            <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
+          </div>
+          <div class="form-group mb-3 px-5 pt-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter your name that will be displayed.." required="required" maxlength="50">
+          </div>
+          <div class="form-group px-5 pt-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter your secured password.." required="required" maxlength="50">
+          </div>
+          <div class="form-group px-5 pt-3">
+            <label for="privilege">Role</label>
+            <select class="custom-select my-1 mr-sm-2" id="privilege" name="privilege">
+              <option value="">Select a role..</option>
+              <option value="Organizer">Organizer</option>
+              <option value="Participant">Participant</option>
+            </select>
+          </div>
+          <div class="text-center mt-5">
+            <button class="btn btn-primary w-32 mr-4" type="reset">Clear</button>
+            <button type="submit" name="registerBtn" class="ml-4 w-32 btn btn-primary login-btn">Register</button>
+            <p class="link mt-3 text-muted">Have an account? Login <a href="../shared/login.php">here</a></p>
           </div>
         </form>
-      </div><!--main-->
+      </div>
     </div>
   </div>
-  <script>
-    function discard(){
-      window.location.reload();
-    }
-  </script>
 </body>
 </html>

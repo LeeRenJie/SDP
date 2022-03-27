@@ -1,3 +1,32 @@
+<?php
+  //Connection to Database
+  include("../../../../backend/conn.php");
+  // start the session
+  if(!isset($_SESSION)) {
+    session_start();
+  }
+  //get user id from url
+  $userid = $_SESSION['user_id'];
+
+  //Query to get all data
+  $user_query = "SELECT * FROM team_list AS tl
+  INNER JOIN participant ON pl.user_id = participant.user_id
+  INNER JOIN team_list ON team_list.participant_id = participant.participant_id
+  INNER JOIN event ON event.event_id = team_list.event_id
+  WHERE pl.user_id = $userid";
+  // Execute the query
+  $user_query_run = mysqli_query($con, $user_query);
+  // Fetch data
+  $userdata = mysqli_fetch_assoc($user_query_run);
+
+  // not complete query, this is to get event details based on its own id either href from previous page or what
+  $event_query = "SELECT * FROM event AS evt
+  WHERE pl.user_id = $userid";
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
