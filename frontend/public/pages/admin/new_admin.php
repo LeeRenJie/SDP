@@ -21,13 +21,50 @@
       {
         if($row['username'] == $check_username)
         {
-          echo("<script>alert('Username already exists!')</script>");
+          //start of toast message
+          ?>
+          <div class="toast_css">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                  <strong class="mr-auto ml-2">Toast Message</strong>
+                  <small>1 mins ago</small>
+                  <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="toast-body">
+                Username already exists!
+              </div>
+            </div>
+          </div>
+          <?php
+          //end of toast message
+          //echo("<script>alert('Username already exists!')</script>");
           $register = FALSE;
           break;
         }
         // form validation for input length
-        else if($num_length <5){
-          echo("<script>alert('Password must not be less than 5 digits!')</script>");
+        else if($num_length <5)
+        {
+          //start of toast message
+          ?>
+          <div class="toast_css">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                  <strong class="mr-auto ml-2">Toast Message</strong>
+                  <small>1 mins ago</small>
+                  <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="toast-body">
+                Password must not be less than 5 digits!
+              </div>
+            </div>
+          </div>
+          <?php
+          //end of toast message
+          //echo("<script>alert('Password must not be less than 5 digits!')</script>");
           $register = FALSE;
           break;
         }
@@ -42,12 +79,48 @@
         $result = mysqli_query($con, $sql);
         //If the sql run successful, notify the user
         if($result){
-          echo("<script>alert('You have registered successfully!')</script>");
+          //start of toast message
+          ?>
+          <div class="toast_css">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                  <strong class="mr-auto ml-2">Toast Message</strong>
+                  <small>1 mins ago</small>
+                  <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="toast-body">
+                Registration is successful
+              </div>
+            </div>
+          </div>
+          <?php
+          //end of toast message
+          //echo("<script>alert('You have registered successfully!')</script>");
           //echo("<script>window.location = ''</script>");
         }
         //If the sql fail, notify user
         else{
-          echo("<script>alert('Error! pls try again')</script>");
+          //start of toast message
+          ?>
+          <div class="toast_css">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                  <strong class="mr-auto ml-2">Toast Message</strong>
+                  <small>1 mins ago</small>
+                  <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="toast-body">
+                Registration failed. 
+              </div>
+            </div>
+          </div>
+          <?php
+          //end of toast message
+          //echo("<script>alert('Error! pls try again')</script>");
         }
       }
     }
@@ -65,11 +138,11 @@
   <link rel="stylesheet" href="../../../src/stylesheets/admin-new_admin.css">
   <title>Document</title>
 </head>
-<body>
+<body onload="username_is_invalid()" class="">
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
-    <div class="basis-10/12 overflow-auto dark_shadow">
+    <div class="basis-10/12 overflow-auto dark_shadow ">
       <form action="new_admin.php" method="post" enctype="multipart/form-data">
         <div style="height:100% ; width: 100%;">
           <div class="row" style="height: 100%; margin-top:3%">
@@ -80,19 +153,18 @@
                 <div class="form-group form_margin_1">
                   <label for="validationServer01">Username</label>
                   <!--Take note, is-valid class is the class that ticks or cross the input box, use js script to hide and show-->
-                  <input type="text" name="username" class="form-control" id="id_username" style="width: 390px;" required>
+                  <input type="text" onkeydown="username_is_valid()" name="username" class="form-control" id="id_username" style="width: 390px;" required>
                   <!--Need to add js script later to hide the feedback by default and show when username is valid and not repeated in database-->
-                  <div class="valid-feedback">
-                    <p id="p_username_good" class="d-none">Looks good!</p>
-                    <p id="p_username_bad" class="d-none">Please fill in the blank!</p>
+                  <div id="username_bad" class="">
+                    Please Fill in the blanks!
                   </div>
                 </div>
                 <div class="form-group mb-4 form_margin_2">
                   <label for="validationServerUsername">Name</label>
-                  <input type="text" name="name" class="form-control" id="id_name" style="width: 390px;" required>
+                  <input type="text" onkeydown="name_is_valid()" name="name" class="form-control" id="id_name" style="width: 390px;" required>
                   <!--Need to add js script later to hide the classes invalid-feedback and is-invalid by default and show when invalid-->
-                  <div class="invalid-feedback">
-                    <p id="p_name" class="d-none">Please enter your name</p>
+                  <div id="name_bad" class="">
+                    Please enter your name !!
                   </div>
                 </div>
                 <!--Disabled Input for Privilege-->
@@ -103,18 +175,18 @@
                 <!--Password Input (password length validation)-->
                 <div class="form-group pass_div">
                   <label for="validationServerUsername">Password</label>
-                  <input type="text" name="password" class="form-control" id="id_password" style="width: 390px;" required>
+                  <input type="text" onkeydown="password_is_valid()" name="password" class="form-control" id="id_password" style="width: 390px;" required>
                   <!--Need to add js script later to hide the feedback by default and show when invalid-->
-                  <div class="invalid-feedback">
-                    <p id="p_password" class="d-none"> Please use a password that has at least 5 characters.</p>
+                  <div id="pass_bad" class="">
+                    Please enter your password !!
                   </div>
                 </div>
                 <div class="row" style="margin-bottom: 6%;">
                   <div class="col">
-                    <button name="create_btn" class="btn btn-primary btn-pill text-success animate-up-2 create_button" type="button">Create</button>
+                    <button name="create_btn" class="btn btn-primary btn-pill text-success animate-up-2 create_button" type="submit">Create</button>
                   </div>
                   <div class="col">
-                    <button class="btn btn-primary btn-pill text-danger animate-up-2 cancel_button" type="button">Cancel</button>
+                    <button onclick="direct_to_user()" class="btn btn-primary btn-pill text-danger animate-up-2 cancel_button" type="button">Cancel</button>
                   </div>
                 </div>
               </div>
@@ -125,51 +197,60 @@
     </div>
   </div>
   <script>
+    function direct_to_user(){
+      window.location = 'users.php';
+    }
     function username_is_valid() {
       var element = document.getElementById("id_username");
-      element.classList.add("is-valid");
-      var p_element = document.getElementById("p_username_good");
-      p_element.classList.remove("d-none");
+      element.classList.remove("is-invalid");
+      var p_element = document.getElementById("username_bad");
+      p_element.classList.add("d-none");
     }
     function username_is_invalid() {
       var element = document.getElementById("id_username");
       element.classList.add("is-invalid");
-      var p_element = document.getElementById("p_username_bad");
+      var p_element = document.getElementById("username_bad");
       p_element.classList.remove("d-none");
+      p_element.classList.add("invalid-feedback");
     }
     function name_is_valid() {
       var element = document.getElementById("id_name");
-      element.classList.add("is-valid");
-      var p_element = document.getElementById("p_name");
+      element.classList.remove("is-invalid");
+      var p_element = document.getElementById("name_bad");
       p_element.classList.remove("d-none");
     }
     function name_is_invalid() {
       var element = document.getElementById("id_name");
       element.classList.add("is-invalid");
-      var p_element = document.getElementById("p_name");
+      var p_element = document.getElementById("name_bad");
       p_element.classList.remove("d-none");
+      p_element.classList.add("invalid-feedback");
     }
     function password_is_valid() {
       var element = document.getElementById("id_password");
-      element.classList.add("is-valid");
-      var p_element = document.getElementById("p_password");
+      element.classList.remove("is-invalid");
+      var p_element = document.getElementById("pass_bad");
       p_element.classList.remove("d-none");
     }
     function password_is_invalid() {
       var element = document.getElementById("id_password");
       element.classList.add("is-invalid");
-      var p_element = document.getElementById("p_password");
+      var p_element = document.getElementById("pass_bad");
       p_element.classList.remove("d-none");
+      p_element.classList.add("invalid-feedback");
     }
   </script>
   <?php
     //get all user data from the form to validate
     $check_username = strtolower($_POST['username']);
+    $check_name = strtolower($_POST['name']);
     $check_password = $_POST['password'];
     //convert to length of password
     $num_length = strlen($check_password);
-  
-    if ($check_username == ''){
+
+    if (TRUE){
+      echo "<script> name_is_invalid(); </script>";
+      echo "<script> password_is_invalid(); </script>";
       echo "<script> username_is_invalid(); </script>";
     }
   ?>
