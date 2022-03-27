@@ -58,7 +58,7 @@
             <li class="cursor-pointer">
               <a href="../judge/event(judge).php" class="sidebar-link">
                 <i class="fa fa-calendar-check"></i>
-                Events
+                Event
               </a>
             </li>
             <li class="cursor-pointer">
