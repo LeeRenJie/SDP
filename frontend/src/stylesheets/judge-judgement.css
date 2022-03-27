@@ -24,7 +24,16 @@
 }
 
 .maincontainer{
-    padding: 40px;
+  padding: 40px;
+}
+
+.nav-item{
+  
+  min-width: 150px;
+}
+
+th{
+  padding: 0;
 }
 
 .noHover:hover{
