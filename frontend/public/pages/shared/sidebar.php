@@ -10,18 +10,50 @@
 <body>
   <div class="sidebar basis-2/12">
     <ul class="mr-2" id="sidebar">
-      <li class="cursor-pointer">
-        <a href="../organizer/my-event.php" class="sidebar-link">
-          <i class="fa fa-book"></i>
-          My Events
-        </a>
-      </li>
-      <li class="cursor-pointer">
-        <a href="../shared/view-event.php" class="sidebar-link">
-        <i class="fa fa-list"></i>
-          All Events
-        </a>
-      </li>
+      <?php
+        // start the session
+        if(!isset($_SESSION)) {
+          session_start();
+        }
+        if ($_SESSION['privilege'] == 'admin'){
+          ?>
+            <li class="cursor-pointer">
+              <a href="../admin/home.php" class="sidebar-link">
+                <i class="fa fa-book"></i>
+                Dashboard
+              </a>
+            </li>
+            <li class="cursor-pointer">
+              <a href="../admin/users.php" class="sidebar-link">
+                <i class="fa fa-list"></i>
+                Users
+              </a>
+            </li>
+            <li class="cursor-pointer">
+              <a href="../shared/view-event.php" class="sidebar-link">
+                <i class="fa-solid fa-calendar-check"></i>
+                Events
+              </a>
+            </li>
+          <?php
+        }
+        elseif ($_SESSION['privilege'] == 'organizer'){
+          ?>
+            <li class="cursor-pointer">
+              <a href="../organizer/my-event.php" class="sidebar-link">
+                <i class="fa fa-book"></i>
+                My Events
+              </a>
+            </li>
+            <li class="cursor-pointer">
+              <a href="../shared/view-event.php" class="sidebar-link">
+              <i class="fa fa-list"></i>
+                All Events
+              </a>
+            </li>
+          <?php
+        }
+      ?>
     </ul>
     <ul>
       <li class="cursor-pointer">

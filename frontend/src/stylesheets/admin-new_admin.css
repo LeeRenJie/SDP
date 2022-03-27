@@ -61,3 +61,23 @@
   margin-left:8.7% !important; 
   margin-top:3% !important;
 }
+
+.absolute-css{
+  position: absolute;
+}
+
+.relative-css{
+  position: relative;
+}
+
+.toast_css{
+  position: absolute;
+  
+
+  right: 10px;
+  bottom: 10px;
+  margin: auto;
+  width: 350px;
+  height: 83px;
+  z-index: 100;
+}
