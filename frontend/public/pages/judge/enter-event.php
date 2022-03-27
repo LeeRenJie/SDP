@@ -1,3 +1,37 @@
+<?php
+    session_start();
+    include("../../../../backend/conn.php");
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $uniquecode=mysqli_real_escape_string($con, $_POST['uniquecode']);
+        $sql="SELECT * FROM judge WHERE unique_code='$uniquecode'";
+
+        if ($result=mysqli_query($con,$sql))  {
+            
+            $rownum=mysqli_num_rows($result);
+        }
+
+        while($row=mysqli_fetch_array($result)){
+            $judgeid = $row['judge_id'];
+            $judgename = $row['judge_name'];
+        }
+
+        if($rownum==1){
+            $_SESSION['judge_id']=$judgeid;
+            $_SESSION['judge_name']=$judgename;
+            echo("<script>alert('Welcome, $judgename')</script>");
+            echo("<script>window.location = 'event(judge).php'</script>");
+        }
+
+        else  {
+            echo "<script>alert('Your unique code is invalid. Please try again');</script>";
+        }
+        //Close connection of database
+        mysqli_close($con);        
+    }
+    
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
