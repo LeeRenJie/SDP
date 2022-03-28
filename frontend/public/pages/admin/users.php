@@ -179,7 +179,7 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                           </button>
                                           <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="user_profile.php?<?=$privilege_result['user_id']?>">View Profile</a>
+                                            <a class="dropdown-item" href="profile.php?<?=$privilege_result['user_id']?>">View Profile</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="delete-user.php?<?=$privilege_result['user_id']?>">Delete</a>
                                           </div>
@@ -228,7 +228,7 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                       </button>
                                       <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="user_profile.php?<?=$static_data['user_id']?>">View Profile</a>
+                                        <a class="dropdown-item" href="profile.php?<?=$static_data['user_id']?>">View Profile</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="delete-user.php?<?=$static_data['user_id']?>">Delete</a>
                                       </div>
@@ -264,7 +264,7 @@
                                       <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="user_profile.php?<?=$static_data['user_id']?>">View Profile</a>
+                                      <a class="dropdown-item" href="profile.php?<?=$static_data['user_id']?>">View Profile</a>
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item" href="delete-user.php?<?=$static_data['user_id']?>">Delete</a>
                                     </div>

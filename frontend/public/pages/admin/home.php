@@ -168,7 +168,7 @@
                 <ul class="list-group text-gray">
                   <!--Use PHP to get Number of admins, participants, judges and organizers from the DB-->
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content">
-                    <a href="home-users.php?1">Admins</a>
+                    Admins
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)
@@ -182,7 +182,7 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="home-users.php?2">Organizers</a>
+                    Organizers
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)
@@ -196,7 +196,7 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="home-users.php?3">Participants</a>
+                    Participants
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)
@@ -210,7 +210,7 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="#">Judges</a>
+                    Judges
                     <span class="badge badge-gray badge-pill">
                       <?php
                         //var_dump dumps everything and print it out (for debug)
@@ -238,11 +238,9 @@
                 <ul class="list-group text-gray">
                   <!--Use PHP to get Top 4 highest prize pool from the DB-->
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content">
-                    <a href="#">
                       <?php
                         echo $event_name[0];
                       ?>
-                    </a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         echo $prize_pool[0];
@@ -250,11 +248,9 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="#">
                       <?php
                         echo $event_name[1];
                       ?>
-                    </a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         echo $prize_pool[1];
@@ -262,11 +258,9 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="#">
                       <?php
                         echo $event_name[2];
                       ?>
-                    </a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         echo $prize_pool[2];
@@ -274,11 +268,9 @@
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
-                    <a href="#">
                       <?php
                         echo $event_name[3];
                       ?>
-                    </a>
                     <span class="badge badge-gray badge-pill">
                       <?php
                         echo $prize_pool[3];
