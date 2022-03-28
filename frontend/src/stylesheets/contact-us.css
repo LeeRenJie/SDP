@@ -10,3 +10,8 @@
 .textarea1 {
   resize: none;
 }
+
+.marg{
+  margin-right: 1% !important;
+  margin-left: 1% !important;
+}
