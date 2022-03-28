@@ -17,3 +17,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgb(73, 72, 72);
 }
+
+.marg{
+  margin-right: 1% !important;
+  margin-left: 1% !important;
+}
