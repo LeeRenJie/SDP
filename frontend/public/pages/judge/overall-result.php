@@ -198,7 +198,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text"><span class="fas fa-comment-dots"></span></span>
                                                                         </div>
-                                                                        <textarea class="form-control" id="comment" name="'.$teamname[$no-1].'comment" aria-label="comment">'.$comment["comment"].'</textarea>
+                                                                        <textarea class="form-control" id="comment" name="'.$teamname[$no-1].'comment" aria-label="comment" required>'.$comment["comment"].'</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <input type="submit" name="'.$teamname[$no-1].'editbtn" class="btn btn-block btn-primary" value="Edit">
