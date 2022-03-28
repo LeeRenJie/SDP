@@ -9,7 +9,7 @@
 
 .title-container {
   position: relative;
-  height: 500px;
+  height: 600px;
   width: 100%;
 }
 
@@ -26,9 +26,48 @@
   font-weight: 700;
 }
 
+.title-img-container {
+  width: 65%;
+}
+
+.title-img {
+  position: absolute;
+  z-index: 3;
+  right:100px;
+  top:40px;
+}
+
+.title-ppl{
+  position: absolute;
+  z-index: 2;
+  right:110px;
+  top:30px;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
+}
+
+.title-chart{
+  position: absolute;
+  z-index: 2;
+  right:-270px;
+  top: -110px;
+}
+
+.blob{
+  position: absolute;
+  z-index: 1;
+  height: 625px;
+  right: 120px;
+  top: -20px;
+}
+
+
 .mission-container {
   padding: 50px 100px 0 100px;
-  height: 500px;
+  height: 400px;
 }
 
 .about-container {
@@ -39,10 +78,76 @@
 
 .about-text {
   position: absolute;
-  height: 300px;
   width: 40%;
   bottom: 120px;
   right: 100px;
+}
+
+.about-img-container {
+  width: 60%;
+}
+
+.about-img {
+  position: absolute;
+  z-index: 1;
+  left:200px;
+  height: 550px;
+  width: 550px;
+}
+
+.about-ppl{
+  position: absolute;
+  z-index: 2;
+  height: 450px;
+  width: 450px;
+  left:180px;
+  top:100px;
+  animation: bounce 1s infinite;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
+}
+
+.contact-container {
+  position: relative;
+  height: 600px;
+  width: 100%;
+}
+
+.contact-text {
+  position: absolute;
+  width: 35%;
+  left: 100px;
+  bottom: 120px;
+}
+
+.contact-img-container {
+  width: 60%;
+}
+
+.contact-img {
+  position: absolute;
+  z-index: 1;
+  top: 100px;
+  right:200px;
+  height: 550px;
+  width: 550px;
+}
+
+.contact-ppl{
+  position: absolute;
+  z-index: 2;
+  height: 450px;
+  width: 450px;
+  right:230px;
+  top:250px;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
 }
 
 .faq-container {
@@ -55,16 +160,10 @@
   height: 300px;
 }
 
-.contact-container {
-  position: relative;
-  height: 500px;
-  width: 100%;
-}
-
-.contact-text {
-  position: absolute;
-  height: 300px;
-  width: 35%;
-  left: 100px;
-  bottom: 120px;
+@keyframes bounce {
+  0% { transform: translateY(0px)  }
+  25% { transform: translateY(-30px) }
+  50% { transform: translateY(0px) }
+  75% { transform: translateY(30px) }
+  100% { transform: translateY(0px) }
 }
