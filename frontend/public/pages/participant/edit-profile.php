@@ -123,10 +123,9 @@
       document.getElementById('img').src="";
       var picture = new FileReader();
       if (picture) {
-        picture.onload = function()
-          {
-        var imgpreview = document.getElementById('img');
-        imgpreview.src = picture.result;
+        picture.onload = function(){
+          var imgpreview = document.getElementById('img');
+          imgpreview.src = picture.result;
         }
         picture.readAsDataURL(event.target.files[0]);
       }

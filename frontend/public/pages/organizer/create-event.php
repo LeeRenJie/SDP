@@ -1,3 +1,16 @@
+<?php
+  // start the session
+  if(!isset($_SESSION)) {
+    session_start();
+  };
+
+  // Restrict customer to access this page
+  // if ($_SESSION['privilege'] != "organizer" or $_SESSION['privilege'] != "admin") {
+  //   echo("<script>alert('You do not have access to this page')</script>");
+  //   header("Location: ../shared/view-event.php");
+  // };
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,12 +33,14 @@
         <h1 class="py-2 inline-block"><b>Tell Us About Your Event</b></h1>
       </div>
       <div class="text-center img-container ml-5">
-        <img src="../../images/default.jpg" class="mx-auto d-block img-size shadow-inset" alt="Event Image">
+        <label for=imageUpload>
+          <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset" id="img" name="image" alt="Event Image">
+        </label>
       </div>
       <div class="h-0 overflow-hidden">
-        <input type="file" id="fileInput" name="fileInput" />
+        <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
       </div>
-      <button type="button" class="grey-button ml-5 mt-3 mb-4 cursor-pointer" onclick="chooseFile();">Choose An Image</button>
+      <label class="grey-button ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
       <form class="row pl-5 mt-3 form-container">
 
         <div class="col-6">
@@ -67,8 +82,8 @@
           <div class="form-group mb-4">
             <label for="participant-type">Participant Type</label>
             <select class="custom-select" id="particpant-type" placeholder="Choose...">
-                <option value="1">Solo</option>
-                <option value="2">Team</option>
+                <option value="solo">Solo</option>
+                <option value="team">Team</option>
             </select>
           </div>
         </div>
@@ -147,8 +162,18 @@
     </div>
   </div>
   <script>
-    function chooseFile(){
-      document.getElementById("fileInput").click();
+    //this script use to preview image before upload
+    // (Nkron, 2014)
+    function preimg(img) {
+      document.getElementById('img').src="../../images/default.jpg";
+      var picture = new FileReader();
+      if (picture) {
+        picture.onload = function(){
+          var imgpreview = document.getElementById('img');
+          imgpreview.src = picture.result;
+        }
+        picture.readAsDataURL(event.target.files[0]);
+      }
     }
 
     $(document).ready(function() {

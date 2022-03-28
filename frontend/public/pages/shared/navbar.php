@@ -91,9 +91,17 @@
 										<span class="fas fa-angle-down nav-link-arrow ml-1"></span>
 									</a>
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="../shared/edit-profile.php">Profile</a></li>
-										<li><a class="dropdown-item" data-toggle="modal" data-target="#modal-form">Edit Password</a></li>
-										<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>
+									');
+									if($_SESSION['privilege'] == 'organizer'){
+										echo('<li><a class="dropdown-item" href="../organizer/edit-profile.php">Profile</a></li>');
+									}
+									else if($_SESSION['privilege'] == 'participant'){
+										echo('<li><a class="dropdown-item" href="../participant/edit-profile.php">Profile</a></li>');
+									}
+									if(($_SESSION['privilege'] == 'admin') || ($_SESSION['privilege'] == 'participant' || $_SESSION['privilege'] == 'organizer')){
+										echo('<li><a class="dropdown-item" data-toggle="modal" data-target="#modal-form">Edit Password</a></li>');
+									}
+										echo('<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>
 									</ul>
 								</li>
 							');
