@@ -1,44 +1,103 @@
 <?php
   //Connection to Database
   include("../../../../backend/conn.php");
+  include("../../../../backend/session.php");
   // start the session
   if(!isset($_SESSION)) {
     session_start();
   }
-  //get user id from url
+
+  //get user id from session
   $userid = $_SESSION['user_id'];
   //get event id from url
   $event_id = intval($_SERVER['QUERY_STRING']);
+
   // get the individual event details
   $evt_des = mysqli_query($con,
     "SELECT * FROM event
     WHERE event_id = $event_id");
-  // get result row
+  // get result 
   $event_des = mysqli_fetch_assoc($evt_des);
-
-  $evt_rules = mysqli_query($con,
-    "SELECT rule, COUNT(rule) FROM rules_list
+  
+  //get rule details
+  $evt_rules = "SELECT rule FROM rules_list
+  INNER JOIN rule ON rule.rule_id = rules_list.rule_id
+  INNER JOIN event on rules_list.rules_list_id = event.rules_list_id
+  WHERE event_id = $event_id";
+  // get result 
+  $event_rules = mysqli_query($con,$evt_rules);
+  
+  //count rule
+  $num_rules_query = mysqli_query($con,
+    "SELECT COUNT(rule) FROM rules_list
     INNER JOIN rule ON rule.rule_id = rules_list.rule_id
     INNER JOIN event on rules_list.rules_list_id = event.rules_list_id
     WHERE event_id = $event_id");
-  // get result row
-  $event_rules = mysqli_fetch_assoc($evt_rules);
+  // get result 
+  $num_rules = mysqli_fetch_assoc($num_rules_query);
 
-  //Query to get all data
-  $user_query = "SELECT * FROM user AS pl
-  INNER JOIN participant ON pl.user_id = participant.user_id
-  INNER JOIN team_list ON team_list.participant_id = participant.participant_id
-  WHERE pl.user_id = $userid";
+  //user data
+  $user_query = "SELECT * FROM user
+  INNER JOIN participant ON user.user_id = participant.user_id
+  WHERE user.user_id = $userid";
   // Execute the query
   $user_query_run = mysqli_query($con, $user_query);
   // Fetch data
   $userdata = mysqli_fetch_assoc($user_query_run);
 
-  // not complete query, this is to get event details based on its own id either href from previous page or what
-  $event_query = "SELECT * FROM event AS evt
-  WHERE pl.user_id = $userid";
+  $participate = "SELECT * FROM team_list
+                INNER JOIN participant ON participant.participant_id = team_list.participant_id
+                INNER JOIN user ON participant.user_id = user.user_id
+                WHERE event_id =' $event_id'
+                AND user.user_id = '$userid'";
+  $run_participated =  mysqli_query($con, $participate);
+  //event query
+  $evt_query = "SELECT * FROM event 
+  WHERE event_id = $event_id";
+  $event_query_run = mysqli_query($con, $evt_query);
+  // Fetch data
+  $event_query = mysqli_fetch_assoc($event_query_run);
 
-
+  //if regsiter btn
+  if (isset($_POST['registerBtn'])) {
+    //random_bytes () function in PHP
+    $length = random_bytes('1');
+    //convert by binaryhexa
+    $unique = bin2hex($length);
+    $read_unique = "SELECT unique_code FROM team_list WHERE unique_code = '55'";
+    // get result 
+    $try_unique = mysqli_query($con,$read_unique);
+    // $check_code =  mysqli_query($con, "SELECT unique_code FROM team_list WHERE unique_code == $unique");
+    if(mysqli_num_rows($try_unique) == 0){
+      //submit data
+      if($event_query['participant_type'] == "team") {
+        $participant_id = $userdata['participant_id'];
+        $ipt_event = $event_id;
+        $team_name = $_POST['team_name'];
+        $ipt_uni_code = $unique;
+        $sql = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
+                VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
+        $result = mysqli_query($con, $sql);
+        echo("<script>alert('Participated Successful');</script>");
+      }
+      elseif($event_query['participant_type'] == "solo") {
+        $participant_id = $userdata['participant_id'];
+        $ipt_event = $event_id;
+        $team_name = $userdata['username'];
+        $ipt_uni_code = $unique;
+        $sql = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
+                VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
+        $result = mysqli_query($con, $sql);
+        echo("<script>alert('Participated Successful');</script>");
+      }
+      else{
+        echo("<script>alert('Try Again');</script>");
+      }
+    }
+    else{
+      echo("<script>alert('Try Again');</script>");
+    }
+  }
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +118,7 @@
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <div class="main-container">
-        <h2>Registration <?php echo ($userdata['event_name'])?></h2>
+        <h2>Registration <?php echo ($event_query['event_name'])?></h2>
         <div class="event-details">
           <div class="left-cont">
             <div class="description">
@@ -79,12 +138,11 @@
               </span>
               <div class="details-cont">
                 <?php
-                  for ($x = 0; $x <= $event_rules['COUNT(rule)']; $x++) {
-                    echo (
-                      "<p><?php echo ($event_rules[rule])?>
-                      </p>"
-                    );
+                if(mysqli_num_rows($event_rules) > 0){
+                  foreach($event_rules as $evt_rules){
+                    echo "<p> • $evt_rules[rule] </p>";
                   }
+                }
                 ?>
               </div>
             </div>
@@ -123,18 +181,26 @@
               </p>
             </div>
             <?php
-            if($userdata['participant_type'] == "solo") {
+            if($event_query['participant_type'] == "team") {
               echo '<div class="row py-2">';
                 echo '<label for="team-role" class="col-sm-6 col-form-label">';
                   echo 'Team Role ';
                 echo '</label>';
-                echo '<select class="custom-select col-sm-6 btn sel">';
-                  echo '<option class="al" disabled selected>Please Select</option>';
-                  echo '<option class="al" value="leader">Leader</option>';
-                  echo '<option class="al" value="member">Member</option>';
-                echo '</select>';
+                  echo '<select class="custom-select col-sm-6 btn sel" onchange="disp_sec()" id="team_role">';
+                    echo '<option class="al" disabled selected>Please Select</option>';
+                    echo '<option class="al" value="leader" >Leader</option>';
+                    echo '<option class="al" value="member" >Member</option>';
+                  echo '</select>';
               echo '</div>';
-              echo '<div class="row py-2">';
+              // team name for team leader
+              echo '<div class="row py-2 d-none" id="div_team_name">';
+                echo '<label for="team_name" class="col-sm-6 col-form-label">';
+                  echo 'Team Name';
+                  echo '</label>';
+                echo '<input type="text" class="form-control col-sm-6" id="team_name" name="team_name" placeholder="Team name" required="required">';
+              echo '</div>';
+              // unique code for team member
+              echo '<div class="row py-2 d-none" id="div_unique_code">';
                 echo '<label for="unique-code" class="col-sm-6 col-form-label">';
                   echo 'Unique Code';
                 echo '</label>';
@@ -145,10 +211,35 @@
           </div> <!--right-cont-->
         </div> <!--event-details-->
         <form method="post" class="btn-con">
-          <input class="btn btn_size" id="button" type="submit" value="Register" name="register">
+          <?php
+            if(mysqli_num_rows($run_participated) == 0){
+              echo "<input class='btn btn_size' id='button' type='submit' value='Register' name='registerBtn'>";
+            }
+            else{
+              echo("<script>alert('Try Again');</script>");
+            }
+          ?>
         </form>
       </div> <!--main-cont-->
     </div>
   </div>
+  <script>
+    function disp_sec() {
+      var option_value = document.getElementById('team_role'); //get select id
+      var opvalue = option_value.options[option_value.selectedIndex].value; //read value
+      if (opvalue === "leader"){ //if value = leader remove class and add class
+        document.getElementById('div_team_name').classList.remove("d-none");
+        document.getElementById('div_unique_code').classList.add("d-none");
+      }
+      else if (opvalue === "member"){ //if value = member remove class and add class
+        document.getElementById('div_team_name').classList.add("d-none");
+        document.getElementById('div_unique_code').classList.remove("d-none");
+      }
+      else{
+        document.getElementById('div_team_name').classList.add("d-none");
+        document.getElementById('div_unique_code').classList.add("d-none");
+      }
+    }
+  </script>
 </body>
 </html>
