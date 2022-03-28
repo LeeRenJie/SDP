@@ -84,14 +84,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/d7affc88cb.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../../../src/stylesheets/participant-edit-profile.css">
+  <link rel="stylesheet" href="../../../src/stylesheets/edit-profile.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <link type="text/css" href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
   <title>Edit Profile</title>
 </head>
 <body>
 <?php include '../shared/navbar.php';?>
-  <div class="flex flex-row h-screen">
+  <div class="flex flex-row h-screen modify">
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <form method="post" ENCTYPE="multipart/form-data">
@@ -134,23 +134,32 @@
                 <label for="gender" class="col-sm-6 col-form-label">
                   Gender
                 </label>
-                <select class="custom-select col-sm-6 btn sel">
-                  <option name="gender" class="al" disabled selected>Please Select</option>
-                  <option name="gender" class="al" value="male"
+                <select class="custom-select col-sm-6 btn sel" name="gender">
+                  <option class="al" value=""
+                  <?php
+                  if ($userdata['gender'] == '')
+                  {
+                    'selected="selected"';
+                  }
+                  ?>
+                  >
+                    Prefer not to tell
+                  </option>
+                  <option class="al" value="male"
                   <?php
                   if ($userdata['gender'] == 'male')
                   {
-                    echo "selected";
+                    'selected="selected"';
                   }
                   ?>
                   >
                     Male
                   </option>
-                  <option name="gender" class="al" value="female"
+                  <option class="al" value="female"
                   <?php
                   if ($userdata['gender'] == 'female')
                   {
-                    echo "selected";
+                    'selected="selected"';
                   }
                   ?>
                   >
@@ -218,8 +227,8 @@
               </div>
             </div>
             <div class="btn-size">
-              <input class="btn discard" id="button" value="Discard" onclick="discard()">
-              <input class="btn save" id="button" type="submit" value="Save" name="saveInfoBtn">
+              <input class="btn discard d-none" id="button" value="Discard" onclick="discard()">
+              <input class="btn save d-none" id="button1" type="submit" value="Save" name="saveInfoBtn">
             </div>
           </div>
         </div>
@@ -233,7 +242,7 @@
   //this script use to preview image before upload
   // (Nkron, 2014)
     function preimg(img) {
-      document.getElementById('img').src="";
+      document.getElementById('img').src="<?=$userdata['participant_image']?>";
       var picture = new FileReader();
       if (picture) {
         picture.onload = function(){
@@ -241,6 +250,19 @@
           imgpreview.src = picture.result;
         }
         picture.readAsDataURL(event.target.files[0]);
+      }
+    }
+    //get the whole container
+    var change = document.querySelector(".modify");
+    change.addEventListener("change", hideBtn);
+    //if make changes then display btn
+    function hideBtn() {
+      if(document.querySelector(".modify").value === "") {
+        document.getElementById('button').classList.add("d-none");
+        document.getElementById('button1').classList.add("d-none");
+      } else {
+        document.getElementById('button').classList.remove("d-none");
+        document.getElementById('button1').classList.remove("d-none");
       }
     }
   </script>
