@@ -21,6 +21,14 @@
           </p>
           <button type="button" class="btn btn-primary mt-5 animate-right-3">Get Started</button>
         </div>
+        <div class="title-img-container">
+          <img src="../../images/title-img.png" alt="title image" class="title-img">
+          <img src="../../images/title-ppl.png" alt="title people image" class="title-ppl bounce">
+          <img src="../../images/title-chart.png" alt="title chart image" class="title-chart bounce">
+          <svg class="blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#EAEEF8" d="M48.8,-57.9C65.2,-44.4,81.7,-30.9,85.5,-14.3C89.3,2.2,80.4,21.7,68.9,38.1C57.5,54.5,43.5,67.8,27.6,71.8C11.7,75.9,-6.1,70.7,-22,63.6C-38,56.5,-52.1,47.4,-59.4,34.4C-66.7,21.5,-67.1,4.8,-65.6,-12.9C-64.1,-30.7,-60.7,-49.4,-49.4,-63.9C-38.1,-78.3,-19.1,-88.4,-1.4,-86.7C16.2,-85,32.4,-71.5,48.8,-57.9Z" transform="translate(100 100)" />
+          </svg>
+        </div>
       </section>
       <section id="missions">
         <div class="row text-center position-relative mission-container">
@@ -31,7 +39,6 @@
             <h3 class="box-title pt-2">Organizers</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipis ac magna aliqu fugiat null</p>
           </div>
-
           <div class="col-lg-4">
             <div class="icon icon-shape shadow-soft border border-light rounded-circle">
               <span class="fa-solid fa-people-group"></span>
@@ -55,14 +62,22 @@
           <a href="../shared/about-us.php" class="btn btn-primary mt-5 animate-up-3">About Us</a>
           <a href="../shared/t&c.php" class="ml-3 btn btn-primary mt-5 animate-up-3">Terms & Conditions</a>
         </div>
+        <div class="about-img-container">
+          <img src="../../images/about-us.png" alt="about us image" class="about-img">
+          <img src="../../images/about-ppl.png" alt="people image" class="about-ppl bounce">
+        </div>
       </section>
       <section id="contact" class="contact-container">
         <div class="contact-text text-center">
           <h2 class="bold">Reach Out To Us</h2>
           <a href="../shared/contact-us.php" class="btn btn-primary mt-5 animate-up-3">Contact Us</a>
         </div>
+        <div class="contact-img-container">
+          <img src="../../images/contact-us.png" alt="contact us image" class="contact-img">
+          <img src="../../images/contact-ppl.png" alt="people image" class="contact-ppl bounce">
+        </div>
       </section>
-      <section id="faq" class="faq-container">
+      <section id="faq" class="faq-container mt-5">
         <div class="faq-text text-center">
           <h2 class="bold mb-5">Frequently Asked Questions</h2>
           <div class="accordion shadow-soft rounded" id="accordionExample1">

@@ -17,7 +17,7 @@
   // Fetch data
   $userdata = mysqli_fetch_assoc($user_query_run);
   //get current date
-  $current_date = date('d-m-y');
+  $current_date = date('Y-m-d');
 ?>
 
 <!DOCTYPE html>

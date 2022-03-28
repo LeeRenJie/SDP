@@ -23,6 +23,7 @@
 	// Show alert if product is deleted successfully and redirect to product list page
 	if ($result) {
     echo("<script>alert('User is deleted successfully!')</script>");
+    echo("<script>window.location = '../admin/users.php'</script>");
 	}
 	// Display Error
 	else {
