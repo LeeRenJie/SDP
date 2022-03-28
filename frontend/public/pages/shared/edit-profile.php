@@ -1,3 +1,82 @@
+<?php
+  // include the database connection
+  include("../../../../backend/conn.php");
+  // start the session
+  if(!isset($_SESSION)) {
+    session_start();
+  }
+  //get user id from url
+  $userid = $_SESSION['user_id'];
+  $privilege = $_SESSION['privilege'];
+  // get the user details
+  if ($privilege == 'participant'){
+    $result = mysqli_query($con, "SELECT * FROM user INNER JOIN participant ON participant.user_id = user.user_id INNER JOIN privilege ON privilege.privilege_id = user.privilege_id WHERE participant.user_id = $userid");
+  }
+  elseif ($privilege == 'organizer'){
+    $result = mysqli_query($con, "SELECT * FROM user INNER JOIN organizer ON organizer.user_id = user.user_id  INNER JOIN privilege ON privilege.privilege_id = user.privilege_id WHERE organizer.user_id = $userid");
+  }
+  // fetch the result in array format
+  $userdata = mysqli_fetch_assoc($result);
+
+
+  if (isset($_POST['saveInfoBtn'])) {
+    //get file
+    $userProPic = $_FILES['profilePic']['tmp_name'];
+    //check either got image or not
+    if ($_FILES['profilePic']['size'] > 0){
+      //get image type
+      $imageFileType = strtolower(pathinfo($userProPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+      //encode image into base64
+      $base64_Img = base64_encode(file_get_contents($userProPic));
+      //set image content with type and base64
+      $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
+      $sql = "UPDATE user SET
+      username = '$_POST[username]',
+      name = '$_POST[name]',
+      email = '$_POST[email]',
+      dob = '$_POST[dob]',
+      telephone = '$_POST[telephone]'
+      WHERE user_id=$userid;";
+      //user_image = '$image', gender
+      $sql2 = "UPDATE participant SET gender = '$_POST[gender]', participant_image = '$image' WHERE user_id = $userid ";
+    }
+    elseif ($privilege == 'organizer'){
+      $sql = "UPDATE user SET
+      username = '$_POST[username]',
+      name = '$_POST[name]',
+      email = '$_POST[email]',
+      dob = '$_POST[dob]',
+      telephone = '$_POST[telephone]'
+      WHERE user_id=$userid;";
+      $sql2 = "UPDATE organizer SET organizer_website = '$_POST[website]' WHERE user_id = $userid ";
+    }
+    else {
+    $sql = "UPDATE user SET
+    username = '$_POST[username]',
+    name = '$_POST[name]',
+    email = '$_POST[email]',
+    dob = '$_POST[dob]',
+    telephone = '$_POST[telephone]'
+    WHERE user_id=$userid;";
+    $sql2 = "UPDATE participant SET gender = '$_POST[gender]' WHERE user_id = $userid ";
+    }
+    // Execute query to update user details
+    if (mysqli_query($con,$sql)) {
+      mysqli_query($con, $sql2);
+      mysqli_close($con);
+      // Notify user details had updated
+      echo'<script>alert("Your Details Have Been Updated Successfully!");</script>';
+      echo("<script>window.location = 'home.php'</script>");
+    }
+    else {
+      // Display Error
+      die('Error: ' . mysqli_error($con));
+    }
+    //Close connection for database
+    mysqli_close($con);
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +98,7 @@
         <div class="main-container">
           <div class = "lft-con">
             <div class= "name-card">
-              <?php echo "<h2>Lee Yee Hau's Name Card</h2>";?>
+              <h2><?=$userdata['name']?> Name Card</h2>
             </div>
             <br>
             <div class="edit-con">
@@ -29,7 +108,7 @@
                   Username
                 </label>
                 <div class="input-col">
-                  <input type="text" class="form-control" id="username" name="username" value="LYH" placeholder="Username" required="required">
+                  <input type="text" class="form-control" id="username" name="username" value="<?=$userdata['username']?>" placeholder="Username" required="required">
                 </div>
               </div>
               <!--Name section-->
@@ -38,7 +117,7 @@
                   Name
                 </label>
                 <div class="input-col">
-                  <input type="text" class="form-control" id="name" name="name" value="LYH" placeholder="Name" required="required">
+                  <input type="text" class="form-control" id="name" name="name" value="<?=$userdata['name']?>" placeholder="Name" required="required">
                 </div>
               </div>
               <!--Email section-->
@@ -47,7 +126,7 @@
                   Email
                 </label>
                 <div class="input-col">
-                  <input type="text" class="form-control" id="email" name="email" value="LYH@sample.mail.com" placeholder="Email" required="required">
+                  <input type="text" class="form-control" id="email" name="email" value="<?=$userdata['email']?>" placeholder="Email" required="required">
                 </div>
               </div>
               <!--Gender section-->
@@ -56,9 +135,27 @@
                   Gender
                 </label>
                 <select class="custom-select col-sm-6 btn sel">
-                  <option class="al" disabled selected>Please Select</option>
-                  <option class="al" value="male">Male</option>
-                  <option class="al" value="female">Female</option>
+                  <option name="gender" class="al" disabled selected>Please Select</option>
+                  <option name="gender" class="al" value="male"
+                  <?php
+                  if ($userdata['gender'] == 'male')
+                  {
+                    echo "selected";
+                  }
+                  ?>
+                  >
+                    Male
+                  </option>
+                  <option name="gender" class="al" value="female"
+                  <?php
+                  if ($userdata['gender'] == 'female')
+                  {
+                    echo "selected";
+                  }
+                  ?>
+                  >
+                    Female
+                  </option>
                 </select>
               </div>
               <!--change telephone-->
@@ -67,7 +164,7 @@
                   Telephone
                 </label>
                 <div class="input-col">
-                  <input type="tel" class="form-control" id="telephone" name="telephone" value="0112223333" placeholder="Telephone" required="required">
+                  <input type="tel" class="form-control" id="telephone" name="telephone" value="<?=$userdata['telephone']?>" placeholder="Telephone" required="required">
                 </div>
               </div>
               <!--change dob-->
@@ -76,7 +173,7 @@
                   Date Of Birth
                 </label>
                 <div class="input-col">
-                  <input type="date" class="form-control" id="dob" name="dob" value="" placeholder="dob" required="required">
+                  <input type="date" class="form-control" id="dob" name="dob" value="<?=$userdata['dob']?>" placeholder="dob" required="required">
                 </div>
               </div>
               <!--change privilege-->
@@ -86,17 +183,33 @@
                 </label>
                 <div class="input-col">
                   <fieldset disabled>
-                  <input type="text" class="form-control" id="privilege" name="privilege" value="" placeholder="Participant" required="required">
+                  <input type="text" class="form-control" id="privilege" name="privilege" value="<?=$userdata['user_privilege']?>" placeholder="Participant" required="required">
                   </fieldset>
                 </div>
               </div>
+              <?php
+                if ($privilege == 'organizer'){
+                ?>
+                <div class="input-row">
+                  <label for="privilege" class="col-sm-6 col-form-label">
+                    Organizer Website
+                  </label>
+                  <div class="input-col">
+                    <fieldset>
+                    <input type="text" class="form-control" id="website" name="website" value="<?=$userdata['organizer_website']?>" placeholder="" required="required">
+                    </fieldset>
+                  </div>
+                </div>
+                <?php
+                }
+              ?>
             </div> <!--edit-con-->
           </div><!--lft-con-->
           <div class = "right-con">
             <div class="justify-content-center">
               <div class="profile-container">
                 <label for="imageUpload">
-                  <image class="imge" id="img" name="img" src="../../images/default.jpg" alt="Profile Pic" />
+                  <image class="imge" id="img" name="img" src="<?=$userdata['participant_image']?>" alt="Profile Pic" />
                 </label>
               </div>
               <div class="custom-file">
