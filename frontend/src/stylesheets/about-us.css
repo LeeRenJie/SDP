@@ -22,3 +22,14 @@
   margin-right: 1% !important;
   margin-left: 1% !important;
 }
+
+.image{
+  height: 15%;
+  width: 70%;
+  margin: auto;
+}
+
+.card-height {
+  margin-bottom: 10% !important;
+  width: 80% !important;
+}
