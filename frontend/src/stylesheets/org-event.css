@@ -57,7 +57,7 @@
 
 .img-container {
   width: 1120px;
-  height: 200px;
+  height: 500px;
   border-radius: 20px;
   box-shadow: inset 5px 5px 10px #c5c5c5,
               inset -5px -5px 10px #fbfbfb;
@@ -67,7 +67,7 @@
 .img-size {
   border-radius: 20px;
   width: 1100px;
-  height: 180px;
+  height: 480px;
   object-fit:cover;
 }
 
