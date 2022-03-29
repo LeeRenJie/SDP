@@ -17,7 +17,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($result=mysqli_query($con,$sql))  {
 	  // Return the number of rows in result set
     $rownum=mysqli_num_rows($result);
-
 	};
 
 
@@ -38,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   {
     $privilege_sql="SELECT * FROM privilege WHERE privilege_id='$privilege_id'";
     $privilege_result=mysqli_query($con,$privilege_sql);
-    
+
     while($privlege_row=mysqli_fetch_array($privilege_result)){
       $user_privilege = $privlege_row['user_privilege'];
     };
@@ -46,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   $_SESSION['privilege']= '';
-  
+
   //Store user data into session
 	if($rownum==1)  {
 		$_SESSION['username']=$username;
