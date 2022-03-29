@@ -41,6 +41,17 @@ body{
   font-weight: 500;
 }
 
+.infront{
+  z-index: 2;
+}
+
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1200px;
+}
+
 .back-shadow {
   box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
 }

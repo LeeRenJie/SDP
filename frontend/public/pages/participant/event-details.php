@@ -16,6 +16,13 @@
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <div class="main-container">
+        <div class ="btn-row">
+          <div class="infront">
+            <a onclick="history.back()">
+              <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
+            </a>
+          </div>
+        </div>
         <!-- Event name and status -->
         <h1>Event Name</h1>
         <!-- Image of event -->

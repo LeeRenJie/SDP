@@ -46,103 +46,119 @@
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <br>
       <div class="main-container">
+        <div class ="btn-row">
+          <div class="infront">
+            <a onclick="history.back()">
+              <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
+            </a>
+          </div>
+        </div>
         <h2>Check Result</h2>
         <!-- Search Container -->
         <form method="post">
           <div class="search-con">
             <div class="search-box">
-              <input type="text" class="form-control search-field" placeholder="UNIQUE CODE">
+              <input type="text" class="form-control search-field" placeholder="UNIQUE CODE" name="search_text">
               <button class="btn search-btn" name="searchBtn" type="submit"><span class="fas fa-search"></span></button>
             </div>
           </div>
         </form>
         <!-- details -->
-        <div class="row">
-          <!-- Result Container -->
-          <div class="col item-con">
-            <h2 style="color: #0fa046;">Result</h2>
-            <div class="result-details">
-              <div class="row">
-                <label for="team-name" class="col-sm-6 col-form-label">
-                  Team Name 
-                </label>
-                  <p class="col-sm-6 col-form-label" id="team-name" name="team-name">Team helo</p> <!--php code get team name-->
-              </div>
-              <div class="row"> <!--display only-->
-                  <label class="col-sm-6 col-form-label">
-                    Overall Score
+        <?php
+          if (isset($_POST['searchBtn'])){
+            // get the value of the search key
+            $search_key = "";
+            $search_key = $_POST['search_text'];
+            $result_query = 
+          }
+          ?>
+          <div class="row">
+            <!-- Result Container -->
+            <div class="col item-con">
+              <h2>Result</h2>
+              <div class="result-details">
+                <div class="row">
+                  <label for="team-name" class="col-sm-6 col-form-label">
+                    Team Name
                   </label>
-              </div>
-              <div class="row">
-                <label for="criteria" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
-                  Criteria 1
-                </label>
-                  <p class="col-sm-6 col-form-label" id="criteria" name="criteria">30</p>
-              </div>
-              <div class="row">
-                <label for="criteria" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
-                  Criteria 2
-                </label>
-                  <p class="col-sm-6 col-form-label" id="criteria" name="criteria">30</p>
-              </div>
-              <div class="row">
-                <label for="criteria" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
-                  Criteria 3
-                </label>
-                  <p class="col-sm-6 col-form-label" id="criteria" name="criteria">100</p>
-              </div>
-              <div class="row">
-                <label for="total-score" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
-                  Total Score
-                </label>
-                  <p class="col-sm-6 col-form-label" id="total-score" name="total-score">160</p>
-              </div>
-              <div class="row">
-                <label for="rank" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
-                  Rank
-                </label>
-                  <p class="col-sm-6 col-form-label" id="rank" name="rank">1</p>
-              </div>
-              <div class="row">
-                <label for="prize" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
-                  Prize
-                </label>
-                  <p class="col-sm-6 col-form-label" id="prize" name="prize">1000$</p>
+                    <p class="col-sm-6 col-form-label" id="team-name" name="team-name">Team helo</p> <!--php code get team name-->
+                </div>
+                <div class="row"> <!--display only-->
+                    <label class="col-sm-6 col-form-label">
+                      Overall Score
+                    </label>
+                </div>
+                <div class="row">
+                  <label for="criteria" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                    Criteria 1
+                  </label>
+                    <p class="col-sm-6 col-form-label" id="criteria" name="criteria">30</p>
+                </div>
+                <div class="row">
+                  <label for="criteria" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                    Criteria 2
+                  </label>
+                    <p class="col-sm-6 col-form-label" id="criteria" name="criteria">30</p>
+                </div>
+                <div class="row">
+                  <label for="criteria" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                    Criteria 3
+                  </label>
+                    <p class="col-sm-6 col-form-label" id="criteria" name="criteria">100</p>
+                </div>
+                <div class="row">
+                  <label for="total-score" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                    Total Score
+                  </label>
+                    <p class="col-sm-6 col-form-label" id="total-score" name="total-score">160</p>
+                </div>
+                <div class="row">
+                  <label for="rank" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                    Rank
+                  </label>
+                    <p class="col-sm-6 col-form-label" id="rank" name="rank">1</p>
+                </div>
+                <div class="row">
+                  <label for="prize" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                    Prize
+                  </label>
+                    <p class="col-sm-6 col-form-label" id="prize" name="prize">1000$</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Comment Container -->
-          <div class="col item-con">
-            <h2 style="color: #c51f2f;">Comments</h2>
-            <div class="comment-details">
-              <div class="row">
-                <label class="col-1 col-form-label">
-                  1.
-                </label>
-                <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
-              </div>
-              <div class="row">
-                <label class="col-1 col-form-label">
-                  2.
-                </label>
-                <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
-              </div>
-              <div class="row">
-                <label class="col-1 col-form-label">
-                  3.
-                </label>
-                <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
-              </div>
-              <div class="row">
-                <label class="col-1 col-form-label">
-                  4.
-                </label>
-                <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
+            <!-- Comment Container -->
+            <div class="col item-con">
+              <h2 style="color: #c51f2f;">Comments</h2>
+              <div class="comment-details">
+                <div class="row">
+                  <label class="col-1 col-form-label">
+                    1.
+                  </label>
+                  <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
+                </div>
+                <div class="row">
+                  <label class="col-1 col-form-label">
+                    2.
+                  </label>
+                  <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
+                </div>
+                <div class="row">
+                  <label class="col-1 col-form-label">
+                    3.
+                  </label>
+                  <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
+                </div>
+                <div class="row">
+                  <label class="col-1 col-form-label">
+                    4.
+                  </label>
+                  <p class=" col-11 col-form-label">xxxxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxxxxxx xxxxxxxxxx xxxxx xxxxxxxxxx xxxxxxxxxxxx x x x x xx x x x</p>
+                </div>
               </div>
             </div>
-          </div>
-        </div> <!--row-->
+          </div> <!--row-->
+        
       </div> <!--main con-->
     </div>
   </div>
