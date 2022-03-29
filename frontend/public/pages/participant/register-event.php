@@ -10,7 +10,7 @@
   //get user id from session
   $userid = $_SESSION['user_id'];
   //get event id from url
-  $event_id = intval($_SERVER['QUERY_STRING']);
+  $event_id = 2;
 
   // get the individual event details
   $evt_des = mysqli_query($con,
@@ -79,6 +79,7 @@
                 VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
         $result = mysqli_query($con, $sql);
         echo("<script>alert('Participated Successful');</script>");
+        echo("<script>window.location = 'success-register.php'</script>");
       }
       elseif($event_query['participant_type'] == "solo") {
         $participant_id = $userdata['participant_id'];
@@ -89,6 +90,7 @@
                 VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
         $result = mysqli_query($con, $sql);
         echo("<script>alert('Participated Successful');</script>");
+        echo("<script>window.location = 'success-register.php'</script>");
       }
       else{
         echo("<script>alert('Try Again');</script>");
