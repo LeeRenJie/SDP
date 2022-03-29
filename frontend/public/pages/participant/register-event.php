@@ -10,7 +10,7 @@
   //get user id from session
   $userid = $_SESSION['user_id'];
   //get event id from url
-  $event_id = 2;
+  $event_id = intval($_SERVER['QUERY_STRING']);
 
   // get the individual event details
   $evt_des = mysqli_query($con,
@@ -61,13 +61,12 @@
   //if regsiter btn
   if (isset($_POST['registerBtn'])) {
     //random_bytes () function in PHP
-    $length = random_bytes('1');
+    $length = random_bytes('3');
     //convert by binaryhexa
     $unique = bin2hex($length);
-    $read_unique = "SELECT unique_code FROM team_list WHERE unique_code = '55'";
+    $read_unique = "SELECT unique_code FROM team_list WHERE unique_code = '$unique'";
     // get result 
     $try_unique = mysqli_query($con,$read_unique);
-    // $check_code =  mysqli_query($con, "SELECT unique_code FROM team_list WHERE unique_code == $unique");
     if(mysqli_num_rows($try_unique) == 0){
       //submit data
       if($event_query['participant_type'] == "team") {
@@ -218,7 +217,13 @@
               echo "<input class='btn btn_size' id='button' type='submit' value='Register' name='registerBtn'>";
             }
             else{
-              echo("<script>alert('Try Again');</script>");
+            ?>
+            <a href='../shared/view-event.php'>
+              <button class="btn btn-primary animate-up-2" type="button">
+                <i class="fa-solid fa-house"></i>  &nbsp; Return 
+              </button>
+            <a>
+            <?php
             }
           ?>
         </form>

@@ -96,139 +96,148 @@
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <form method="post" ENCTYPE="multipart/form-data">
         <div class="main-container">
-          <div class = "lft-con">
-            <div class= "name-card">
-              <h2><?=$userdata['name']?> Name Card</h2>
+          <div class ="btn-row">
+            <div class="infront">
+              <a onclick="history.back()">
+                <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
+              </a>
             </div>
-            <br>
-            <div class="edit-con">
-              <!--Show default username-->
-              <div class="input-row">
-                <label for="username" class="col-sm-6 col-form-label">
-                  Username
-                </label>
-                <div class="input-col">
-                  <input type="text" class="form-control" id="username" name="username" value="<?=$userdata['username']?>" placeholder="Username" required="required">
-                </div>
+          </div>
+          <div class = "row">
+            <div class = "lft-con">
+              <div class= "name-card">
+                <h2><?=$userdata['name']?> Name Card</h2>
               </div>
-              <!--Name section-->
-              <div class="input-row">
-                <label for="name" class="col-sm-6 col-form-label">
-                  Name
-                </label>
-                <div class="input-col">
-                  <input type="text" class="form-control" id="name" name="name" value="<?=$userdata['name']?>" placeholder="Name" required="required">
-                </div>
-              </div>
-              <!--Email section-->
-              <div class="input-row">
-                <label for="email" class="col-sm-6 col-form-label">
-                  Email
-                </label>
-                <div class="input-col">
-                  <input type="text" class="form-control" id="email" name="email" value="<?=$userdata['email']?>" placeholder="Email" required="required">
-                </div>
-              </div>
-              <!--Gender section-->
-              <div class="input-row">
-                <label for="gender" class="col-sm-6 col-form-label">
-                  Gender
-                </label>
-                <select class="custom-select col-sm-6 btn sel" name="gender">
-                  <option class="al" value=""
-                  <?php
-                  if ($userdata['gender'] == '')
-                  {
-                    'selected="selected"';
-                  }
-                  ?>
-                  >
-                    Prefer not to tell
-                  </option>
-                  <option class="al" value="male"
-                  <?php
-                  if ($userdata['gender'] == 'male')
-                  {
-                    'selected="selected"';
-                  }
-                  ?>
-                  >
-                    Male
-                  </option>
-                  <option class="al" value="female"
-                  <?php
-                  if ($userdata['gender'] == 'female')
-                  {
-                    'selected="selected"';
-                  }
-                  ?>
-                  >
-                    Female
-                  </option>
-                </select>
-              </div>
-              <!--change telephone-->
-              <div class="input-row">
-                <label for="telephone" class="col-sm-6 col-form-label">
-                  Telephone
-                </label>
-                <div class="input-col">
-                  <input type="tel" class="form-control" id="telephone" name="telephone" value="<?=$userdata['telephone']?>" placeholder="Telephone" required="required">
-                </div>
-              </div>
-              <!--change dob-->
-              <div class="input-row">
-                <label for="dob" class="col-sm-6 col-form-label">
-                  Date Of Birth
-                </label>
-                <div class="input-col">
-                  <input type="date" class="form-control" id="dob" name="dob" value="<?=$userdata['dob']?>" placeholder="dob" required="required">
-                </div>
-              </div>
-              <!--change privilege-->
-              <div class="input-row">
-                <label for="privilege" class="col-sm-6 col-form-label">
-                  Privilege
-                </label>
-                <div class="input-col">
-                  <fieldset disabled>
-                  <input type="text" class="form-control" id="privilege" name="privilege" value="<?=$userdata['user_privilege']?>" placeholder="Participant" required="required">
-                  </fieldset>
-                </div>
-              </div>
-              <?php
-                if ($privilege == 'organizer'){
-                ?>
+              <br>
+              <div class="edit-con">
+                <!--Show default username-->
                 <div class="input-row">
-                  <label for="privilege" class="col-sm-6 col-form-label">
-                    Organizer Website
+                  <label for="username" class="col-sm-6 col-form-label">
+                    Username
                   </label>
                   <div class="input-col">
-                    <fieldset>
-                    <input type="text" class="form-control" id="website" name="website" value="<?=$userdata['organizer_website']?>" placeholder="" required="required">
+                    <input type="text" class="form-control" id="username" name="username" value="<?=$userdata['username']?>" placeholder="Username" required="required">
+                  </div>
+                </div>
+                <!--Name section-->
+                <div class="input-row">
+                  <label for="name" class="col-sm-6 col-form-label">
+                    Name
+                  </label>
+                  <div class="input-col">
+                    <input type="text" class="form-control" id="name" name="name" value="<?=$userdata['name']?>" placeholder="Name" required="required">
+                  </div>
+                </div>
+                <!--Email section-->
+                <div class="input-row">
+                  <label for="email" class="col-sm-6 col-form-label">
+                    Email
+                  </label>
+                  <div class="input-col">
+                    <input type="text" class="form-control" id="email" name="email" value="<?=$userdata['email']?>" placeholder="Email" required="required">
+                  </div>
+                </div>
+                <!--Gender section-->
+                <div class="input-row">
+                  <label for="gender" class="col-sm-6 col-form-label">
+                    Gender
+                  </label>
+                  <select class="custom-select col-sm-6 btn sel" name="gender">
+                    <option class="al" value=""
+                    <?php
+                    if ($userdata['gender'] == '')
+                    {
+                      'selected="selected"';
+                    }
+                    ?>
+                    >
+                      Prefer not to tell
+                    </option>
+                    <option class="al" value="male"
+                    <?php
+                    if ($userdata['gender'] == 'male')
+                    {
+                      'selected="selected"';
+                    }
+                    ?>
+                    >
+                      Male
+                    </option>
+                    <option class="al" value="female"
+                    <?php
+                    if ($userdata['gender'] == 'female')
+                    {
+                      'selected="selected"';
+                    }
+                    ?>
+                    >
+                      Female
+                    </option>
+                  </select>
+                </div>
+                <!--change telephone-->
+                <div class="input-row">
+                  <label for="telephone" class="col-sm-6 col-form-label">
+                    Telephone
+                  </label>
+                  <div class="input-col">
+                    <input type="tel" class="form-control" id="telephone" name="telephone" value="<?=$userdata['telephone']?>" placeholder="Telephone" required="required">
+                  </div>
+                </div>
+                <!--change dob-->
+                <div class="input-row">
+                  <label for="dob" class="col-sm-6 col-form-label">
+                    Date Of Birth
+                  </label>
+                  <div class="input-col">
+                    <input type="date" class="form-control" id="dob" name="dob" value="<?=$userdata['dob']?>" placeholder="dob" required="required">
+                  </div>
+                </div>
+                <!--change privilege-->
+                <div class="input-row">
+                  <label for="privilege" class="col-sm-6 col-form-label">
+                    Privilege
+                  </label>
+                  <div class="input-col">
+                    <fieldset disabled>
+                    <input type="text" class="form-control" id="privilege" name="privilege" value="<?=$userdata['user_privilege']?>" placeholder="Participant" required="required">
                     </fieldset>
                   </div>
                 </div>
                 <?php
-                }
-              ?>
-            </div> <!--edit-con-->
-          </div><!--lft-con-->
-          <div class = "right-con">
-            <div class="justify-content-center">
-              <div class="profile-container">
-                <label for="imageUpload">
-                  <image class="imge" id="img" name="img" src="<?=$userdata['participant_image']?>" alt="Profile Pic" />
-                </label>
+                  if ($privilege == 'organizer'){
+                  ?>
+                  <div class="input-row">
+                    <label for="privilege" class="col-sm-6 col-form-label">
+                      Organizer Website
+                    </label>
+                    <div class="input-col">
+                      <fieldset>
+                      <input type="text" class="form-control" id="website" name="website" value="<?=$userdata['organizer_website']?>" placeholder="" required="required">
+                      </fieldset>
+                    </div>
+                  </div>
+                  <?php
+                  }
+                ?>
+              </div> <!--edit-con-->
+            </div><!--lft-con-->
+            <div class = "right-con">
+              <div class="justify-content-center">
+                <div class="profile-container">
+                  <label for="imageUpload">
+                    <image class="imge" id="img" name="img" src="<?=$userdata['participant_image']?>" alt="Profile Pic" />
+                  </label>
+                </div>
+                <div class="custom-file">
+                  <input id="imageUpload" class="imgload custom-file-input" type="file" name="profilePic" onchange="preimg(img)" capture>
+                  <label class="custom-file-label" for="imageUpload">Choose file</label>
+                </div>
               </div>
-              <div class="custom-file">
-                <input id="imageUpload" class="imgload custom-file-input" type="file" name="profilePic" onchange="preimg(img)" capture>
-                <label class="custom-file-label" for="imageUpload">Choose file</label>
+              <div class="btn-size">
+                <input class="btn discard d-none" id="button" value="Discard" onclick="discard()">
+                <input class="btn save d-none" id="button1" type="submit" value="Save" name="saveInfoBtn">
               </div>
-            </div>
-            <div class="btn-size">
-              <input class="btn discard d-none" id="button" value="Discard" onclick="discard()">
-              <input class="btn save d-none" id="button1" type="submit" value="Save" name="saveInfoBtn">
             </div>
           </div>
         </div>

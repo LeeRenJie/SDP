@@ -77,7 +77,6 @@ body{
 }
 
 .event-con .title-con h2{
-  font-family: "Times New Roman", Times, serif;
   text-align: left;
   font-weight:600;
   font-size: 35px;
@@ -92,12 +91,10 @@ body{
 }
 
 .event-con .title-con .status-con .status-on{
-  font-family: "Times New Roman", Times, serif;
   color: #0fa046 !important;
 }
 
 .event-con .title-con .status-con .status-off{
-  font-family: "Times New Roman", Times, serif;
   color: #c51f2f !important;
 }
 
@@ -107,7 +104,6 @@ body{
 }
 
 .details-con .info-con p{
-  font-family: "Times New Roman", Times, serif;
   padding: 5px 40px 0px 20px;
   font-size: 14px;
   width: 200px;

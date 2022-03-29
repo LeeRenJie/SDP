@@ -24,7 +24,7 @@ body{
 }
 .main-container{
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 0 auto;
 }
 
@@ -44,11 +44,22 @@ body{
 .lft-con .name-card{
   height:40px;
   width:fit-content;
-  padding: 10px 20px 40px 20px; /*up right down left*/
+  padding: 10px 20px 30px 20px; /*up right down left*/
   /* container design */
   border-radius: 50px;
   /* -- */
   margin: 0 auto;
+}
+
+.infront{
+  z-index: 2;
+}
+
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1200px;
 }
 
 .lft-con .name-card h2{
@@ -92,7 +103,7 @@ body{
 
 .right-con{
   padding-top: 75px;
-  width: 350px;
+  width: 350px !important;
   margin: 0 auto;
 }
 
