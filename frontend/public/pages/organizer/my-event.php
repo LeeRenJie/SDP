@@ -99,7 +99,7 @@
         ?>
         <!-- Event Details -->
         <div class="event-con">
-          <a href=""> <!--href to event-->
+          <a href="../organizer/event-details.php?<?=$row['event_id']?>"> <!--href to event-->
             <button class="btn btn-primary animate-up-2" type="button">
               <div class="event-con">
                 <div class="col-8">
