@@ -69,7 +69,6 @@
             // get the value of the search key
             $search_key = "";
             $search_key = $_POST['search_text'];
-            $result_query = 
           }
           ?>
           <div class="row">
