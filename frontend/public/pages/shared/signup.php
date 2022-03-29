@@ -13,6 +13,15 @@ if (isset($_POST['registerBtn'])) {
   $validation_query = "SELECT * FROM user WHERE privilege_id = '2' OR privilege_id = '3'";
   $validation_query_run = mysqli_query($con, $validation_query);
 
+  //Set default image
+  $defaultPic = "../../images/default.jpg";
+  //Read default image file type (as jpg)
+  $imageFileType = strtolower(pathinfo($defaultPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+  //Encode default image into base 64
+  $defaultImg = base64_encode(file_get_contents($defaultPic));
+  //create a format of blob image (base64)
+  $image = 'data:image/'.$imageFileType.';base64,'.$defaultImg;
+
   // form validation for username to prevent repeating
   if(mysqli_num_rows($validation_query_run) > 0)
   {
@@ -51,7 +60,7 @@ if (isset($_POST['registerBtn'])) {
             echo("Error description: " . mysqli_error($con));
           }
         } elseif ($privilege === 3) {
-          $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, NULL)";
+          $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, '$image')";
           $participant_result = mysqli_query($con, $participant_sql);
           if ($participant_result){
             echo("<script>alert('Registered as an participant');</script>");

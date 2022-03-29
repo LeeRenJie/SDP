@@ -66,6 +66,7 @@
           $search_key = $_POST['search_text'];
           $search_query = "SELECT * FROM event
                     WHERE event_name LIKE '%$search_key%' 
+                    AND event_date > '$current_date'
                     ORDER BY event_date ASC";
           $run_search_query = mysqli_query($con, $search_query);
           if(mysqli_num_rows($run_search_query) > 0)
@@ -135,7 +136,8 @@
           }
         }
         else{
-          $all_event_query = "SELECT * FROM event 
+          $all_event_query = " SELECT * FROM event 
+                    WHERE event_date > '$current_date'
                     ORDER BY event_date ASC";
           $run_all_event_query = mysqli_query($con, $all_event_query);
           if(mysqli_num_rows($run_all_event_query) > 0)
