@@ -176,7 +176,33 @@
                       <?php echo $count_score?>
                     </p>
                 </div>
-                
+                <?php
+                //get overall criteria score
+                $get_all_event_score = 
+                "SELECT score.score, criteria.criteria_id, team_list.unique_code FROM `result`
+                INNER JOIN judgement_list ON judgement_list.judgement_list_id = result.judgement_list_id
+                INNER JOIN score_list ON score_list.score_list_id = judgement_list.score_list_id
+                INNER JOIN score ON score_list.score_id = score.score_id
+                INNER JOIN criteria ON criteria.criteria_id = score.criteria_id
+                INNER JOIN team_list ON team_list.team_list_id = judgement_list.team_list_id
+                WHERE team_list.event_id = $team_info[event_id]
+                ORDER BY team_list.unique_code ASC";
+                $run_all_score = mysqli_query($con, $get_all_event_score);
+                $all_score = mysqli_fetch_array($run_all_score);
+                //create array
+                $all_event_score = Array();
+                //for each row, store inside array
+                foreach($run_all_score as $score_all) {
+                  $all_event_score[] = $score_all['score'];
+                }
+                $total_scr = COUNT($overall_cri_score); //get actual number of array
+                $count_score = 0;
+                $x = 0;
+                while($x < $total_scr){
+                  $count_score = $count_score + $overall_cri_score[$x]; //in final this will get total score
+                  $x = $x + 1;
+                }
+                ?>
                 <div class="row">
                   <label for="rank" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
                     Rank

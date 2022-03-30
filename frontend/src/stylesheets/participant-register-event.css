@@ -142,9 +142,10 @@ select,option{
 }
 
 .btn-con{
+  width: 200px;
   margin-left: auto;
-  padding: 0px 70px 0px 0px;
-  margin-top: -3%;
+  margin-top: 10%;
+  z-index: 2;
 }
 
 .btn_size{
@@ -153,7 +154,5 @@ select,option{
 }
 
 .btn_size:hover{
-  width: 300px;
-  font-family: "Times New Roman", Times, serif;
   color: #0fa046 !important;
 }

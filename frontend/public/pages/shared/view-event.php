@@ -66,7 +66,7 @@
           $search_key = $_POST['search_text'];
           $search_query = "SELECT * FROM event
                     WHERE event_name LIKE '%$search_key%' 
-                    AND event_date > '$current_date'
+                    AND active = '1'
                     ORDER BY event_date ASC";
           $run_search_query = mysqli_query($con, $search_query);
           if(mysqli_num_rows($run_search_query) > 0)
@@ -83,9 +83,15 @@
               $num_judge_query = mysqli_query($con, $judge_query);
               // Fetch data
               $num_judge = mysqli_fetch_assoc($num_judge_query);
+              //count participant
+              $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$evt_id'";
+              $participant_result = mysqli_query($con, $participant_sql);
+              while($participant_row=mysqli_fetch_array($participant_result)){
+                $num_participant = $participant_row["num_participant"];
+              }
               echo "<div class='event-con'>";
                 //check privilege
-                if($userdata['user_privilege']=="organizer"){
+                if($userdata['user_privilege']=="organizer" || $userdata['user_privilege']=="admin"){
                   echo "<a href='../organizer/event-details.php'>";
                 }
                 elseif($userdata['user_privilege']=="participant"){
@@ -104,7 +110,9 @@
                           <h2><?php echo ($search_query['event_name']);?></h2> <!--change event name-->
                           <div class="status-con"> <!--change event status-->
                             <?php
-                              if($search_query['event_date']>$current_date){
+                              $start_time = date("H:i",strtotime($search_query['start_time']));
+                              $end_time = date("H:i",strtotime($search_query['end_time']));
+                              if($search_query['active']== 1){
                                 echo "<small class='status-on'>Active</small>";
                               }
                               else{
@@ -119,8 +127,8 @@
                             <p>Judges : <?php echo $num_judge['COUNT(judge.judge_id)']?> </p>
                           </div>
                           <div class="info-con">
-                            <p>Time: <?php echo ($search_query['start_time'])?> ~ <?php echo ($search_query['end_time'])?> </p>
-                            <p>Participant : <?php echo ($search_query['max_team'])?></p>
+                            <p>Time: <?php echo $start_time?> ~ <?php echo $end_time?> </p>
+                            <p>Participant : <?php echo $num_participant?></p>
                           </div>
                         </div> <!--info-->
                       </div>
@@ -137,7 +145,7 @@
         }
         else{
           $all_event_query = " SELECT * FROM event 
-                    WHERE event_date > '$current_date'
+                    WHERE active = '1'
                     ORDER BY event_date ASC";
           $run_all_event_query = mysqli_query($con, $all_event_query);
           if(mysqli_num_rows($run_all_event_query) > 0)
@@ -154,9 +162,15 @@
               $num_judge_query = mysqli_query($con, $judge_query);
               // Fetch data
               $num_judge = mysqli_fetch_assoc($num_judge_query);
+              //count participant
+              $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$evt_id'";
+              $participant_result = mysqli_query($con, $participant_sql);
+              while($participant_row=mysqli_fetch_array($participant_result)){
+                $num_participant = $participant_row["num_participant"];
+              }
               echo "<div class='event-con'>";
                 //check privilege
-                if($userdata['user_privilege']=="organizer"){
+                if($userdata['user_privilege']=="organizer" || $userdata['user_privilege']=="admin"){
                   echo "<a href='../organizer/event-details.php'>";
                 }
                 elseif($userdata['user_privilege']=="participant"){
@@ -175,7 +189,9 @@
                           <h2><?php echo ($event_query['event_name']);?></h2> <!--change event name-->
                           <div class="status-con"> <!--change event status-->
                             <?php
-                              if($event_query['event_date']>$current_date){
+                              $start_time = date("H:i",strtotime($event_query['start_time']));
+                              $end_time = date("H:i",strtotime($event_query['end_time']));
+                              if($event_query['active']== 1){
                                 echo "<small class='status-on'>Active</small>";
                               }
                               else{
@@ -190,8 +206,8 @@
                             <p>Judges : <?php echo $num_judge['COUNT(judge.judge_id)']?> </p>
                           </div>
                           <div class="info-con">
-                            <p>Time: <?php echo ($event_query['start_time'])?> ~ <?php echo ($event_query['end_time'])?> </p>
-                            <p>Participant : <?php echo ($event_query['max_team'])?></p>
+                            <p>Time: <?php echo $start_time?> ~ <?php echo $end_time?> </p>
+                            <p>Participant : <?php echo $num_participant?></p>
                           </div>
                         </div> <!--info-->
                       </div>

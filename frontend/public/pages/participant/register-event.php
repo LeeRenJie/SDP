@@ -10,7 +10,8 @@
   //get user id from session
   $userid = $_SESSION['user_id'];
   //get event id from url
-  $event_id = intval($_SERVER['QUERY_STRING']);
+  $event_id = 1;
+  // intval($_SERVER['QUERY_STRING']);
 
   // get the individual event details
   $evt_des = mysqli_query($con,
@@ -69,16 +70,41 @@
     $try_unique = mysqli_query($con,$read_unique);
     if(mysqli_num_rows($try_unique) == 0){
       //submit data
+      $x = $_POST['unique_code'];
+      $y = $_POST['team_name'];
       if($event_query['participant_type'] == "team") {
-        $participant_id = $userdata['participant_id'];
-        $ipt_event = $event_id;
-        $team_name = $_POST['team_name'];
-        $ipt_uni_code = $unique;
-        $sql = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
-                VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
-        $result = mysqli_query($con, $sql);
-        echo("<script>alert('Participated Successful');</script>");
-        echo("<script>window.location = 'success-register.php'</script>");
+
+        if (empty($x)){
+          $participant_id = $userdata['participant_id'];
+          $ipt_event = $event_id;
+          $team_name = $_POST['team_name'];
+          $ipt_uni_code = $unique;
+          $sql = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
+                  VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
+          $result = mysqli_query($con, $sql);
+          echo("<script>alert('Participated Successful team leader');</script>");
+          echo("<script>window.location = 'success-register.php'</script>");
+        }
+
+        
+        elseif (empty($y)) {
+          $sql = "SELECT * FROM team_list WHERE unique_code = $_POST[unique_code]";
+          $runsql = mysqli_query($con, $sql);
+          $gorunsql = mysqli_fetch_assoc($runsql);
+
+          $participant_id = $userdata['participant_id'];
+          $ipt_event = $event_id;
+          $team_name = $gorunsql['team_name'];
+          $ipt_uni_code = $_POST['unique_code'];
+          $sql = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
+                  VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
+          $result = mysqli_query($con, $sql);
+          echo("<script>alert('Participated Successful');</script>");
+          echo("<script>window.location = 'success-register.php'</script>");
+        }
+        else {
+          die('Error: ' . mysqli_error($con));
+        }
       }
       elseif($event_query['participant_type'] == "solo") {
         $participant_id = $userdata['participant_id'];
@@ -193,43 +219,42 @@
                     echo '<option class="al" value="member" >Member</option>';
                   echo '</select>';
               echo '</div>';
-              // team name for team leader
-              echo '<div class="row py-2 d-none" id="div_team_name">';
-                echo '<label for="team_name" class="col-sm-6 col-form-label">';
-                  echo 'Team Name';
+                // team name for team leader
+              echo '<form method="post">';   
+                echo '<div class="row py-2 d-none" id="div_team_name">';
+                  echo '<label for="team_name" class="col-sm-6 col-form-label">';
+                    echo 'Team Name';
+                    echo '</label>';
+                  echo '<input type="text" class="form-control col-sm-6" id="team_name" name="team_name" placeholder="Team name" required="required">';
+                echo '</div>';
+                // unique code for team member
+                echo '<div class="row py-2 d-none" id="div_unique_code">';
+                  echo '<label for="unique-code" class="col-sm-6 col-form-label">';
+                    echo 'Unique Code';
                   echo '</label>';
-                echo '<input type="text" class="form-control col-sm-6" id="team_name" name="team_name" placeholder="Team name" required="required">';
+                  echo '<input type="text" class="form-control col-sm-6" id="unique-code" name="unique_code" placeholder="Unique Code" required="required">';
+                echo '</div>';
+                echo '<div class="btn-con">';
+                  if(mysqli_num_rows($run_participated) == 0){
+                  echo "<input class='btn btn_size animate-up-2' id='button' type='submit' value='Register' name='registerBtn'>";
+                }
+                else{
+                echo"<a href='../shared/view-event.php'>";
+                  echo'<button class="btn btn-primary animate-up-2" type="button">';
+                  echo '<i class="fa-solid fa-house"></i>  &nbsp; Return ';
+                  echo('</button>
+                </a>');
+                }
               echo '</div>';
-              // unique code for team member
-              echo '<div class="row py-2 d-none" id="div_unique_code">';
-                echo '<label for="unique-code" class="col-sm-6 col-form-label">';
-                  echo 'Unique Code';
-                echo '</label>';
-                echo '<input type="text" class="form-control col-sm-6" id="unique-code" name="unique-code" placeholder="Unique Code" required="required">';
-              echo '</div>';
-            }
+            echo'</form>';
+            };
             ?>
           </div> <!--right-cont-->
-        </div> <!--event-details-->
-        <form method="post" class="btn-con">
-          <?php
-            if(mysqli_num_rows($run_participated) == 0){
-              echo "<input class='btn btn_size' id='button' type='submit' value='Register' name='registerBtn'>";
-            }
-            else{
-            ?>
-            <a href='../shared/view-event.php'>
-              <button class="btn btn-primary animate-up-2" type="button">
-                <i class="fa-solid fa-house"></i>  &nbsp; Return 
-              </button>
-            <a>
-            <?php
-            }
-          ?>
-        </form>
+        </div>
       </div> <!--main-cont-->
     </div>
   </div>
+
   <script>
     function disp_sec() {
       var option_value = document.getElementById('team_role'); //get select id
