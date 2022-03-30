@@ -12,8 +12,10 @@
 
   // get the individual event details
   $event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");
+
   $event_result = mysqli_query($con, $event_sql);
   $event_row=mysqli_fetch_array($event_result);
+
   $event_name = $event_row['event_name'];
   $event_description = $event_row['event_description'];
   $event_date = date("d-m-Y",strtotime($event_row["event_date"]));
@@ -262,7 +264,7 @@
                           }else{
                             echo "th";
                           }
-                          echo " prize: ";
+                          echo " prize: RM ";
                           echo $prizes_row['prize'];
                         echo'</p>';
                       }
@@ -320,7 +322,6 @@
                         <i class="fa-solid fa-ellipsis"></i>
                       </a>
                       <ul class="dropdown-menu">
-                        <li><button class="dropdown-item" data-type="copy">Copy Code</button></li>
                         <li><a class="dropdown-item" href="">Delete</a></li>
                       </ul>
                     </td>
@@ -378,8 +379,7 @@
                           <i class="fa-solid fa-ellipsis"></i>
                         </a>
                         <ul class="dropdown-menu">
-                          <li><button class="dropdown-item" data-type="copy">Copy Code</button></li>
-                          <li><a class="dropdown-item" href="">Delete</a></li>
+                          <li><a class="dropdown-item" href="">Remove</a></li>
                         </ul>
                       </td>
                     </tr>'
@@ -436,7 +436,6 @@
                           <i class="fa-solid fa-ellipsis"></i>
                         </a>
                         <ul class="dropdown-menu">
-                          <li><button type="button" class="dropdown-item" data-type="copy">Copy Code</button></li>
                           <li>
                             <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal-default">
                               View Team Members

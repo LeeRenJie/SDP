@@ -260,13 +260,13 @@
       <div class="text-center img-container ml-5">
         <label for=imageUpload>
           <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"
-          data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="image" alt="Event Image">
+          data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="eventPic" alt="Event Image">
         </label>
       </div>
       <div class="h-0 overflow-hidden">
         <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
       </div>
-      <label class="grey-button ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
+      <label class="btn btn-primary ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
       <form class="row pl-5 mt-3 form-container">
         <div class="col-6">
           <div class="form-group mb-4">

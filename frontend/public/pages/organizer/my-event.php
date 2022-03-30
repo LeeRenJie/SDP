@@ -76,6 +76,7 @@
               </div>
             </div>
           </form>
+          <a href="../organizer/create-event.php" class="float-right btn btn-primary mr-5 cursor-pointer" >Create an event</a>
         </div>
         <?php
         if($number_row == 0){
