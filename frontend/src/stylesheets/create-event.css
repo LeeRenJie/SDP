@@ -19,18 +19,6 @@
   object-fit:cover;
 }
 
-.grey-button {
-  border: none;
-  color: #090909;
-  padding: 0.7em 1.7em;
-  font-size: 14px;
-  border-radius: 0.5em;
-  background: #e6e7ee;
-  border: 1px solid #e6e7ee;
-  transition: all .3s;
-  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-}
-
 .choose-img input {
   opacity: 0;
 }
