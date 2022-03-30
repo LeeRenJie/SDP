@@ -24,7 +24,7 @@
       // loop through the array
       foreach ($rules as $rule) {
         // insert the rule into the database
-        $rule_sql = "INSERT INTO rule (rule) VALUES '$rule'";
+        $rule_sql = "INSERT INTO rule (rule) VALUES ('$rule')";
         // get result
         $rule_result = mysqli_query($con, $rule_sql);
         // check if the query is successful
@@ -40,16 +40,6 @@
           $rule_list_sql = "INSERT INTO rules_list (rules_list_id, rule_id) VALUES ('$max_rl_id', '$last_rule_id')";
           // get result
           $rule_list_result = mysqli_query($con, $rule_list_sql);
-
-          // get last inserted rules_list_id
-          if($rule_list_result){
-            $rules_list_id = mysqli_insert_id($con);
-            echo('<script>alert("rules added successfully"</script>');
-          }//If the sql fail, notify user
-          else{
-            die('Error: ' . mysqli_error($con));
-          };
-
         };
       };
     }
@@ -64,17 +54,16 @@
         $rule_list_sql = "INSERT INTO rules_list (rule_id) VALUES ('$last_rule_id')";
         // get result
         $rule_list_result = mysqli_query($con, $rule_list_sql);
-
-        // get last inserted rules_list_id
-        if($rule_list_result){
-          $rules_list_id = mysqli_insert_id($con);
-          echo('<script>alert("rules added successfully"</script>');
-        }//If the sql fail, notify user
-        else{
-          die('Error: ' . mysqli_error($con));
-        };
-
       };
+    };
+     // get last inserted rules_list_id
+    if($rule_list_result){
+      $rules_list_id = mysqli_insert_id($con);
+      $rules_entered = TRUE;
+    }//If the sql fail, notify user
+    else{
+      $validated = FALSE;
+      die('Error: ' . mysqli_error($con));
     };
 
 
@@ -85,7 +74,18 @@
       // loop through the array
       foreach ($judges as $judge) {
         // insert the judge into the database
-        $judge_sql = "INSERT INTO judge (judge) VALUES '$judge'";
+        do{
+          // generate unique code
+           //random_bytes () function in PHP
+          $length = random_bytes('5');
+          //convert by binaryhexa
+          $unique = bin2hex($length);
+          $read_unique = "SELECT unique_code FROM judge WHERE unique_code = '$unique'";
+          // get result
+          $try_unique = mysqli_query($con,$read_unique);
+        }
+        while (mysqli_num_rows($try_unique) > 0);
+        $judge_sql = "INSERT INTO judge (judge_name) VALUES ('$judge')";
         // get result
         $judge_result = mysqli_query($con, $judge_sql);
         // check if the query is successful
@@ -101,21 +101,11 @@
           $judge_list_sql = "INSERT INTO judges_list (judges_list_id, judge_id) VALUES ('$max_jl_id','$last_judge_id')";
           // get result
           $judge_list_result = mysqli_query($con, $judge_list_sql);
-
-          // get last inserted judges_list_id
-          if($judge_list_result){
-            $judges_list_id = mysqli_insert_id($con);
-            echo('<script>alert("judges added successfully"</script>');
-          }//If the sql fail, notify user
-            else{
-              die('Error: ' . mysqli_error($con));
-          };
-
         };
       };
     }
     else{
-      $judge_sql = "INSERT INTO judge (judge) VALUES '$judges[0]'";
+      $judge_sql = "INSERT INTO judge (judge_name) VALUES ('$judges[0]')";
       $judge_result = mysqli_query($con, $judge_sql);
       // check if the query is successful
       if($judge_result){
@@ -125,17 +115,16 @@
         $judge_list_sql = "INSERT INTO judges_list (judge_id) VALUES ('$last_judge_id')";
         // get result
         $judge_list_result = mysqli_query($con, $judge_list_sql);
-
-        // get last inserted judges_list_id
-        if($judge_list_result){
-          $judges_list_id = mysqli_insert_id($con);
-          echo('<script>alert("judges added successfully"</script>');
-        }//If the sql fail, notify user
-          else{
-            die('Error: ' . mysqli_error($con));
-        };
-
       };
+    };
+    // get last inserted judges_list_id
+    if($judge_list_result){
+      $judges_list_id = mysqli_insert_id($con);
+      $judges_entered = TRUE;
+    }//If the sql fail, notify user
+      else{
+        $validated = FALSE;
+        die('Error: ' . mysqli_error($con));
     };
 
     // loop through event prizes array to input same input name into database
@@ -174,7 +163,7 @@
     else{
       // if pass validation insert each prize into database
       foreach ($prizes as $prize) {
-        $prize_sql = "INSERT INTO event_prize (prize) VALUES ('$prize')";
+        $prize_sql = "INSERT INTO prize (prize) VALUES ('$prize')";
         $prize_result = mysqli_query($con, $prize_sql);
         // check if the query is successful
         if($prize_result){
@@ -186,15 +175,16 @@
           $max_id_row=mysqli_fetch_array($max_prize_list_result);
           $max_pl_id = $max_id_row['max_prize_list_id'] + 1;
           // insert the prize id into the prize list
-          $prizes_list_sql = "INSERT INTO prizes_list (prizes_list_id, prize_id) VALUES ('$max_pl_id','$prize_id')";
+          $prizes_list_sql = "INSERT INTO prizes_list (prizes_list_id, prize_id) VALUES ('$max_pl_id','$last_prize_id')";
           // get result
           $prizes_list_result = mysqli_query($con, $prizes_list_sql);
           // get last inserted prizes_list_id
           if($prizes_list_result){
             $prizes_list_id = mysqli_insert_id($con);
-            echo('<script>alert("prizes added successfully"</script>');
+            $prizes_entered = TRUE;
           }//If the sql fail, notify user
           else{
+            $validated = FALSE;
             die('Error: ' . mysqli_error($con));
           };
         };
@@ -202,18 +192,27 @@
     };
 
     // get event picture name
-    $eventPic = $_FILES['eventPic']['tmp_name'];
-    if ($_FILES['eventPic']['size'] > 0){
-      //get image type
-      $imageFileType = strtolower(pathinfo($eventPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-      //encode image into base64
-      $base64_Img = base64_encode(file_get_contents($eventPic));
-      //set image content with type and base64
-      $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
+    if(isset($_FILES['eventPic'])){
+      $eventPicture = $_FILES['eventPic']['tmp_name'];
+      if ($_FILES['eventPic']['size'] > 0){
+        //get image type
+        $imageFileType = strtolower(pathinfo($eventPicture,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+        //encode image into base64
+        $base64_Img = base64_encode(file_get_contents($eventPicture));
+        //set image content with type and base64
+        $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
+      }
     }
     else {
       // event pic is null if no image is uploaded
-      $eventPic = NULL;
+      //Set default image
+      $defaultPic = "../../images/default.jpg";
+      //Read default image file type (as jpg)
+      $imageFileType = strtolower(pathinfo($defaultPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+      //Encode default image into base 64
+      $defaultImg = base64_encode(file_get_contents($defaultPic));
+      //create a format of blob image (base64)
+      $image = 'data:image/'.$imageFileType.';base64,'.$defaultImg;
     }
 
     // get event date
@@ -328,7 +327,7 @@
     }
 
     // Create event SQL statement
-    if($validated){
+    if($validated && $rules_entered && $judges_entered && $prizes_entered){
       // get event name
       $eventName = $_POST["event-name"];
       // get event description
@@ -339,7 +338,7 @@
                     event_date, event_picture, participant_type, max_member, max_team, active)
                     VALUES ('$rules_list_id', '$prizes_list_id', '$judges_list_id', '$organizer_id',
                     '$eventName', '$eventStartTime', '$eventEndTime', '$eventDescription', '$eventDate',
-                    '$eventPic', '$participantType', '$maxMembers', '$maxPeople', '1')";
+                    '$image', '$participantType', '$maxMembers', '$maxPeople', '1')";
       // get result
       $event_result = mysqli_query($con, $event_sql);
 
@@ -397,17 +396,18 @@
         <h1 class="py-2 inline-block"><b>Tell Us About Your Event</b></h1>
       </div>
       <form method="post" class="row pl-5 mt-3 form-container">
-        <div class="text-center img-container ml-5">
-          <label for=imageUpload>
-            <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"
-            data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="img" alt="Event Image">
-          </label>
-        </div>
+        <div class="col-12">
+          <div class="text-center img-container">
+            <label for=imageUpload>
+              <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"  id="img" name="img" alt="Event Image">
+            </label>
+          </div>
 
-        <div class="h-0 overflow-hidden">
-          <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
+          <div class="h-0 overflow-hidden">
+            <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
+          </div>
+          <label class="btn btn-primary mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
         </div>
-        <label class="btn btn-primary ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
 
         <div class="col-6">
           <div class="form-group mb-4">
@@ -447,7 +447,7 @@
         <div class="col-6" id="participant-type">
           <div class="form-group mb-4">
             <label for="participant-type">Participant Type</label>
-            <select class="custom-select" id="particpant-type" placeholder="Choose...">
+            <select class="custom-select" id="particpant-type" name="participant-type" placeholder="Choose...">
                 <option value="solo">Solo</option>
                 <option value="team">Team</option>
             </select>
@@ -457,14 +457,14 @@
         <div class="col-12">
           <div class="form-group mb-4" >
             <label for="description">Max members</label>
-            <input type="text" class="form-control input-disabled" id="max-member" name="max-member" placeholder="Maximum number of members per team..." required="required" disabled>
+            <input type="text" class="form-control input-disabled" id="max-member" name="max-members" placeholder="Maximum number of members per team..." value="1" disabled>
           </div>
         </div>
 
         <div class="col-12">
           <div class="form-group mb-4">
             <label for="description">Event Description</label>
-            <textarea class="form-control" id="description" rows="6" placeholder="Enter event description..." maxlength="1000"></textarea>
+            <textarea class="form-control" id="description" rows="6" name="event-description" placeholder="Enter event description..." maxlength="1000"></textarea>
           </div>
         </div>
 
