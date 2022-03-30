@@ -1,3 +1,13 @@
+<?php
+	// Connect to database
+  include("../../../../backend/conn.php");
+
+  // Get event id from url
+  $eventID = intval($_GET['event-id']);
+
+  // Get event details from database
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

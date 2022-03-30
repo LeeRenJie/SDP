@@ -1,4 +1,7 @@
 <?php
+	// Connect to database
+  include("../../../../backend/conn.php");
+
   // start the session
   if(!isset($_SESSION)) {
     session_start();
@@ -10,8 +13,129 @@
     header("Location: ../shared/view-event.php");
   };
 
+
   if(isset($POST["createBtn"])){
+    echo("<script>alert('Create event button clicked')</script>");
     // get the data from the form
+    // loop through event rules array to input same input name into database
+    $rules = $_POST["rule"];
+    $number_rules = count($_POST["rule"]);
+    if ($number_rules > 0) {
+      // loop through the array
+      foreach ($rules as $rule) {
+        // insert the rule into the database
+        $rule_sql = "INSERT INTO rule (rule) VALUES '$rule'";
+        // get result
+        $rule_result = mysqli_query($con, $rule_sql);
+        // check if the query is successful
+        if($rule_result){
+          // get last inserted rule id
+          $last_rule_id = mysqli_insert_id($con);
+          // insert the rule id into the rule list
+          $rule_list_sql = "INSERT INTO rules_list (rule_id) VALUES ('$last_rule_id')";
+          // get result
+          $rule_list_result = mysqli_query($con, $rule_list_sql);
+        };
+      };
+    }
+    else{
+      $rule_sql = "INSERT INTO rule (rule) VALUES '$rules[0]'";
+      $rule_result = mysqli_query($con, $rule_sql);
+      // check if the query is successful
+      if($rule_result){
+        // get last inserted rule id
+        $last_rule_id = mysqli_insert_id($con);
+        // insert the rule id into the rule list
+        $rule_list_sql = "INSERT INTO rules_list (rule_id) VALUES ('$last_rule_id')";
+        // get result
+        $rule_list_result = mysqli_query($con, $rule_list_sql);
+      };
+    };
+    // get last inserted rules_list_id
+    if($rule_list_result){
+      $rules_list_id = mysqli_insert_id($con);
+    }
+
+
+    // loop through event judges array to input same input name into database
+    $judges = $_POST["judge"];
+    $number_judges = count($_POST["judge"]);
+    if ($number_judges > 0) {
+      foreach ($judges as $judge) {
+        // GENERATE UNIQUE CODE
+        $judge_sql = "INSERT INTO judge (judge_name, unique_code) VALUES '$judge', '$uniqueCode'";
+        $judge_result = mysqli_query($con, $judge_sql);
+        // check if the query is successful
+        if($judge_result){
+          // get last inserted rule id
+          $last_judge_id = mysqli_insert_id($con);
+          // insert the rule id into the rule list
+          $judge_list_sql = "INSERT INTO judges_list (judge_id) VALUES ('$judge_id')";
+          // get result
+          $judge_list_result = mysqli_query($con, $judge_list_sql);
+        };
+      };
+    }
+    else{
+      // Insert SQL statement for judge to enter one by one to insert one judge
+      $judge_sql = "INSERT INTO judge (judge_name, unique_code) VALUES '$judges[0]', '$uniqueCode'";
+      $judge_result = mysqli_query($con, $judge_sql);
+      if($judge_result){
+        // get last inserted rule id
+        $last_judge_id = mysqli_insert_id($con);
+        // insert the rule id into the rule list
+        $judge_list_sql = "INSERT INTO judges_list (judge_id) VALUES ('$judge_id')";
+        // get result
+        $judge_list_result = mysqli_query($con, $judge_list_sql);
+      };
+    };
+    // get last inserted judges_list_id
+    if($judge_list_result){
+      $judges_list_id = mysqli_insert_id($con);
+    }
+
+    // loop through event prizes array to input same input name into database
+    $prizes = $_POST["prize"];
+    // check if prizes are from biggest to smallest
+    if([$prizes][0] <= [$prizes][1] OR [$prizes][0] < [$prizes][2] OR [$prizes][1] < [$prizes][2] ){
+      echo('
+        <div class="position-absolute bottom-2.5 right-2.5 z-10">
+          <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header text-dark">
+              <strong class="mr-auto ml-2">Validation Warning</strong>
+              <small class="text-gray">now</small>
+              <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Please enter prizes amount from largest to smallest
+            </div>
+          </div>
+        </div>
+      ');
+    }
+    else{
+      // if pass validation insert each prize into database
+      foreach ($prizes as $prize) {
+      // $sql = "INSERT INTO event_prize (event_id, prize_name) VALUES ('$eventId', '$prizeName')";
+        $prize_sql = "INSERT INTO event_prize (prize) VALUES ('$prize')";
+        $prize_result = mysqli_query($con, $prize_sql);
+        // check if the query is successful
+        if($prize_result){
+          // get last inserted rule id
+          $last_prize_id = mysqli_insert_id($con);
+          // insert the rule id into the rule list
+          $prizes_list_sql = "INSERT INTO prizes_list (prize_id) VALUES ('$prize_id')";
+          // get result
+          $prizes_list_result = mysqli_query($con, $prizes_list_sql);
+        };
+      };
+    };
+    // get last inserted judges_list_id
+    if($prizes_list_result){
+      $prizes_list_id = mysqli_insert_id($con);
+    }
 
     // get event picture name
     $eventPic = $_FILES['eventPic']['tmp_name'];
@@ -34,15 +158,31 @@
     // get event date
     $eventDate = $_POST["event-date"];
     // validation if event date is after today's date
-    $today = date("d/m/y");
-    if ($eventDate < $today) {
-      echo("<script>alert('Event date must be after today's date')</script>");
-      header("Location: ../shared/create-event.php");
+    $today = strtotime(date("d/m/Y"));
+    if (strtotime($eventDate) < $today) {
+      echo('
+          <div class="position-absolute bottom-2.5 right-2.5 z-10">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                <strong class="mr-auto ml-2">Validation Warning</strong>
+                <small class="text-gray">now</small>
+                <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                Please select a date that is after today\'s date.
+              </div>
+            </div>
+          </div>
+      ');
     };
     // get event start time
     $eventStartTime = $_POST["event-start-time"];
     // get event end time
     $eventEndTime = $_POST["event-end-time"];
+    // Validation to check if end time is after start time
+
     // get event max participant/team
     $maxPeople = $_POST["max-people"];
     // get event participant type
@@ -53,9 +193,47 @@
       $maxMembers = 1;
     } else {
       $maxMembers = $_POST["max-members"];
+    };
+
+    // Get organizer id
+    $organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
+    $organizer_result = mysqli_query($con, $organizer_sql);
+    if ($organizer_result){
+      $organizer_row = mysqli_num_rows($organizer_result);
     }
-    // loop through event rules array to input same name into database
-  }
+    while($row = mysqli_fetch_assoc($organizer_result)){
+      $organizer_id = $row["organizer_id"];
+    }
+
+    // Create event SQL statement
+    $event_sql = "INSERT INTO event (rules_list_id, prizes_list_id, judges_list_id,
+            organizer_id, event_name, start_time, end_time, event_description,
+            event_date, event_picture, participant_type, max_member, max_team, active)
+            VALUES ('$rules_list_id', '$prizes_list_id', '$judges_list_id', '$organizer_id',
+            '$eventName', '$eventStartTime', '$eventEndTime', '$eventDescription', '$eventDate',
+            '$eventPic', '$participantType', '$maxMembers', '$maxPeople', '1')";
+    // get result
+    $event_result = mysqli_query($con, $event_sql);
+    if ($event_result){
+      // get last inserted event id
+      $event_id = mysqli_insert_id($con);
+      // loop through event criteria array to input same input name into database
+      $criteria = $_POST["criteria"];
+      $number_criteria = count($_POST["criteria"]);
+      if ($number_criteria > 0) {
+        foreach ($criteria as $criterion) {
+          // Insert SQL statement for criterion to enter one by one
+          $criterion_sql = "INSERT INTO criterion (event_id, criteria_name) VALUES '$event_id', '$criterion'";
+          $criterion_result = mysqli_query($con, $criterion_sql);
+        };
+      };
+      // check if the query is successful
+      if($criterion_result){
+        echo('<script>alert("event successfully created"</script>');
+        header("Location: ../../../organizer/event-details.php?event_id=$event_id");
+      };
+    };
+  };
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +271,7 @@
         <div class="col-6">
           <div class="form-group mb-4">
             <label for="event">Event Name</label>
-            <input type="text" class="form-control" id="event" name="event-name"  placeholder="Enter your event name...">
+            <input type="text" class="form-control" id="event" name="event-name"  placeholder="Enter your event name..." maxlength="100">
           </div>
         </div>
 
@@ -145,7 +323,7 @@
         <div class="col-12">
           <div class="form-group mb-4">
             <label for="description">Event Description</label>
-            <textarea class="form-control" id="description" rows="6" placeholder="Enter event description..."></textarea>
+            <textarea class="form-control" id="description" rows="6" placeholder="Enter event description..." maxlength="1000"></textarea>
           </div>
         </div>
 
@@ -168,15 +346,15 @@
             <label for="prizes">Event Prizes</label>
             <div class="input-group mb-1">
               <span class="input-group-text">RM</span>
-              <input type="text" class="form-control mb-1" id="prize[1]" name="prize[1]" placeholder="1st Prize" required="required">
+              <input type="text" class="form-control mb-1" name="prize[]" placeholder="1st Prize" required="required">
             </div>
             <div class="input-group mb-1">
               <span class="input-group-text">RM</span>
-              <input type="text" class="form-control mb-1" id="prize[2]" name="prize[2]" placeholder="2nd Prize" required="required">
+              <input type="text" class="form-control mb-1" name="prize[]" placeholder="2nd Prize" required="required">
             </div>
             <div class="input-group mb-1">
               <span class="input-group-text">RM</span>
-              <input type="text" class="form-control mb-1" id="prize[3]" name="prize[3]" placeholder="3rd Prize" required="required">
+              <input type="text" class="form-control mb-1" name="prize[]" placeholder="3rd Prize" required="required">
             </div>
           </div>
         </div>
@@ -216,30 +394,18 @@
     </div>
   </div>
   <script>
-    //this script use to preview image before upload
-    // (Nkron, 2014)
-    function preimg(img) {
-      document.getElementById('img').src="../../images/default.jpg";
-      var picture = new FileReader();
-      if (picture) {
-        picture.onload = function(){
-          var imgpreview = document.getElementById('img');
-          imgpreview.src = picture.result;
-        }
-        picture.readAsDataURL(event.target.files[0]);
-      }
-    }
-
     $(document).ready(function() {
       var i = 1;
-      $('#add_rule').click(function(){
+      $('#add_rule').click(function() {
         i++;
-        $('#dynamic_rule').append('<div class="input-group mb-2" id="row' + i + '"><input type="text" class="form-control" id="rule" name="rule[]" placeholder="Enter rules of the event..." aria-label="Input group" required="required"><div class="input-group-append cursor-pointer btn_remove" id="' + i + '"><span class="input-group-text"><button class="fa-solid fa-trash-can btn-remove" type="button"></button></span></div></div>')
+        $('#dynamic_rule').append('<div class="input-group mb-2" id="row' + i + '"><input type="text" class="form-control" id="rule" name="rule[]" placeholder="Enter rules of the event..." aria-label="Input group" required="required"><div class="input-group-append cursor-pointer btn_remove" id="button'+i+'"><span class="input-group-text"><button class="fa-solid fa-trash-can" type="button"></button></span></div></div>')
       });
 
       $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");
-        $('#row'+button_id+'').remove();
+        var id = button_id.replace('button','');
+        $('#row'+id+'').remove();
+        i--;
       });
     });
 
@@ -253,6 +419,7 @@
       $(document).on('click', '.btn_remove_judge', function() {
         var button_id_judge = $(this).attr("id");
         $('#row'+button_id_judge+'').remove();
+        a--;
       });
     });
 
@@ -266,6 +433,7 @@
       $(document).on('click', '.btn_remove_criteria', function() {
         var button_id_criteria = $(this).attr("id");
         $('#row'+button_id_criteria+'').remove();
+        b--;
       });
     });
 
@@ -277,6 +445,20 @@
         $('.input-disabled').prop("disabled", true);
       };
     });
+
+    //this script use to preview image before upload
+    // Nkron, 2014
+    function preimg(img) {
+      document.getElementById('img').src="../../images/default.jpg";
+      var picture = new FileReader();
+      if (picture) {
+        picture.onload = function(){
+          var imgpreview = document.getElementById('img');
+          imgpreview.src = picture.result;
+        };
+        picture.readAsDataURL(event.target.files[0]);
+      };
+    };
   </script>
 </body>
 </html>
