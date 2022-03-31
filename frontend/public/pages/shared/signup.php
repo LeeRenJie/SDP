@@ -94,16 +94,16 @@ if (isset($_POST['registerBtn'])) {
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-  <div class="overflow-auto h-screen">
+  <div class="overflow-auto h-screen back-shadow">
     <div class="d-flex justify-content-center signup-container pt-3">
-      <div class="card bg-primary border-light shadow-soft w-60 px-5">
+      <div class="border-light shadow-soft w-60 px-5">
         <div class="text-center">
           <h1 class="display-2 mt-4">Sign Up</h1>
         </div>
         <form method="post">
           <div class="form-group mb-3 px-5 pt-3">
             <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" placeholder="Enter your username for the system.." required="required" maxlength="50">
+            <input type="text" class="form-control" name="username" placeholder="Enter your username for the system.." required="required" maxlength="50" autofocus>
             <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
           </div>
           <div class="form-group mb-3 px-5 pt-3">
@@ -123,9 +123,9 @@ if (isset($_POST['registerBtn'])) {
             </select>
           </div>
           <div class="text-center mt-5">
-            <button class="btn btn-primary w-32 mr-4" type="reset">Clear</button>
-            <button type="submit" name="registerBtn" class="ml-4 w-32 btn btn-primary login-btn">Register</button>
-            <p class="link mt-3 text-muted">Have an account? Login <a href="../shared/login.php">here</a></p>
+            <button class="btn btn-primary w-32 mr-4 discard animate-up-2" type="reset">Clear</button>
+            <button type="submit" name="registerBtn" class="ml-4 w-32 btn btn-primary login-btn save animate-up-2">Register</button>
+            <p class="link mt-3 text-muted">Have an account? Login <a class="highlight" href="../shared/login.php">here</a></p>
           </div>
         </form>
       </div>
