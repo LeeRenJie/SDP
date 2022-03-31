@@ -9,7 +9,7 @@
 
   //get user id from url
   $userid = $_SESSION['user_id'];
-
+  
   //Query to get all data
   $user_query = "SELECT * FROM user AS pl
   INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id 
@@ -167,7 +167,7 @@
                 <a class="nav-link mb-sm-3 mb-md-0 active enlarge-content" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa-solid fa-calendar-days"></i>Number of Events</a>
               </li>
               <li class="nav-item cancel-box-shadow">
-                <a class="nav-link mb-sm-3 mb-md-0 enlarge-content" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fa-solid fa-calendar-days"></i>Past Events</a>
+                <a class="nav-link mb-sm-3 mb-md-0 enlarge-content" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fa-solid fa-calendar-days"></i>Participated Events</a>
               </li>
             </ul>
           </div>
@@ -227,26 +227,28 @@
                     INNER JOIN participant ON team_list.participant_id = participant.participant_id
                     INNER JOIN user on user.user_id = participant.user_id
                     WHERE user.user_id = '$userid'
-                    AND event.event_date<'$current_date'
-                    ORDER BY event_date ASC";
+                    GROUP BY event.event_id
+                    ORDER BY event_date DESC";
                     $run_all_event_query = mysqli_query($con, $all_event_query);
                     if(mysqli_num_rows($run_all_event_query) > 0)
                     {
                       foreach($run_all_event_query as $event_query) // Run SQL query
                       {
                       //get number of judge 
-                      $evt_id = intval($event_query['event_id']);
+                      $event_id = intval($event_query['event_id']);
                       $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
                       INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
                       INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id
                       WHERE judges_list.judges_list_id = event.judges_list_id
-                      AND event.event_id = $evt_id";
+                      AND event.event_id = $event_id";
                       $num_judge_query = mysqli_query($con, $judge_query);
                       // Fetch data
                       $num_judge = mysqli_fetch_assoc($num_judge_query);
                     ?>
                     <div class="event-cont col-12 pb-3">
-                      <a href='../participant/event-details.php'>
+                      <?php
+                        echo "<a href='../participant/event-details.php?$event_id'>"
+                      ?>
                         <button class="btn btn-primary animate-up-2" type="button">
                           <div class="event-cont">
                             <div class="col-8">
@@ -303,6 +305,10 @@
     </div>
   </div>
 </div>
+<?php
+//close database connection
+mysqli_close($con);
+?>
 <script src="../shared/jquery-2.2.4.min.js"></script>
 <script src="../shared/profile.min.js"></script>
 <script>

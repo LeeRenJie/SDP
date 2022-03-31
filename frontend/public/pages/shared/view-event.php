@@ -74,17 +74,17 @@
             foreach($run_search_query as $search_query) // Run SQL query
             {
               //get number of judge 
-              $evt_id = intval($search_query['event_id']);
+              $event_id = intval($search_query['event_id']);
               $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
               INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
               INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id
               WHERE judges_list.judges_list_id = event.judges_list_id
-              AND event.event_id = $evt_id";
+              AND event.event_id = $event_id";
               $num_judge_query = mysqli_query($con, $judge_query);
               // Fetch data
               $num_judge = mysqli_fetch_assoc($num_judge_query);
               //count participant
-              $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$evt_id'";
+              $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$event_id'";
               $participant_result = mysqli_query($con, $participant_sql);
               while($participant_row=mysqli_fetch_array($participant_result)){
                 $num_participant = $participant_row["num_participant"];
@@ -92,10 +92,10 @@
               echo "<div class='event-con'>";
                 //check privilege
                 if($userdata['user_privilege']=="organizer" || $userdata['user_privilege']=="admin"){
-                  echo "<a href='../organizer/event-details.php'>";
+                  echo "<a href='../organizer/event-details.php?$event_id'>";
                 }
                 elseif($userdata['user_privilege']=="participant"){
-                  echo "<a href='../participant/event-details.php'>";
+                  echo "<a href='../participant/event-details.php?$event_id'>";
                 }
                 else{
                   echo "<a>";
@@ -153,17 +153,17 @@
             foreach($run_all_event_query as $event_query) // Run SQL query
             {
               //get number of judge 
-              $evt_id = intval($event_query['event_id']);
+              $event_id = intval($event_query['event_id']);
               $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
               INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
               INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id
               WHERE judges_list.judges_list_id = event.judges_list_id
-              AND event.event_id = $evt_id";
+              AND event.event_id = $event_id";
               $num_judge_query = mysqli_query($con, $judge_query);
               // Fetch data
               $num_judge = mysqli_fetch_assoc($num_judge_query);
               //count participant
-              $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$evt_id'";
+              $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$event_id'";
               $participant_result = mysqli_query($con, $participant_sql);
               while($participant_row=mysqli_fetch_array($participant_result)){
                 $num_participant = $participant_row["num_participant"];
@@ -171,10 +171,10 @@
               echo "<div class='event-con'>";
                 //check privilege
                 if($userdata['user_privilege']=="organizer" || $userdata['user_privilege']=="admin"){
-                  echo "<a href='../organizer/event-details.php'>";
+                  echo "<a href='../organizer/event-details.php?$event_id'>";
                 }
                 elseif($userdata['user_privilege']=="participant"){
-                  echo "<a href='../participant/event-details.php'>";
+                  echo "<a href='../participant/event-details.php?$event_id'>";
                 }
                 else{
                   echo "<a>";

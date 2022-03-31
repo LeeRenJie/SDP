@@ -31,6 +31,17 @@ body{
   padding-bottom: 100px;
 }
 
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1200px;
+}
+
+.infront{
+  z-index: 2;
+}
+
 .back-shadow {
   box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
 }
@@ -149,7 +160,7 @@ select,option{
 }
 
 .btn_size{
-  width: 200px;
+  width: 200px !important;
   border-radius: 50px !important;
 }
 

@@ -142,15 +142,3 @@ body{
 .btn-size{
   margin-top: 100px;
 }
-
-.save:hover{
-  box-shadow:  4px 4px 10px #b8b9be,  -6px -6px 14px #FFFFFF;
-  width: 180px;
-  margin-left: -20px;
-}
-
-.discard:hover{
-  box-shadow:  4px 4px 10px #b8b9be,  -6px -6px 14px #FFFFFF;
-  width: 120px;
-  margin-right: 60px;
-}
