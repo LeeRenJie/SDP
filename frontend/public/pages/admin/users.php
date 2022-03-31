@@ -1,28 +1,6 @@
 <?php
   //Connection to Database
   include("../../../../backend/conn.php");
-  //$tableName  = 'user';
-  //$backupFile = "D:/wamp64/tmp/$tableName.sql";
-  //echo $backupFile;
-  if (isset($_POST['backupBtn']))
-  {
-    //end of toast message
-
-    //$tableName  = 'user';
-    //$backupFile = "D:/wamp64/tmp/$tableName.sql";
-    //$query      = "SELECT * INTO OUTFILE '$backupFile' FROM $tableName";
-    //$result = mysqli_query($con,$query);
-    //SELECT * INTO OUTFILE 'D:/wamp64/tmp/all.sql' FROM user, admin, comment, criteria, event, judge,judgement_list,judges_list,organizer,participant,privilege,prize,prizes_list,result,rule,rules_list,score,score_list,team_list
-  }
-  if (isset($_POST['restoreBtn']))
-  {
-    //end of toast message
-
-    //$tableName  = 'user';
-    //$backupFile = "D:/wamp64/tmp/$tableName.sql";
-    //$query      = "LOAD DATA INFILE '$backupFile' INTO TABLE $tableName";
-    //$result = mysqli_query($con, $query);
-  }
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +30,7 @@
 	    			<div class="row first_row">
               <!--Return Page icon-->
               <div onclick="history.back()" class="col-2">
-                <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
+                <i class="animate-up-2 fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
               </div>
               <!--Spacing-->
               <div class="col-4">

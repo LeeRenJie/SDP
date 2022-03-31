@@ -14,8 +14,8 @@
   };
 
 
-  if(isset($POST["createBtn"])){
-    echo("<script>alert('Create event button clicked')</script>");
+  if(isset($_POST["createBtn"])){
+    $validated = TRUE;
     // get the data from the form
     // loop through event rules array to input same input name into database
     $rules = $_POST["rule"];
@@ -31,10 +31,25 @@
         if($rule_result){
           // get last inserted rule id
           $last_rule_id = mysqli_insert_id($con);
+          // get max id of rule list in database
+          $max_rule_list_sql = "SELECT MAX(rules_list_id) as max_rule_list_id FROM rules_list";
+          $max_rule_list_result = mysqli_query($con, $max_rule_list_sql);
+          $max_id_row=mysqli_fetch_array($max_rule_list_result);
+          $max_rl_id = $max_id_row['max_rule_list_id'] + 1;
           // insert the rule id into the rule list
-          $rule_list_sql = "INSERT INTO rules_list (rule_id) VALUES ('$last_rule_id')";
+          $rule_list_sql = "INSERT INTO rules_list (rules_list_id, rule_id) VALUES ('$max_rl_id', '$last_rule_id')";
           // get result
           $rule_list_result = mysqli_query($con, $rule_list_sql);
+
+          // get last inserted rules_list_id
+          if($rule_list_result){
+            $rules_list_id = mysqli_insert_id($con);
+            echo('<script>alert("rules added successfully"</script>');
+          }//If the sql fail, notify user
+          else{
+            die('Error: ' . mysqli_error($con));
+          };
+
         };
       };
     }
@@ -49,55 +64,96 @@
         $rule_list_sql = "INSERT INTO rules_list (rule_id) VALUES ('$last_rule_id')";
         // get result
         $rule_list_result = mysqli_query($con, $rule_list_sql);
+
+        // get last inserted rules_list_id
+        if($rule_list_result){
+          $rules_list_id = mysqli_insert_id($con);
+          echo('<script>alert("rules added successfully"</script>');
+        }//If the sql fail, notify user
+        else{
+          die('Error: ' . mysqli_error($con));
+        };
+
       };
     };
-    // get last inserted rules_list_id
-    if($rule_list_result){
-      $rules_list_id = mysqli_insert_id($con);
-    }
 
 
     // loop through event judges array to input same input name into database
     $judges = $_POST["judge"];
     $number_judges = count($_POST["judge"]);
     if ($number_judges > 0) {
+      // loop through the array
       foreach ($judges as $judge) {
-        // GENERATE UNIQUE CODE
-        $judge_sql = "INSERT INTO judge (judge_name, unique_code) VALUES '$judge', '$uniqueCode'";
+        // insert the judge into the database
+        $judge_sql = "INSERT INTO judge (judge) VALUES '$judge'";
+        // get result
         $judge_result = mysqli_query($con, $judge_sql);
         // check if the query is successful
         if($judge_result){
-          // get last inserted rule id
+          // get last inserted judge id
           $last_judge_id = mysqli_insert_id($con);
-          // insert the rule id into the rule list
-          $judge_list_sql = "INSERT INTO judges_list (judge_id) VALUES ('$judge_id')";
+          // get max id of judges list in database
+          $max_judge_list_sql = "SELECT MAX(judges_list_id) as max_judge_list_id FROM judges_list";
+          $max_judge_list_result = mysqli_query($con, $max_judge_list_sql);
+          $max_id_row=mysqli_fetch_array($max_judge_list_result);
+          $max_jl_id = $max_id_row['max_judge_list_id'] + 1;
+          // insert the judge id into the judge list
+          $judge_list_sql = "INSERT INTO judges_list (judges_list_id, judge_id) VALUES ('$max_jl_id','$last_judge_id')";
           // get result
           $judge_list_result = mysqli_query($con, $judge_list_sql);
+
+          // get last inserted judges_list_id
+          if($judge_list_result){
+            $judges_list_id = mysqli_insert_id($con);
+            echo('<script>alert("judges added successfully"</script>');
+          }//If the sql fail, notify user
+            else{
+              die('Error: ' . mysqli_error($con));
+          };
+
         };
       };
     }
     else{
-      // Insert SQL statement for judge to enter one by one to insert one judge
-      $judge_sql = "INSERT INTO judge (judge_name, unique_code) VALUES '$judges[0]', '$uniqueCode'";
+      $judge_sql = "INSERT INTO judge (judge) VALUES '$judges[0]'";
       $judge_result = mysqli_query($con, $judge_sql);
+      // check if the query is successful
       if($judge_result){
-        // get last inserted rule id
+        // get last inserted judge id
         $last_judge_id = mysqli_insert_id($con);
-        // insert the rule id into the rule list
-        $judge_list_sql = "INSERT INTO judges_list (judge_id) VALUES ('$judge_id')";
+        // insert the judge id into the judge list
+        $judge_list_sql = "INSERT INTO judges_list (judge_id) VALUES ('$last_judge_id')";
         // get result
         $judge_list_result = mysqli_query($con, $judge_list_sql);
+
+        // get last inserted judges_list_id
+        if($judge_list_result){
+          $judges_list_id = mysqli_insert_id($con);
+          echo('<script>alert("judges added successfully"</script>');
+        }//If the sql fail, notify user
+          else{
+            die('Error: ' . mysqli_error($con));
+        };
+
       };
     };
-    // get last inserted judges_list_id
-    if($judge_list_result){
-      $judges_list_id = mysqli_insert_id($con);
-    }
 
     // loop through event prizes array to input same input name into database
     $prizes = $_POST["prize"];
+    foreach($prizes as $key => $prize){
+      if($key == 0){
+        $first_prize = $prize;
+      }
+      elseif($key == 1){
+        $second_prize = $prize;
+      }
+      elseif($key == 2){
+        $third_prize = $prize;
+      }
+    }
     // check if prizes are from biggest to smallest
-    if([$prizes][0] <= [$prizes][1] OR [$prizes][0] < [$prizes][2] OR [$prizes][1] < [$prizes][2] ){
+    if($first_prize <=$second_prize OR $first_prize < $third_prize OR $second_prize < $third_prize){
+      $validated = FALSE;
       echo('
         <div class="position-absolute bottom-2.5 right-2.5 z-10">
           <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -118,48 +174,54 @@
     else{
       // if pass validation insert each prize into database
       foreach ($prizes as $prize) {
-      // $sql = "INSERT INTO event_prize (event_id, prize_name) VALUES ('$eventId', '$prizeName')";
         $prize_sql = "INSERT INTO event_prize (prize) VALUES ('$prize')";
         $prize_result = mysqli_query($con, $prize_sql);
         // check if the query is successful
         if($prize_result){
-          // get last inserted rule id
+          // get last inserted prize id
           $last_prize_id = mysqli_insert_id($con);
-          // insert the rule id into the rule list
-          $prizes_list_sql = "INSERT INTO prizes_list (prize_id) VALUES ('$prize_id')";
+          // get max id of prizes list in database
+          $max_prize_list_sql = "SELECT MAX(prizes_list_id) as max_prize_list_id FROM prizes_list";
+          $max_prize_list_result = mysqli_query($con, $max_prize_list_sql);
+          $max_id_row=mysqli_fetch_array($max_prize_list_result);
+          $max_pl_id = $max_id_row['max_prize_list_id'] + 1;
+          // insert the prize id into the prize list
+          $prizes_list_sql = "INSERT INTO prizes_list (prizes_list_id, prize_id) VALUES ('$max_pl_id','$prize_id')";
           // get result
           $prizes_list_result = mysqli_query($con, $prizes_list_sql);
+          // get last inserted prizes_list_id
+          if($prizes_list_result){
+            $prizes_list_id = mysqli_insert_id($con);
+            echo('<script>alert("prizes added successfully"</script>');
+          }//If the sql fail, notify user
+          else{
+            die('Error: ' . mysqli_error($con));
+          };
         };
       };
     };
-    // get last inserted judges_list_id
-    if($prizes_list_result){
-      $prizes_list_id = mysqli_insert_id($con);
-    }
 
     // get event picture name
     $eventPic = $_FILES['eventPic']['tmp_name'];
     if ($_FILES['eventPic']['size'] > 0){
-        //get image type
-        $imageFileType = strtolower(pathinfo($eventPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-        //encode image into base64
-        $base64_Img = base64_encode(file_get_contents($eventPic));
-        //set image content with type and base64
-        $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
-    } else {
-        // event pic is null if no image is uploaded
-        $eventPic = NULL;
+      //get image type
+      $imageFileType = strtolower(pathinfo($eventPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+      //encode image into base64
+      $base64_Img = base64_encode(file_get_contents($eventPic));
+      //set image content with type and base64
+      $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
+    }
+    else {
+      // event pic is null if no image is uploaded
+      $eventPic = NULL;
     }
 
-    // get event name
-    $eventName = $_POST["event-name"];
-    // get event description
-    $eventDescription = $_POST["event-description"];
     // get event date
     $eventDate = $_POST["event-date"];
     // validation if event date is after today's date
     $today = strtotime(date("d/m/Y"));
     if (strtotime($eventDate) < $today) {
+      $validated = FALSE;
       echo('
           <div class="position-absolute bottom-2.5 right-2.5 z-10">
             <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -177,22 +239,82 @@
           </div>
       ');
     };
+
     // get event start time
     $eventStartTime = $_POST["event-start-time"];
     // get event end time
     $eventEndTime = $_POST["event-end-time"];
     // Validation to check if end time is after start time
+    if (strtotime($eventEndTime) < strtotime($eventStartTime)) {
+      $validated = FALSE;
+      echo('
+          <div class="position-absolute bottom-2.5 right-2.5 z-10">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                <strong class="mr-auto ml-2">Validation Warning</strong>
+                <small class="text-gray">now</small>
+                <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                Please select an end time that is after the start time.
+              </div>
+            </div>
+          </div>
+      ');
+    };
 
     // get event max participant/team
     $maxPeople = $_POST["max-people"];
+    if(!preg_match("/^[0-9]*$/", $maxPeople)){
+      $validated = FALSE;
+      echo('
+        <div class="position-absolute bottom-2.5 right-2.5 z-10">
+          <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header text-dark">
+              <strong class="mr-auto ml-2">Validation Warning</strong>
+              <small class="text-gray">now</small>
+              <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Please only type numeric value for max participants or team.
+            </div>
+          </div>
+        </div>
+      ');
+    };
+
     // get event participant type
     $participantType = $_POST['participant-type'];
     $participantType == "solo" ? $participantType="solo" : $participantType="team";
     // if solo max member per team is one, if team get max member per team
     if ($participantType == "solo"){
       $maxMembers = 1;
-    } else {
+    }
+    else {
       $maxMembers = $_POST["max-members"];
+      if(!preg_match("/^[0-9]*$/", $maxMembers)){
+        $validated = FALSE;
+        echo('
+          <div class="position-absolute bottom-2.5 right-2.5 z-10">
+            <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-dark">
+                <strong class="mr-auto ml-2">Validation Warning</strong>
+                <small class="text-gray">now</small>
+                <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                Please only type numeric value for max members per team.
+              </div>
+            </div>
+          </div>
+        ');
+      }
     };
 
     // Get organizer id
@@ -206,32 +328,49 @@
     }
 
     // Create event SQL statement
-    $event_sql = "INSERT INTO event (rules_list_id, prizes_list_id, judges_list_id,
-            organizer_id, event_name, start_time, end_time, event_description,
-            event_date, event_picture, participant_type, max_member, max_team, active)
-            VALUES ('$rules_list_id', '$prizes_list_id', '$judges_list_id', '$organizer_id',
-            '$eventName', '$eventStartTime', '$eventEndTime', '$eventDescription', '$eventDate',
-            '$eventPic', '$participantType', '$maxMembers', '$maxPeople', '1')";
-    // get result
-    $event_result = mysqli_query($con, $event_sql);
-    if ($event_result){
-      // get last inserted event id
-      $event_id = mysqli_insert_id($con);
-      // loop through event criteria array to input same input name into database
-      $criteria = $_POST["criteria"];
-      $number_criteria = count($_POST["criteria"]);
-      if ($number_criteria > 0) {
-        foreach ($criteria as $criterion) {
-          // Insert SQL statement for criterion to enter one by one
-          $criterion_sql = "INSERT INTO criterion (event_id, criteria_name) VALUES '$event_id', '$criterion'";
-          $criterion_result = mysqli_query($con, $criterion_sql);
+    if($validated){
+      // get event name
+      $eventName = $_POST["event-name"];
+      // get event description
+      $eventDescription = $_POST["event-description"];
+
+      $event_sql = "INSERT INTO event (rules_list_id, prizes_list_id, judges_list_id,
+                    organizer_id, event_name, start_time, end_time, event_description,
+                    event_date, event_picture, participant_type, max_member, max_team, active)
+                    VALUES ('$rules_list_id', '$prizes_list_id', '$judges_list_id', '$organizer_id',
+                    '$eventName', '$eventStartTime', '$eventEndTime', '$eventDescription', '$eventDate',
+                    '$eventPic', '$participantType', '$maxMembers', '$maxPeople', '1')";
+      // get result
+      $event_result = mysqli_query($con, $event_sql);
+
+      if ($event_result){
+        // get last inserted event id
+        echo('<script>alert("judges added successfully"</script>');
+        $event_id = mysqli_insert_id($con);
+        // loop through event criteria array to input same input name into database
+        $criteria = $_POST["criteria"];
+        $number_criteria = count($_POST["criteria"]);
+        if ($number_criteria > 0) {
+          foreach ($criteria as $criterion) {
+            // Insert SQL statement for criterion to enter one by one
+            $criterion_sql = "INSERT INTO criterion (event_id, criteria_name) VALUES '$event_id', '$criterion'";
+            $criterion_result = mysqli_query($con, $criterion_sql);
+          };
         };
-      };
-      // check if the query is successful
-      if($criterion_result){
-        echo('<script>alert("event successfully created"</script>');
-        header("Location: ../../../organizer/event-details.php?event_id=$event_id");
-      };
+        // check if the query is successful
+        if($criterion_result){
+          echo('<script>alert("criteria successfully created"</script>');
+          header("Location: ../../../organizer/event-details.php?$event_id");
+        }
+        //If the sql fail, notify user
+        else{
+          die('Error: ' . mysqli_error($con));
+        }
+      }
+      //If the sql fail, notify user
+      else{
+        die('Error: ' . mysqli_error($con));
+      }
     };
   };
 ?>
@@ -257,17 +396,19 @@
         </span>
         <h1 class="py-2 inline-block"><b>Tell Us About Your Event</b></h1>
       </div>
-      <div class="text-center img-container ml-5">
-        <label for=imageUpload>
-          <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"
-          data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="image" alt="Event Image">
-        </label>
-      </div>
-      <div class="h-0 overflow-hidden">
-        <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
-      </div>
-      <label class="grey-button ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
-      <form class="row pl-5 mt-3 form-container">
+      <form method="post" class="row pl-5 mt-3 form-container">
+        <div class="text-center img-container ml-5">
+          <label for=imageUpload>
+            <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"
+            data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="img" alt="Event Image">
+          </label>
+        </div>
+
+        <div class="h-0 overflow-hidden">
+          <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
+        </div>
+        <label class="btn btn-primary ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
+
         <div class="col-6">
           <div class="form-group mb-4">
             <label for="event">Event Name</label>
@@ -388,7 +529,7 @@
         </div>
 
         <div class="d-flex justify-content-end mt-2">
-          <button class="btn btn-primary animate-up-2 mr-2" type="submit" name="createBtn">Create</button>
+          <input class="btn btn-primary animate-up-2 mr-2" type="submit" name="createBtn" value="Create">
         </div>
       </form>
     </div>

@@ -76,6 +76,7 @@
               </div>
             </div>
           </form>
+          <a href="../organizer/create-event.php" class="float-right btn btn-primary mr-5 cursor-pointer" >Create an event</a>
         </div>
         <?php
         if($number_row == 0){
@@ -99,7 +100,7 @@
         ?>
         <!-- Event Details -->
         <div class="event-con">
-          <a href=""> <!--href to event-->
+          <a href="../organizer/event-details.php?<?=$row['event_id']?>"> <!--href to event-->
             <button class="btn btn-primary animate-up-2" type="button">
               <div class="event-con">
                 <div class="col-8">

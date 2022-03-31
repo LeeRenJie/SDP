@@ -62,6 +62,13 @@
     // Execute the query
     $total_organized = mysqli_query($con, $find_event_query);
     $total_organized_num = mysqli_fetch_assoc($total_organized);
+
+    $organized_event = "SELECT * FROM event
+    INNER JOIN organizer ON organizer.organizer_id = event.organizer_id
+    INNER JOIN user ON user.user_id = organizer.user_id
+    WHERE user.user_id = $userid
+    ORDER BY event_date ASC";
+    $organized_event_run = mysqli_query($con, $organized_event);
   }
   //for admin
   elseif ($privilege_id == '1'){
@@ -124,6 +131,7 @@
   <script src="https://kit.fontawesome.com/d7affc88cb.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../../src/stylesheets/participant-view-profile.css">
   <link rel="stylesheet" href="../../../src/stylesheets/view-event.css">
+  <link rel="stylesheet" href="../../../src/stylesheets/admin-profile.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link type="text/css" href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
   <title>Profile</title>
@@ -134,20 +142,11 @@
   <?php include '../shared/sidebar.php';?>
   <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
     <div class="cont">
-      <!--row above-->
-      <div class="btn-row">
-        <!--container for back btn-->
-        <div class="">
-          <a onclick="history.back()">
-            <i class="fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
-          </a>
-        </div>
-        <div class="btn-size">
-        </div>
-      </div>
       <div class="row mb-1 mb-5">
         <div class="col-2">
-          <p class="d-none">hidden</p>
+          <div class="w-50" onclick="history.back()">
+            <i class="animate-up-2 fa-solid fa-circle-arrow-left fa-2xl m-5"></i>
+          </div>
         </div>
         <!--profile container-->
         <div class="col-2 profile-col">
@@ -388,6 +387,95 @@
           </div>
         </div>
       <!--add if close statement here-->
+      <?php
+        }
+        elseif ($privilege_id == '2')
+        {
+      ?>
+          <div class="row second_row">
+            <div class="col">
+              <!-- Tab Nav -->
+              <div class="nav-wrapper position-relative mb-4">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row cancel-box-shadow" id="tabs-icons-text" role="tablist">
+                  <li class="nav-item cancel-box-shadow">
+                    <a class="nav-link mb-sm-3 mb-md-0 active enlarge-content" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa-solid fa-calendar-days"></i>Events Organized</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- End of Tab Nav -->
+              <!-- Tab Content -->
+              <div class="card shadow-inset bg-primary border-light p-4 rounded ">
+                <div class="card-body p-0">
+                  <div class="tab-content" id="tabcontent2">
+                    <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                      <div class="content-cont">
+                        <!--loop all participated event-->
+                        <?php
+                        if(mysqli_num_rows($organized_event_run) > 0)
+                        {
+                          foreach($organized_event_run as $event_query) // Run SQL query
+                          {
+                          //get number of judge 
+                          $evt_id = intval($event_query['event_id']);
+                          
+                          $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
+                          INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
+                          INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id
+                          WHERE judges_list.judges_list_id = event.judges_list_id
+                          AND event.event_id = $evt_id";
+                          $num_judge_query = mysqli_query($con, $judge_query);
+                          // Fetch data
+                          $num_judge = mysqli_fetch_assoc($num_judge_query);
+                        ?>
+                          <div class="event-cont col-12 pb-3">
+                            <a href='../participant/event-details.php'>
+                              <button class="btn btn-primary animate-up-2" type="button">
+                                <div class="event-cont">
+                                  <div class="col-8">
+                                    <div class="title-con">
+                                      <h2><?php echo ($event_query['event_name']);?></h2> <!--change event name-->
+                                      <div class="status-con"> <!--change event status-->
+                                        <?php
+                                          if($event_query['event_date']>$current_date){
+                                            echo "<small class='status-on'>Active</small>";
+                                          }
+                                          else{
+                                            echo "<small class='status-off'>End</small>";
+                                          }
+                                        ?>
+                                      </div>
+                                    </div>
+                                    <div class="details-con"> <!--event info-->
+                                      <div class="info-con">
+                                        <p>Date: <?php echo ($event_query['event_date'])?> </p>
+                                        <p>Judges : <?php echo $num_judge['COUNT(judge.judge_id)']?> </p>
+                                      </div>
+                                      <div class="info-con">
+                                        <p>Time: <?php echo ($event_query['start_time'])?> ~ <?php echo ($event_query['end_time'])?> </p>
+                                        <p>Participant : <?php echo ($event_query['max_team'])?></p>
+                                      </div>
+                                    </div> <!--info-->
+                                  </div>
+                                  <div class="col-4">
+                                    <i class="icon-size fa-solid fa-angle-right"></i>
+                                  </div>
+                                </div>
+                              </button>
+                            </a>
+                          </div><!--event-con-->
+                        <?php
+                          }
+                        }
+                        ?>
+                      </div> <!--content-cont-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End of Tab Content -->
+            </div>
+          </div>
+
       <?php
         }
       ?>
