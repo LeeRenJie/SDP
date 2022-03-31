@@ -12,6 +12,11 @@
   //get event id from url
   $event_id = intval($_SERVER['QUERY_STRING']);
 
+  //if no event id
+  if($event_id == 0){
+    echo("<script>window.location = '../shared/view-event.php'</script>");
+  }
+  
   //Query to get all event data
   $event_query = "SELECT * FROM event
                   INNER JOIN organizer ON event.organizer_id = event.organizer_id
@@ -29,6 +34,8 @@
   $user_query_run = mysqli_query($con, $user_query);
   // Fetch data
   $userdata = mysqli_fetch_assoc($user_query_run);
+  //close connection
+  mysqli_close($con);
 ?>
 <!DOCTYPE html>
 <html lang="en">

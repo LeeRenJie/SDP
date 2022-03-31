@@ -235,8 +235,8 @@
                 </div>
               </div>
               <div class="btn-size">
-                <input class="btn discard d-none" id="button" value="Discard" onclick="discard()">
-                <input class="btn save d-none" id="button1" type="submit" value="Save" name="saveInfoBtn">
+                <input class="btn discard d-none animate-up-2" id="button" value="Discard" onclick="discard()">
+                <input class="btn save d-none animate-up-2" id="button1" type="submit" value="Save" name="saveInfoBtn">
               </div>
             </div>
           </div>
