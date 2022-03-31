@@ -116,7 +116,7 @@
     $participantType = $_POST['participant-type'];
     $participantType == "solo" ? $participantType="solo" : $participantType="team";
     // if solo max member per team is one, if team get max member per team
-    if (isset($_POST['name'])) {
+    if (isset($_POST['max-members'])) {
       $maxMembers = $_POST["max-members"];
     }
     else{
@@ -463,14 +463,15 @@
         <div class="col-6" id="participant-type">
           <div class="form-group mb-4">
             <label for="participant-type">Participant Type</label>
-            <select class="custom-select" id="particpant-type" name="participant-type" placeholder="Choose...">
+            <select class="custom-select" id="participant-select" name="participant-type" placeholder="Choose..." onchange="disp_sec()">
+                <option value="">Please select...</option>
                 <option value="solo">Solo</option>
                 <option value="team">Team</option>
             </select>
           </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 d-none" id="max-member-input">
           <div class="form-group mb-4" >
             <label for="description">Max members</label>
             <input type="text" class="form-control input-disabled" id="max-member" name="max-members" placeholder="Maximum number of members per team..." disabled>
@@ -616,6 +617,19 @@
         picture.readAsDataURL(event.target.files[0]);
       };
     };
+
+    function disp_sec() {
+      var option_value = document.getElementById('participant-select'); //get select id
+      var opvalue = option_value.options[option_value.selectedIndex].value; //read value
+      if (opvalue === "team"){ //if value = team remove class and add class
+        document.getElementById('max-member-input').classList.remove("d-none");
+        document.getElementById('max-member').setAttribute('required', 'required');
+      }
+      else if (opvalue === "solo"){ //if value = solo remove class and add class
+        document.getElementById('max-member-input').classList.add("d-none");
+        document.getElementById('max-member').setAttribute('required', '');
+      }
+    }
   </script>
 </body>
 </html>
