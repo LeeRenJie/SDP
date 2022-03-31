@@ -280,16 +280,22 @@
           }
           else {
           ?>
-            <div class="row">
-            Not found
-          </div>
+            <div class="title-container">
+              <div class="title-img-container">
+                <img src="../../images/not-found.png" alt="title image" class="title-img">
+                <img src="../../images/error.png" alt="title people image" class="title-cross bounce">
+              </div>
+            </div>
           <?php
           };
         }
         else {
         ?>
-          <div class="row">
-            Insert Unique Code
+          <div class="title-container">
+            <div class="title-img-container">
+              <img src="../../images/trophy.png" alt="title image" class="title-img">
+              <img src="../../images/get.png" alt="title people image" class="title-ppl bounce">
+            </div>
           </div>
         <?php
         }
