@@ -73,8 +73,9 @@
           $query_team_info = "SELECT * FROM team_list
                         WHERE unique_code = '$search_key'"; //
           $run_team_info = mysqli_query($con, $query_team_info);
+          $row_team_info = intval(mysqli_num_rows($run_team_info));
           $team_info = mysqli_fetch_assoc($run_team_info);
-
+          if($row_team_info > 0){
           //get all criteria
           $query_cri_info = "SELECT * FROM criteria
           INNER JOIN event ON criteria.event_id = event.event_id
@@ -276,7 +277,16 @@
             </div>
           </div> <!--row-->
         <?php
-        }else {
+          }
+          else {
+          ?>
+            <div class="row">
+            Not found
+          </div>
+          <?php
+          };
+        }
+        else {
         ?>
           <div class="row">
             Insert Unique Code
