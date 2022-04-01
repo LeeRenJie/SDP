@@ -155,7 +155,7 @@
           echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
             echo $event_id;
           echo "\">End</a>";
-          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
+          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
             echo $event_id;
             echo "\" onClick=\"return confirm('Delete ";
               echo $event_name;

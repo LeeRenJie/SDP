@@ -297,7 +297,7 @@
         </div>
 
         <div class="d-flex justify-content-end mt-2">
-          <input class="btn btn-primary w-20 animate-up-2 mr-2" type="submit" name="editBtn" value="Edit">
+          <input class="btn btn-primary w-20 animate-up-2 mr-2" type="submit" name="editBtn" value="Save">
         </div>
       </form>
     </div>

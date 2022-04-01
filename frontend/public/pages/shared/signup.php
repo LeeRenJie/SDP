@@ -104,7 +104,7 @@ if (isset($_POST['registerBtn'])) {
           <div class="form-group mb-3 px-5 pt-3">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" placeholder="Enter your username for the system.." required="required" maxlength="50" autofocus>
-            <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
+            <small id="emailHelp" class="form-text text-muted">Username will be converted to lower case</small>
           </div>
           <div class="form-group mb-3 px-5 pt-3">
             <label for="name">Name</label>
