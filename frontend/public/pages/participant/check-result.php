@@ -6,25 +6,6 @@
   if(!isset($_SESSION)) {
     session_start();
   }
-  //get user id from url
-  $userid = $_SESSION['user_id'];
-
-  //Query to get all data
-  $user_query = "SELECT * FROM team_list
-  INNER JOIN event ON event.event_id = team_list.event_id
-  INNER JOIN criteria ON criteria.event_id = event.event_id
-  INNER JOIN score ON score.criteria_id = criteria.criteria_id
-  INNER JOIN score_list ON score_list.score_id = score.score_id
-  INNER JOIN judgement_list ON judgement_list.score_list_id = score_list.score_list_id
-  INNER JOIN comment ON judgement_list.comment_id = comment.comment_id
-  INNER JOIN result ON result.judgement_list_id = judgement_list.judgement_list_id
-  WHERE team_list.participant_id = 1
-  AND team_list.event_id = 1";
-  // Execute the query
-  $user_query_run = mysqli_query($con, $user_query);
-  // Fetch data
-  $userdata = mysqli_fetch_assoc($user_query_run);
-
 ?>
 
 <!DOCTYPE html>

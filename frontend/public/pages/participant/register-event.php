@@ -286,7 +286,7 @@
                         echo '<label for="team-role" class="col-sm-6 col-form-label">';
                           echo 'Team Role ';
                         echo '</label>';
-                        echo '<select name="option_value" class="custom-select col-sm-6 btn sel" id="team_role">';
+                        echo '<select name="option_value" class="custom-select col-sm-6 btn sel" onchange="disp_sec()" id="team_role">';
                           echo '<option class="al" value="" disabled selected>Please Select</option>';
                           echo '<option class="al" value="leader">Leader</option>';
                           echo '<option class="al" value="member">Member</option>';
@@ -368,6 +368,22 @@
     mysqli_close($con);
   ?>
   <script>
+    function disp_sec() {
+      var option_value = document.getElementById('team_role'); //get select id
+      var opvalue = option_value.options[option_value.selectedIndex].value; //read value
+      if (opvalue === "leader"){ //if value = leader remove class and add class
+        document.getElementById('div_team_name').classList.remove("d-none");
+        document.getElementById('div_unique_code').classList.add("d-none");
+      }
+      else if (opvalue === "member"){ //if value = member remove class and add class
+        document.getElementById('div_team_name').classList.add("d-none");
+        document.getElementById('div_unique_code').classList.remove("d-none");
+      }
+      else{
+        document.getElementById('div_team_name').classList.add("d-none");
+        document.getElementById('div_unique_code').classList.add("d-none");
+      }
+    }
     var option_value = document.getElementById('team_role'); //get select id
     var opvalue = option_value.options[option_value.selectedIndex].value; //read value
     if (opvalue === "leader"){ //if value = leader remove class and add class

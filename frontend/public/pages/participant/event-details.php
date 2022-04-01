@@ -14,9 +14,9 @@
   $event_id = intval($_SERVER['QUERY_STRING']);
 
   //if no event id
-  // if($event_id == 0){
-  //   echo("<script>window.location = '../shared/view-event.php'</script>");
-  // }
+  if($event_id == 0){
+    echo("<script>window.location = '../shared/view-event.php'</script>");
+  }
 
   // get the individual event details
   $event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");
