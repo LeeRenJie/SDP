@@ -135,14 +135,6 @@ input[type="text"]::placeholder{
   animation: bounce 5s infinite linear;
 }
 
-.title-text {
-  position: absolute;
-  height: 300px;
-  width: 35%;
-  left: 100px;
-  bottom: 120px;
-}
-
 .item-con h2{
   text-align: center;
   font-weight:300;

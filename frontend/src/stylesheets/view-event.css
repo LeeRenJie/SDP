@@ -116,3 +116,48 @@ body{
   float: right;
   padding-right: 40px;
 }
+
+
+.title-container {
+  position: relative;
+  height: 600px;
+  width: 100%;
+}
+
+.title-img {
+  position: absolute;
+  z-index: 2;
+  right:30%;
+}
+
+.title-ppl{
+  position: absolute;
+  z-index: 3;
+  right:27%;
+  top:40px;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
+}
+
+.title-cross{
+  position: absolute;
+  z-index: 3;
+  right:30%;
+  top:10px;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0px)  }
+  25% { transform: translateY(-15px) }
+  50% { transform: translateY(0px) }
+  75% { transform: translateY(15px) }
+  100% { transform: translateY(0px) }
+}

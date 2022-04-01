@@ -141,6 +141,16 @@
               </div><!--event-con-->
       <?php
             }
+          } 
+          else {
+          ?>
+            <div class="title-container">
+              <div class="title-img-container">
+                <img src="../../images/no_search_event.png" alt="title image" class="title-img">
+                <img src="../../images/no_search_icon.png" alt="title people image" class="title-cross bounce">
+              </div>
+            </div>
+          <?php
           }
         }
         else{
@@ -219,7 +229,17 @@
                 </a>
               </div><!--event-con-->
       <?php
-            }
+            } //for each
+          }
+          else {
+          ?>
+            <div class="title-container">
+              <div class="title-img-container">
+                <img src="../../images/more-event-soon.png" alt="title image" class="title-img">
+                <img src="../../images/waiting.png" alt="title people image" class="title-cross bounce">
+              </div>
+            </div>
+      <?php
           }
         }
       ?>
