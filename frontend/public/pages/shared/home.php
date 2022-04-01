@@ -11,7 +11,7 @@
 <body>
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen home-container">
-    <div class="overflow-y-auto overflow-x-hidden basis-full">
+    <div class="overflow-y-auto overflow-x-hidden basis-full back-shadow">
       <section id="title" class="title-container">
         <div class="title-text">
           <h1 class="bold">Judging System</h1>

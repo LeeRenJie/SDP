@@ -13,6 +13,15 @@ if (isset($_POST['registerBtn'])) {
   $validation_query = "SELECT * FROM user WHERE privilege_id = '2' OR privilege_id = '3'";
   $validation_query_run = mysqli_query($con, $validation_query);
 
+  //Set default image
+  $defaultPic = "../../images/default.jpg";
+  //Read default image file type (as jpg)
+  $imageFileType = strtolower(pathinfo($defaultPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+  //Encode default image into base 64
+  $defaultImg = base64_encode(file_get_contents($defaultPic));
+  //create a format of blob image (base64)
+  $image = 'data:image/'.$imageFileType.';base64,'.$defaultImg;
+
   // form validation for username to prevent repeating
   if(mysqli_num_rows($validation_query_run) > 0)
   {
@@ -51,7 +60,7 @@ if (isset($_POST['registerBtn'])) {
             echo("Error description: " . mysqli_error($con));
           }
         } elseif ($privilege === 3) {
-          $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, NULL)";
+          $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, '$image')";
           $participant_result = mysqli_query($con, $participant_sql);
           if ($participant_result){
             echo("<script>alert('Registered as an participant');</script>");
@@ -85,16 +94,16 @@ if (isset($_POST['registerBtn'])) {
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-  <div class="overflow-auto h-screen">
+  <div class="overflow-auto h-screen back-shadow">
     <div class="d-flex justify-content-center signup-container pt-3">
-      <div class="card bg-primary border-light shadow-soft w-60 px-5">
+      <div class="border-light shadow-soft w-60 px-5">
         <div class="text-center">
           <h1 class="display-2 mt-4">Sign Up</h1>
         </div>
         <form method="post">
           <div class="form-group mb-3 px-5 pt-3">
             <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" placeholder="Enter your username for the system.." required="required" maxlength="50">
+            <input type="text" class="form-control" name="username" placeholder="Enter your username for the system.." required="required" maxlength="50" autofocus>
             <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
           </div>
           <div class="form-group mb-3 px-5 pt-3">
@@ -114,9 +123,9 @@ if (isset($_POST['registerBtn'])) {
             </select>
           </div>
           <div class="text-center mt-5">
-            <button class="btn btn-primary w-32 mr-4" type="reset">Clear</button>
-            <button type="submit" name="registerBtn" class="ml-4 w-32 btn btn-primary login-btn">Register</button>
-            <p class="link mt-3 text-muted">Have an account? Login <a href="../shared/login.php">here</a></p>
+            <button class="btn btn-primary w-32 mr-4 discard animate-up-2" type="reset">Clear</button>
+            <button type="submit" name="registerBtn" class="ml-4 w-32 btn btn-primary login-btn save animate-up-2">Register</button>
+            <p class="link mt-3 text-muted">Have an account? Login <a class="highlight" href="../shared/login.php">here</a></p>
           </div>
         </form>
       </div>

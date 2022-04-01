@@ -16,7 +16,7 @@
           session_start();
         }
         if (!isset($_SESSION['privilege'])){
-          
+
         }
         elseif ($_SESSION['privilege'] == 'admin'){
           ?>
@@ -73,9 +73,9 @@
               </a>
             </li>
             <li class="cursor-pointer">
-              <a href="../shared/about-us.php" class="sidebar-link">
+              <a href="../organizer/event-history.php" class="sidebar-link">
                 <i class="fa fa-question-circle"></i>
-                About Us
+                Event History
               </a>
             </li>
             <li class="cursor-pointer">
@@ -139,13 +139,13 @@
               <i class="fa fa-clipboard-list"></i>
                 Judgement
               </a>
-            </li> 
+            </li>
             <li class="cursor-pointer">
               <a href="../judge/overall-result.php" class="sidebar-link">
               <i class="fa fa-square-poll-vertical"></i>
                 Overall Result
               </a>
-            </li> 
+            </li>
             <li class="cursor-pointer">
               <a href="../shared/about-us.php" class="sidebar-link">
                 <i class="fa fa-question-circle"></i>

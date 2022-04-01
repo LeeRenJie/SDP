@@ -24,12 +24,16 @@ body{
 }
 .main-container{
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 0 auto;
 }
 
 .back-shadow {
   box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
+}
+
+.lft-con{
+  margin-bottom: 10% !important;
 }
 
 .main-container .lft-con{
@@ -40,11 +44,22 @@ body{
 .lft-con .name-card{
   height:40px;
   width:fit-content;
-  padding: 10px 20px 40px 20px; /*up right down left*/
+  padding: 10px 20px 30px 20px; /*up right down left*/
   /* container design */
   border-radius: 50px;
   /* -- */
   margin: 0 auto;
+}
+
+.infront{
+  z-index: 2;
+}
+
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1200px;
 }
 
 .lft-con .name-card h2{
@@ -88,7 +103,7 @@ body{
 
 .right-con{
   padding-top: 75px;
-  width: 350px;
+  width: 350px !important;
   margin: 0 auto;
 }
 
@@ -126,16 +141,4 @@ body{
 
 .btn-size{
   margin-top: 100px;
-}
-
-.save:hover{
-  box-shadow:  4px 4px 10px #b8b9be,  -6px -6px 14px #FFFFFF;
-  width: 180px;
-  margin-left: -20px;
-}
-
-.discard:hover{
-  box-shadow:  4px 4px 10px #b8b9be,  -6px -6px 14px #FFFFFF;
-  width: 120px;
-  margin-right: 60px;
 }

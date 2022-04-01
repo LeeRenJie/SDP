@@ -44,9 +44,20 @@ h1{
   box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #FFFFFF;
 }
 
+.infront{
+  z-index: 2;
+}
+
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1200px;
+}
+
 .img-container{
   width: 1120px;
-  height: 200px;
+  height: 500px;
   border-radius: 20px;
   padding-top: 10px;
 }
@@ -54,7 +65,7 @@ h1{
 .img-container .img-size {
   border-radius: 20px;
   width: 1100px;
-  height: 180px;
+  height: 480px;
   object-fit:cover;
 }
 
@@ -72,13 +83,26 @@ h1{
   border-color: #D1D9E6;
 }
 
-.description {
+.participated {
   border-radius: 20px;
-  width: 700px;
+  width: 150px;
   height: 210px;
   box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff;
   border-color: #D1D9E6;
   overflow: auto;
+}
+
+.participated p{
+  margin-top: 60px;
+}
+.description {
+  border-radius: 20px;
+  width: 540px;
+  height: 210px;
+  box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff;
+  border-color: #D1D9E6;
+  overflow: auto;
+  margin-left: -3%;
 }
 
 .prizes {
@@ -92,7 +116,7 @@ h1{
 }
 
 .rules {
-  width: 700px;
+  width: 710px;
   height: 250px;
   border-radius: 20px;
   box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #fff;
@@ -124,12 +148,10 @@ h1{
 }
 
 .btn_size{
-  width: 200px;
+  width: 300px;
   border-radius: 50px !important;
 }
 
 .btn_size:hover{
-  width: 300px;
-  font-family: "Times New Roman", Times, serif;
   color: #0fa046 !important;
 }

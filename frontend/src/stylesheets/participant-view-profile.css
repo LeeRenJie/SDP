@@ -35,16 +35,24 @@ body{
 .btn-row{
   display: flex;
   flex-direction: row;
-  height: 10px;
+  height: 15px;
   width: 1200px;
 }
 
 .btn-size{
   margin-left: auto;
-  margin-top: 1%;
+  margin-top: 2%;
   margin-right: -5%;
 }
 
+.top-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.infront{
+  z-index: 2;
+}
 .evt-dis-cont{
   display: flex;
   flex-direction: column;
@@ -314,7 +322,6 @@ img:hover{
 }
 
 .event-cont .title-con h2{
-  font-family: "Times New Roman", Times, serif;
   text-align: left;
   font-weight:600;
   font-size: 35px;
@@ -329,12 +336,10 @@ img:hover{
 }
 
 .event-cont .title-con .status-con .status-on{
-  font-family: "Times New Roman", Times, serif;
   color: #0fa046 !important;
 }
 
 .event-cont .title-con .status-con .status-off{
-  font-family: "Times New Roman", Times, serif;
   color: #c51f2f !important;
 }
 
@@ -344,7 +349,6 @@ img:hover{
 }
 
 .details-con .info-con p{
-  font-family: "Times New Roman", Times, serif;
   padding: 5px 40px 0px 20px;
   font-size: 14px;
   width: 200px;
@@ -364,3 +368,9 @@ img:hover{
   overflow: auto;
 }
 
+.no-event{
+  width: 800px !important;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 6%;
+}

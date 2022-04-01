@@ -1,3 +1,42 @@
+<?php
+  //Connection to Database
+  include("../../../../backend/conn.php");
+  include("../../../../backend/session.php");
+  // start the session
+  if(!isset($_SESSION)) {
+    session_start();
+  }
+
+  //get user id from url
+  $userid = $_SESSION['user_id'];
+  //get event id from url
+  $event_id = intval($_SERVER['QUERY_STRING']);
+
+  //if no event id
+  if($event_id == 0){
+    echo("<script>window.location = '../shared/view-event.php'</script>");
+  }
+  
+  //Query to get all event data
+  $event_query = "SELECT * FROM event
+                  INNER JOIN organizer ON event.organizer_id = event.organizer_id
+                  INNER JOIN user ON organizer.user_id = user.user_id
+                  WHERE event.event_id = $event_id ";
+  $run_event_query = mysqli_query($con, $event_query);
+  $event_data = mysqli_fetch_assoc($run_event_query);
+
+  $user_query = "SELECT * FROM team_list
+  INNER JOIN participant ON participant.participant_id = team_list.participant_id
+  INNER JOIN user ON participant.user_id = user.user_id
+  WHERE event_id =' $event_id'
+  AND user.user_id = '$userid'";
+  // Execute the query
+  $user_query_run = mysqli_query($con, $user_query);
+  // Fetch data
+  $userdata = mysqli_fetch_assoc($user_query_run);
+  //close connection
+  mysqli_close($con);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +55,15 @@
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <div class="main-container">
+        <div class ="btn-row">
+          <div class="infront">
+            <a href='../shared/view-event.php'>
+              <button class="btn btn-primary animate-up-2 btn_cont fa-2xl m-5" type="button">
+                <i class="fa-solid fa-house "></i>
+              </button>
+            <a>
+          </div>
+        </div>
         <div class="details-cont">
           <h2>Your Registration is Completed</h2>
           <div class="col-box">
@@ -25,7 +73,7 @@
                   Event Name
                 </label>
                 <p class="col-sm-6 col-form-label" id="event-name" name="event-name">
-                  XXXXXXX
+                  <?php echo ($event_data['event_name'])?>
                 </p>
               </div>
               <div class="row">
@@ -33,7 +81,7 @@
                   Event Date
                 </label>
                 <p class="col-sm-6 col-form-label" id="event-date" name="event-date">
-                  dd/mm/yyyy
+                  <?php echo ($event_data['event_date'])?>
                 </p>
               </div>
               <div class="row">
@@ -41,23 +89,23 @@
                   Event Time
                 </label>
                 <p class="col-sm-6 col-form-label" id="event-time" name="event-time">
-                  00:00
+                  <?php echo ($event_data['start_time'])?>
                 </p>
               </div>
               <div class="row">
-                <label for="orgn-email" class="col-sm-6 col-form-label"> <!--event email, rmb add href-->
+                <label for="orgn-email" class="col-sm-6 col-form-label"> <!--event email-->
                   Organizer Email
                 </label>
                 <p class="col-sm-6 col-form-label" id="orgn-email" name="orgn-email">
-                  LEEYEEHAU@sample.mail
-                </p>
+                  <?php echo ($event_data['email'])?>
+                </p >
               </div>
               <div class="row">
                 <label for="orgn-tel" class="col-sm-6 col-form-label"> <!--event tel, add href-->
                   Organizer Telephone
                 </label>
                 <p class="col-sm-6 col-form-label" id="orgn-tel" name="orgn-tel">
-                  011-11112222
+                  <?php echo ($event_data['telephone'])?>
                 </p>
               </div>
             </div>
@@ -68,7 +116,7 @@
                 </label>
                 <div class="col-6">
                   <p class="col-sm col-form-label animate-up-2" id="unq-code" name="unq-code">
-                    ABCDE
+                    <?php echo ($userdata['unique_code'])?>
                   </p>
                 </div>
               </div>

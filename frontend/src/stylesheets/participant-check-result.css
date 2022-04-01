@@ -28,7 +28,7 @@ body{
   display:flex;
   flex-direction: column;
   margin-left: auto;
-  width: 1200px;
+  width: 1300px;
   align-items: center;
   padding-bottom: 65px;
 }
@@ -39,6 +39,17 @@ body{
   margin: 0 auto;
   padding: 10px 0px 10px 0px;
   font-weight: 500;
+}
+
+.infront{
+  z-index: 2;
+}
+
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1300px;
 }
 
 .back-shadow {
@@ -88,6 +99,42 @@ input[type="text"]::placeholder{
   margin-right: 20px;
 }
 
+.title-container {
+  position: relative;
+  height: 600px;
+  width: 100%;
+}
+
+.title-img {
+  position: absolute;
+  z-index: 2;
+  right:30%;
+}
+
+.title-ppl{
+  position: absolute;
+  z-index: 3;
+  right:27%;
+  top:50px;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
+}
+
+.title-cross{
+  position: absolute;
+  z-index: 3;
+  right:30%;
+  top:10px;
+  -webkit-animation: bounce 5s infinite linear;
+  -o-animation: bounce 5s infinite linear;
+  -ms-animation: bounce 5s infinite linear;
+  -moz-animation: bounce 5s infinite linear;
+  animation: bounce 5s infinite linear;
+}
+
 .item-con h2{
   text-align: center;
   font-weight:300;
@@ -134,3 +181,10 @@ input[type="text"]::placeholder{
   font-weight: 700;
 }
 
+@keyframes bounce {
+  0% { transform: translateY(0px)  }
+  25% { transform: translateY(-15px) }
+  50% { transform: translateY(0px) }
+  75% { transform: translateY(15px) }
+  100% { transform: translateY(0px) }
+}

@@ -51,6 +51,23 @@ body{
   margin-top: 40px;
 }
 
+.btn_cont{
+  height: 75px;
+  width: 75px;
+  border-radius: 50% !important;
+}
+
+.infront{
+  z-index: 2;
+}
+
+.btn-row{
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  width: 1200px;
+}
+
 .details-cont .col-box{
   display: flex;
   flex-direction: column;

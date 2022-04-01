@@ -72,26 +72,8 @@
                   //Run query to store each individual event into array
                   WHILE($prize_pool_row = mysqli_fetch_array($event_prize_pool_run))
                   {
-                    $arr_length = count($prize_pool_row) - 3;
-                    //var_dump($prize_pool_row); (debug)
-                    //echo $arr_length; (debug)
-                
-                    //loop to get event name 
-                    for ($x = 1; $x < $arr_length; $x+=3) {
-                      //echo  $prize_pool_row[$x] ; (debug)
-                      array_push($event_name, $prize_pool_row[$x]);
-                
-                      //access the top 1 first event per prize pool
-                      //echo $event_name[0];
-                    }
-                    //loop to get total prize pool per event
-                    for ($x = 2; $x < $arr_length; $x+=3) {
-                      //echo  $prize_pool_row[$x] ; (debug)
-                      array_push($prize_pool, $prize_pool_row[$x]);
-                
-                      //access the top 1 event's total prize pool
-                      //echo $prize_pool[0];
-                    }
+                    array_push($event_name, $prize_pool_row[1]);
+                    array_push($prize_pool, $prize_pool_row[2]);
                   }
 
                   $total_user_query = "SELECT COUNT(user_id) FROM user";
@@ -107,7 +89,7 @@
                   $total_prize_query_run = mysqli_query($con, $total_prize_query);
 
                   //retrieve time to calculate active events
-                  $time_query = "SELECT event_id, event_date, start_time, end_time FROM `event`";
+                  $time_query = "SELECT event_id, event_date, start_time, end_time FROM event";
                   $time_query_run = mysqli_query($con, $time_query); 
 
                   //create arrays to store start date,end date
@@ -122,22 +104,12 @@
                   date_default_timezone_set($timezone);
                   $DateAndTime = date('Y-m-d H:i:s ', time());  
 
-                  //find the number of rows returned by query
-                  $time_length = mysqli_num_rows($time_query_run);
+                  //use while loop to loop every row
                   WHILE($time_row = mysqli_fetch_array($time_query_run))
                   {
-                    //loop each array from query and store event date into event_date array
-                    for ($x = 1; $x < $time_length; $x+=4) {
-                      array_push($event_date, $time_row[$x]);      
-                    }
-                    //loop each array from query and store event start time into start_time array
-                    for ($x = 2; $x < $time_length; $x+=4) {
-                      array_push($start_time, $time_row[$x]);      
-                    }
-                    //loop each array from query and store event end time into end_time array
-                    for ($x = 3; $x < $time_length; $x+=4) {
-                      array_push($end_time, $time_row[$x]);      
-                    }
+                    array_push($event_date, $time_row[1]);   
+                    array_push($start_time, $time_row[2]);
+                    array_push($end_time, $time_row[3]);  
                   }
                   //convert int format time from phpmyadmin db into date format and store in start_date array
                   for ($i=0; $i < count($event_date) ; $i++) { 
@@ -239,41 +211,53 @@
                   <!--Use PHP to get Top 4 highest prize pool from the DB-->
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content">
                       <?php
-                        echo $event_name[0];
+                        if (mysqli_num_rows($event_prize_pool_run) > 0)
+                        {
+                          echo $event_name[0];
                       ?>
                     <span class="badge badge-gray badge-pill">
                       <?php
-                        echo $prize_pool[0];
+                          echo $prize_pool[0];
+                        }
                       ?>
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
                       <?php
-                        echo $event_name[1];
+                        if (mysqli_num_rows($event_prize_pool_run) > 1)
+                        {
+                          echo $event_name[1];
                       ?>
                     <span class="badge badge-gray badge-pill">
                       <?php
-                        echo $prize_pool[1];
+                          echo $prize_pool[1];
+                        }
                       ?>
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
                       <?php
-                        echo $event_name[2];
+                        if (mysqli_num_rows($event_prize_pool_run) > 2)
+                        {
+                          echo $event_name[2];
                       ?>
                     <span class="badge badge-gray badge-pill">
                       <?php
-                        echo $prize_pool[2];
+                          echo $prize_pool[2];
+                        }
                       ?>
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-1 px-0 font-small enlarge-content margin-list">
                       <?php
-                        echo $event_name[3];
+                        if (mysqli_num_rows($event_prize_pool_run) > 3)
+                        {
+                          echo $event_name[3];
                       ?>
                     <span class="badge badge-gray badge-pill">
                       <?php
-                        echo $prize_pool[3];
+                          echo $prize_pool[3];
+                        }
                       ?>
                     </span>
                   </li>
@@ -359,7 +343,15 @@
                   <?php
                     WHILE($total_prize_row = mysqli_fetch_array($total_prize_query_run))
                     {
-                      echo "RM" . $total_prize_row[0];
+                      echo "RM";
+                      if (isset($total_prize_row[0]))
+                      {
+                        echo $total_prize_row[0];
+                      }
+                      else
+                      {
+                        echo "0";
+                      }
                     }
                   ?> 
                 </p>

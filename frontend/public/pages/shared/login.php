@@ -17,7 +17,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($result=mysqli_query($con,$sql))  {
 	  // Return the number of rows in result set
     $rownum=mysqli_num_rows($result);
-
 	};
 
 
@@ -38,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   {
     $privilege_sql="SELECT * FROM privilege WHERE privilege_id='$privilege_id'";
     $privilege_result=mysqli_query($con,$privilege_sql);
-    
+
     while($privlege_row=mysqli_fetch_array($privilege_result)){
       $user_privilege = $privlege_row['user_privilege'];
     };
@@ -46,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   $_SESSION['privilege']= '';
-  
+
   //Store user data into session
 	if($rownum==1)  {
 		$_SESSION['username']=$username;
@@ -89,27 +88,29 @@ mysqli_close($con);
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-  <div class="d-flex justify-content-center mt-5">
-    <div class="card bg-primary border-light shadow-soft w-60 card-height px-5">
-      <div class="text-center">
-        <h1 class="display-2 mt-4">Log In To Judgeable</h1>
+  <div class="overflow-auto h-screen back-shadow">
+    <div class="d-flex justify-content-center mt-5">
+      <div class="card bg-primary border-light shadow-soft w-60 card-height px-5">
+        <div class="text-center">
+          <h1 class="display-2 mt-4">Log In To Judgeable</h1>
+        </div>
+        <form method="post">
+          <div class="form-group mb-3 px-5 pt-4">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Username" required="required" autofocus>
+            <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
+          </div>
+          <div class="form-group px-5 pt-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+          </div>
+          <div class="text-center mt-5">
+            <button class="btn btn-primary w-32 mr-4 discard animate-up-2" type="reset">Clear</button>
+            <button type="submit" name="loginBtn" class="ml-4 w-32 btn btn-primary login-btn save animate-up-2">Log In</button>
+            <p class="link mt-3 text-muted">Don't have an account? Sign Up <a class="highlight animate-up-2" href="signup.php">here</a></p>
+          </div>
+        </form>
       </div>
-      <form method="post">
-        <div class="form-group mb-3 px-5 pt-4">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-          <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
-        </div>
-        <div class="form-group px-5 pt-3">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-        </div>
-        <div class="text-center mt-5">
-          <button class="btn btn-primary w-32 mr-4" type="reset">Clear</button>
-          <button type="submit" name="loginBtn" class="ml-4 w-32 btn btn-primary login-btn">Log In</button>
-          <p class="link mt-3 text-muted">Don't have an account? Sign Up <a href="signup.php">here</a></p>
-        </div>
-      </form>
     </div>
   </div>
 </body>
