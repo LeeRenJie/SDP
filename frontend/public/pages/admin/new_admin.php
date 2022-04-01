@@ -39,7 +39,6 @@
           </div>
           <?php
           //end of toast message
-          //echo("<script>alert('Username already exists!')</script>");
           $register = FALSE;
           break;
         }
@@ -64,7 +63,6 @@
           </div>
           <?php
           //end of toast message
-          //echo("<script>alert('Password must not be less than 5 digits!')</script>");
           $register = FALSE;
           break;
         }
@@ -97,8 +95,6 @@
           </div>
           <?php
           //end of toast message
-          //echo("<script>alert('You have registered successfully!')</script>");
-          //echo("<script>window.location = ''</script>");
         }
         //If the sql fail, notify user
         else{
@@ -120,7 +116,6 @@
           </div>
           <?php
           //end of toast message
-          //echo("<script>alert('Error! pls try again')</script>");
         }
       }
     }

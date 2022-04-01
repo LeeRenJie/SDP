@@ -343,7 +343,15 @@
                   <?php
                     WHILE($total_prize_row = mysqli_fetch_array($total_prize_query_run))
                     {
-                      echo "RM" . $total_prize_row[0];
+                      echo "RM";
+                      if (isset($total_prize_row[0]))
+                      {
+                        echo $total_prize_row[0];
+                      }
+                      else
+                      {
+                        echo "0";
+                      }
                     }
                   ?> 
                 </p>

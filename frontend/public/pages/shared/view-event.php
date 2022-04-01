@@ -1,21 +1,25 @@
 <?php
 //Connection to Database
   include("../../../../backend/conn.php");
+  //include("../../../../backend/session.php");
   // start the session
   if(!isset($_SESSION)) {
     session_start();
   }
+  if(isset($_SESSION['user_id']))
+  {
+    //get user id from url
+    $userid = $_SESSION['user_id'];
+    //Query to get all data
+    $user_query = "SELECT * FROM user
+    INNER JOIN privilege ON user.privilege_id = privilege.privilege_id
+    WHERE user.user_id = $userid";
+    // Execute the query
+    $user_query_run = mysqli_query($con, $user_query);
+    // Fetch data
+    $userdata = mysqli_fetch_assoc($user_query_run);
+  }
 
-  //get user id from url
-  $userid = $_SESSION['user_id'];
-  //Query to get all data
-  $user_query = "SELECT * FROM user
-  INNER JOIN privilege ON user.privilege_id = privilege.privilege_id
-  WHERE user.user_id = $userid";
-  // Execute the query
-  $user_query_run = mysqli_query($con, $user_query);
-  // Fetch data
-  $userdata = mysqli_fetch_assoc($user_query_run);
   //get current date
   $current_date = date('Y-m-d');
 ?>
@@ -35,10 +39,23 @@
 <body>
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
-    <?php include '../shared/sidebar.php';?>
+    <?php
+  if(isset($_SESSION['privilege'])){
+    include '../shared/sidebar.php';
+      ?>
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <br>
       <div class="main-container">
+  <?php
+  }
+  else{
+    ?>
+    <div class="overflow-y-auto wid-ma" style="border-radius:20px;">
+      <br>
+      <div>
+    <?php
+  }
+  ?>
         <div class="flex flex-row">
           <span onclick="history.back()" class="pt-3 mr-2 cursor-pointer">
             <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
@@ -99,8 +116,8 @@
                 }
                 else{
                   echo "<a>";
-                  echo("<script>alert('Please login first')</script>");
-                  echo("<script>window.location = '../shared/login.php'</script>");
+                  //echo("<script>alert('Please login first')</script>");
+                  //echo("<script>window.location = '../shared/login.php'</script>");
                 }
                 ?>
                   <button class="btn btn-primary animate-up-2" type="button">
@@ -178,18 +195,25 @@
               while($participant_row=mysqli_fetch_array($participant_result)){
                 $num_participant = $participant_row["num_participant"];
               }
-              echo "<div class='event-con'>";
+              if(isset($_SESSION['privilege'])){
+                echo "<div class='event-con'>";
+              }
+              else{
+                echo "<div class='event-con mb-4'>";
+              }
                 //check privilege
-                if($userdata['user_privilege']=="organizer" || $userdata['user_privilege']=="admin"){
-                  echo "<a href='../organizer/event-details.php?$event_id'>";
-                }
-                elseif($userdata['user_privilege']=="participant"){
-                  echo "<a href='../participant/event-details.php?$event_id'>";
-                }
-                else{
-                  echo "<a>";
-                  echo("<script>alert('Please login first')</script>");
-                  echo("<script>window.location = '../shared/login.php'</script>");
+                if(isset($_SESSION['privilege'])){
+                  if($userdata['user_privilege']=="organizer" || $userdata['user_privilege']=="admin"){
+                    echo "<a href='../organizer/event-details.php?$event_id'>";
+                  }
+                  elseif($userdata['user_privilege']=="participant"){
+                    echo "<a href='../participant/event-details.php?$event_id'>";
+                  }
+                  else{
+                    echo "<a>";
+                    //echo("<script>alert('Please login first')</script>");
+                    //echo("<script>window.location = '../shared/login.php'</script>");
+                  }
                 }
                 ?>
                   <button class="btn btn-primary animate-up-2" type="button">
