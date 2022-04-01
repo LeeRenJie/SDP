@@ -74,26 +74,6 @@
                   {
                     array_push($event_name, $prize_pool_row[1]);
                     array_push($prize_pool, $prize_pool_row[2]);
-                    //$arr_length = count($prize_pool_row) - 3;
-                    //var_dump($prize_pool_row); (debug)
-                    //echo $arr_length; (debug)
-                
-                    //loop to get event name 
-                    //for ($x = 1; $x < $arr_length; $x+=3) {
-                      //echo  $prize_pool_row[$x] ; (debug)
-                      //array_push($event_name, $prize_pool_row[$x]);
-                
-                      //access the top 1 first event per prize pool
-                      //echo $event_name[0];
-                    //}
-                    //loop to get total prize pool per event
-                    //for ($x = 2; $x < $arr_length; $x+=3) {
-                      //echo  $prize_pool_row[$x] ; (debug)
-                      //array_push($prize_pool, $prize_pool_row[$x]);
-                
-                      //access the top 1 event's total prize pool
-                      //echo $prize_pool[0];
-                    //}
                   }
 
                   $total_user_query = "SELECT COUNT(user_id) FROM user";

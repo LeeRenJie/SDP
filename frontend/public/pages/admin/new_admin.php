@@ -152,9 +152,8 @@
                 <!-- Entry fields below-->
                 <div class="form-group form_margin_1">
                   <label for="validationServer01">Username</label>
-                  <!--Take note, is-valid class is the class that ticks or cross the input box, use js script to hide and show-->
                   <input type="text" onkeydown="username_is_valid()" name="username" class="form-control" id="id_username" style="width: 390px;" required>
-                  <!--Need to add js script later to hide the feedback by default and show when username is valid and not repeated in database-->
+                  <!--alert message-->
                   <div id="username_bad" class="">
                     Please Fill in the blanks!
                   </div>
@@ -162,7 +161,7 @@
                 <div class="form-group mb-4 form_margin_2">
                   <label for="validationServerUsername">Name</label>
                   <input type="text" onkeydown="name_is_valid()" name="name" class="form-control" id="id_name" style="width: 390px;" required>
-                  <!--Need to add js script later to hide the classes invalid-feedback and is-invalid by default and show when invalid-->
+                  <!--alert message-->
                   <div id="name_bad" class="">
                     Please enter your name !!
                   </div>
@@ -176,7 +175,7 @@
                 <div class="form-group pass_div">
                   <label for="validationServerUsername">Password</label>
                   <input type="text" onkeydown="password_is_valid()" name="password" class="form-control" id="id_password" style="width: 390px;" required>
-                  <!--Need to add js script later to hide the feedback by default and show when invalid-->
+                  <!--alert message-->
                   <div id="pass_bad" class="">
                     Please enter your password !!
                   </div>
@@ -241,13 +240,7 @@
     }
   </script>
   <?php
-    //get all user data from the form to validate
-    $check_username = strtolower($_POST['username']);
-    $check_name = strtolower($_POST['name']);
-    $check_password = $_POST['password'];
-    //convert to length of password
-    $num_length = strlen($check_password);
-
+    //active & show alert messages
     if (TRUE){
       echo "<script> name_is_invalid(); </script>";
       echo "<script> password_is_invalid(); </script>";
