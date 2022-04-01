@@ -1,44 +1,53 @@
 <?php
-    // start the session
+    //start the session
     session_start();
     //Connection to Database
     include("../../../../backend/conn.php");
-
+    //Query to get team list of the event
     $sql="SELECT * FROM team_list WHERE event_id = '$_SESSION[event_id]'";
-
+    //Execute the query
     $result=mysqli_query($con,$sql);
-
+    //Create team list array
     $teamlist = Array();
+    //Save all the team name into the array
     while($team=mysqli_fetch_array($result)){
         $teamlist[] = $team["team_name"];
     }
 
+    //Query to get the criteria of the event
     $sql2="SELECT * FROM criteria WHERE event_id = '$_SESSION[event_id]'";
-
+    //Execute the query
     $result2=mysqli_query($con,$sql2);
-
+    //Create arrays for criteria id and criteria name
     $criteriaidlist = Array();
     $criterialist = Array();
+    //Save all the criteria id and criteria name into the array
     while($criteria=mysqli_fetch_array($result2)){
         $criteriaidlist[] = $criteria["criteria_id"];
         $criterialist[] = $criteria["criteria_name"];
     }
     
+    //Loop through each team name in team list
     $noteam = 0;
     while ($noteam < count($teamlist)){
-
+        //if submit button is clicked
         if (isset($_POST["".$teamlist[$noteam]."submitbtn"])){
             $no4 = 1;
+            //Create array for score id
             $scoreidlist = Array();
+            //Insert all the scores from post form into database
             while($no4 <= count($criteriaidlist)){
                 $scoresql="INSERT INTO score (criteria_id, score) VALUES (".$criteriaidlist[$no4-1].", ".$_POST["".$teamlist[$noteam]."score$no4"].")";
                 mysqli_query($con,$scoresql);
+                //Get the score id for the inserted score
                 $scoreidsql="SELECT score_id FROM score ORDER BY score_id DESC LIMIT 1";
                 $scoreid = mysqli_fetch_array(mysqli_query($con,$scoreidsql));
+                //Save the score id into score id array
                 $scoreidlist[] = $scoreid["score_id"];
                 $no4 = $no4 + 1;   
             }   
-            
+
+            //Save the comment from post form into database 
             if ($_POST["".$teamlist[$noteam]."comment"]==""){
                 $commentsql="INSERT INTO comment (comment) VALUES ('No comment.')";
                 mysqli_query($con,$commentsql);
@@ -48,10 +57,11 @@
                 mysqli_query($con,$commentsql);
             }
             
+            //Read comment id for the inserted comment
             $readcommentid="SELECT comment_id FROM comment ORDER BY comment_id DESC LIMIT 1";
             $commentid = mysqli_fetch_array(mysqli_query($con,$readcommentid));
             
-
+            //Save all the score id in score list array into score list table 
             $no5 = 1;
             while ($no5 <= count($scoreidlist)){
                 if($no5==1){
@@ -65,18 +75,48 @@
                     $scorelistsql="INSERT INTO score_list (score_list_id, score_id) VALUES (".$scorelistid.", ".$scoreidlist[$no5-1].")";
                     mysqli_query($con,$scorelistsql);
                 }
-                
                 $no5 = $no5 + 1;
             }
-            
+
+            //Read the team list id of specific team
             $readteam_list_id="SELECT team_list_id FROM team_list WHERE team_name = '".$teamlist[$noteam]."'";
             $team_list_id = mysqli_fetch_array(mysqli_query($con,$readteam_list_id));
             
+            //Insert score list id, comment id, judge id, team list id into judgement list table
             $judgementlist="INSERT INTO judgement_list (score_list_id, comment_id, judge_id, team_list_id) VALUES (".$scorelistid.", ".$commentid['comment_id'].", ".$_SESSION['judge_id'].", ".$team_list_id['team_list_id'].")";
             mysqli_query($con,$judgementlist);
+            
+            //Read judgement list id  of the inserted judgement list
+            $readjudgement_list_id="SELECT judgement_list_id FROM judgement_list WHERE judge_id = ".$_SESSION["judge_id"]." AND team_list_id = ".$team_list_id['team_list_id']."";
+            $judgement_list_id = mysqli_fetch_array(mysqli_query($con,$readjudgement_list_id));
+
+            //Query to check read the data from result table based judge id
+            $resultsql="SELECT * FROM result AS re INNER JOIN judgement_list AS jl ON re.judgement_list_id = jl.judgement_list_id
+                        WHERE jl.judge_id = ".$_SESSION["judge_id"].""; 
+            //Execute the query
+            $resultdata=mysqli_query($con, $resultsql);
+
+            //If data does not exist
+            if (mysqli_num_rows($resultdata)==0){
+                //Insert judgement list id into result table
+                $addresult="INSERT INTO result (judgement_list_id) VALUES (".$judgement_list_id["judgement_list_id"].")";
+                mysqli_query($con, $addresult);
+            }
+            //If data exist
+            else{
+                //Fetch the data
+                $resultid = mysqli_fetch_array($resultdata);
+                ////Insert result id and judgement list id into result table
+                $addresult="INSERT INTO result (result_id, judgement_list_id) VALUES (".$resultid["result_id"].", ".$judgement_list_id["judgement_list_id"].")";
+                mysqli_query($con, $addresult);
+            }
+            
         }
         $noteam = $noteam + 1;
     }
+
+    
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +144,7 @@
                                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
                                     
                                 <?php
+                                    //Create tab for each team name in team list
                                     $no = 1;
                                     while($no <= count($teamlist)){
                                         echo '<li class="nav-item mr-sm-3 mr-md-0 p-2 noHover">
@@ -126,6 +167,7 @@
                                 <div class="card-body p-0">
                                     <div class="tab-content" id="tabcontent1">
                                         <?php
+                                        //Tab content for each team name in team list 
                                         $no1 = 1;
                                         while ($no1<$no){
                                             $teamname=$teamlist[$no1-1];
@@ -142,7 +184,7 @@
                                                     <div class="overflow-auto p-0">
                                                     <table class="table shadow-soft rounded mx-2 text-center">
                                                         <tr>';
-
+                                                                //Add all the event criteria into table
                                                                 $no2 = 1;
                                                                 while($no2 <= count($criterialist)){
                                                                     echo '<th class="border-0" scope="col" id="criteria'.$no2.'">'.$criterialist[$no2-1].'</th>';
@@ -153,19 +195,21 @@
 
                                                         <div class="form-group">
                                                             <tr>';
-
+                                                                    //Create score input field for each creiteria
                                                                     $no3 = 1;
                                                                     while($no3 < $no2){
                                                                         echo '<td headers="criteria'.$no3.'"><input type="number" class="form-control" ';
                                                         
-                                                    
+                                                                        //Check if the judgement record of the team existed in database
                                                                         $sql3 = "SELECT * FROM judgement_list AS jl INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
                                                                                 WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamname."'";
                                                                        
                                                                         $check=mysqli_query($con,$sql3);
                                                                         $rownum=mysqli_num_rows($check);
-
+                                                                        
+                                                                        //If judgement record existed
                                                                         if($rownum==1){
+                                                                            //Disable the input field
                                                                             echo 'readonly="readonly" ';
                                                                         }
                                                                         else{
@@ -182,11 +226,14 @@
                                                     <div class="form-group text-start mt-5">
                                                         <label class="h6 ms-2" for="comment">Comment: </label>
                                                         <textarea class="form-control" id="comment" name="'.$teamname.'comment" ';
+                                                        //Check if the judgement record of the team existed in database
                                                         $sql4 = "SELECT * FROM judgement_list AS jl INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
                                                                 WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamname."'";
                                                         $check=mysqli_query($con,$sql4);
                                                         $rownum=mysqli_num_rows($check);
+                                                        //If judgement record existed 
                                                         if($rownum==1){
+                                                            //Disable the input field
                                                             echo 'readonly="readonly" ';
                                                         }
                                                         else{
@@ -196,7 +243,9 @@
                                                     </div>
                                                     <div class="text-end mt-4">
                                                         <input type="submit" name="'.$teamname.'submitbtn" class="btn submitbtn" ';
+                                                        //If judgement record existed 
                                                         if($rownum==1){
+                                                            //Disable the submit button
                                                             echo "disabled='disabled'";
                                                         }
                                                         else{
@@ -209,7 +258,6 @@
                                             $no1 = $no1 + 1;
                                         }
                                         ?>
-                                        
                                     </div>
                                 </div>
                             </div>

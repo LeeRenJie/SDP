@@ -1,30 +1,36 @@
 <?php
+    //start the session
     session_start();
+    //Connection to Database
     include("../../../../backend/conn.php");
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        // Unique code get from post form
         $uniquecode=mysqli_real_escape_string($con, $_POST['uniquecode']);
+        //Check if the unique code is exist
         $sql="SELECT * FROM judge WHERE unique_code='$uniquecode'";
-
-        if ($result=mysqli_query($con,$sql))  {
-            
-            $rownum=mysqli_num_rows($result);
-        }
-
-        while($row=mysqli_fetch_array($result)){
-            $judgeid = $row['judge_id'];
-            $judgename = $row['judge_name'];
-        }
-
+        $result=mysqli_query($con,$sql);
+        $rownum=mysqli_num_rows($result);
+        
+        //If the unique code existed
         if($rownum==1){
+            //Store the judge data into session
+            while($row=mysqli_fetch_array($result)){
+                $judgeid = $row['judge_id'];
+                $judgename = $row['judge_name'];
+            }
             $_SESSION['judge_id']=$judgeid;
             $_SESSION['judge_name']=$judgename;
-            $_SESSION['privilege']="judge";
+            $_SESSION['privilege']="judge"; 
+            //Show the welcome message
             echo("<script>alert('Welcome, $judgename')</script>");
+            //Redirected to event(judge) page
             echo("<script>window.location = 'event(judge).php'</script>");
         }
 
+        //If the unique code does not exist
         else  {
+            //Show the error message
             echo "<script>alert('Your unique code is invalid. Please try again');</script>";
         }
         //Close connection of database
@@ -39,14 +45,12 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!--BootStrap/css stylesheets-->
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
       <link href="../../../src/stylesheets/judge-enter-event.css" rel="stylesheet">
       <link href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
       <title>Enter Event</title>
     </head>
     <body>
-        <!-- Nav Bar -->
         <?php include '../shared/navbar.php';?>
         <div class="container-fluid text-black text-center fs-1">
             <h1>Welcome to JUDGEABLE!</h1>

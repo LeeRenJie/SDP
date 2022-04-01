@@ -7,16 +7,15 @@
     //Query to get the event data
     $sql="SELECT * FROM event AS ev INNER JOIN judges_list AS jl ON ev.judges_list_id = jl.judges_list_id
     INNER JOIN judge AS jg ON jl.judge_id = jg.judge_id WHERE jg.judge_id = '$_SESSION[judge_id]'";
-    // Execute the query
+    //Execute the query
     $result=mysqli_query($con,$sql);
-    // Fetch data
+    //Fetch data
     $event=mysqli_fetch_array($result);
     $eventid = $event['event_id'];
     $eventname = $event['event_name'];
     $starttime = $event['start_time'];
     $endtime = $event['end_time'];
     $eventdescription = $event['event_description'];
-    $endtime = $event['end_time'];
     $eventdate = $event['event_date'];
     $eventpicture=$event['event_picture'];
     //Store event id to session
@@ -26,19 +25,19 @@
     $sql2="SELECT * FROM event AS ev INNER JOIN prizes_list AS pl ON ev.prizes_list_id = pl.prizes_list_id
     INNER JOIN prize AS pr ON pl.prize_id = pr.prize_id
     WHERE ev.event_id = $eventid ORDER BY pr.prize_id";
-    // Execute the query
+    //Execute the query
     $result2=mysqli_query($con,$sql2);
 
     //Query to get the rules data
     $sql3="SELECT * FROM event AS ev INNER JOIN rules_list AS rl ON ev.rules_list_id = rl.rules_list_id
     INNER JOIN rule AS ru ON rl.rule_id = ru.rule_id
     WHERE ev.event_id = $eventid";
-    // Execute the query
+    //Execute the query
     $result3=mysqli_query($con,$sql3);
 
     //Query to get the teams data
     $sql4="SELECT * FROM team_list WHERE event_id = $eventid";
-    // Execute the query
+    //Execute the query
     $result4=mysqli_query($con,$sql4);
 
 ?>
@@ -121,7 +120,7 @@
                                                     <div class="text-center">
                                                         <div class="pt-3">
                                                             <?php
-                                                            // Create array
+                                                            //Create array
                                                             $p1=Array(); 
                                                             //Fetch data
                                                             while($prize=mysqli_fetch_array($result2)){
