@@ -22,7 +22,7 @@
               <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
             </div>
             <div class="d-flex justify-content-center mt-4 pb-3">
-              <div class="card bg-primary border-light shadow-soft card-height">
+              <div class="card bg-primary border-light shadow-soft card-width">
                 <div class="text-center">
                   <h1 class="display-2 mt-4">Terms and Conditions</h1>
                 </div>
@@ -59,7 +59,7 @@
               <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
             </div>
             <div class="d-flex justify-content-center mt-4 pb-3">
-              <div class="card bg-primary border-light shadow-soft card-height">
+              <div class="card bg-primary border-light shadow-soft card-width">
                 <div class="text-center">
                   <h1 class="display-2 mt-4">Terms and Conditions</h1>
                 </div>
