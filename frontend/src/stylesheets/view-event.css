@@ -161,3 +161,8 @@ body{
   75% { transform: translateY(15px) }
   100% { transform: translateY(0px) }
 }
+
+.wid-ma{
+  width: 1200px !important;
+  margin-left: 15% !important;
+}

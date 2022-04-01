@@ -7,7 +7,7 @@
   }
 
   //get user id from url
-  // use query string to fetch data from previous page --> "home.php" 
+  // use query string to fetch data from previous page --> "users.php" 
   $userid = '' ;
   $userid = $_SERVER['QUERY_STRING'];
 
@@ -19,6 +19,7 @@
   foreach($privilege_query_run as $privilege_data)
   {
     $privilege_id = $privilege_data['privilege_id'];
+    //echo $privilege_id; returns 3
   }
   //$userid = $_SESSION['user_id'];
 
@@ -36,12 +37,14 @@
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
     AND evt.event_date < CURRENT_DATE()";
+
     $complete_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
     INNER JOIN participant ON tl.participant_id = participant.participant_id 
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
     AND evt.event_date < CURRENT_DATE()";
+
     $ongoing_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
     INNER JOIN participant ON tl.participant_id = participant.participant_id 
     INNER JOIN user ON user.user_id = participant.user_id
@@ -56,9 +59,12 @@
     WHERE pl.user_id = $userid";
 
     //Queries for organizer
-    $find_event_query = "SELECT COUNT(event.event_id) FROM organizer 
-    INNER JOIN event ON event.organizer_id = organizer.organizer_id 
-    WHERE organizer.user_id = $userid";
+    $find_event_query = "SELECT tl.event_id FROM team_list AS tl
+    INNER JOIN participant ON tl.participant_id = participant.participant_id 
+    INNER JOIN user ON user.user_id = participant.user_id
+    INNER JOIN event AS evt ON evt.event_id = tl.event_id
+    WHERE user.user_id = $userid
+    AND evt.event_date < CURRENT_DATE()";
     // Execute the query
     $total_organized = mysqli_query($con, $find_event_query);
     $total_organized_num = mysqli_fetch_assoc($total_organized);
@@ -82,20 +88,17 @@
   $userdata = mysqli_fetch_assoc($user_query_run);
 
 
-  // Execute the query if user is not admin
-  if ($privilege_id == '2')
-  {
-    $user_participate_result = mysqli_query($con, $find_event_query);
-    if ($privilege_id == '3')
-    {
-      $total_complete_result = mysqli_query($con, $complete_event_query);
-      $total_ongoing_result = mysqli_query($con, $ongoing_event_query);
-      // Fetch data
-      $complete_result = mysqli_fetch_assoc($total_complete_result);
-      $ongoing_result = mysqli_fetch_assoc($total_ongoing_result);
-    }
-  }
+// Execute the query if user is not admin
 
+if ($privilege_id == '3' OR $privilege_id == '2')
+{
+  $user_participate_result = mysqli_query($con, $find_event_query);
+  $total_complete_result = mysqli_query($con, $complete_event_query);
+  $total_ongoing_result = mysqli_query($con, $ongoing_event_query);
+  // Fetch data
+  $complete_result = mysqli_fetch_assoc($total_complete_result);
+  $ongoing_result = mysqli_fetch_assoc($total_ongoing_result);
+}
 
   //If no event participate, = 0
   $avg_event = 0;
@@ -119,7 +122,7 @@
   $total_participate = mysqli_fetch_assoc($total_result);
   }
   //get current date
-  $current_date = date('d-m-y');
+  $current_date = date('Y-m-d');
 ?>
 
 <!DOCTYPE html>
@@ -281,7 +284,7 @@
                             <div class="row">
                               <p class="fs-5 fw-bold animate-up-2 title">
                                 <?php 
-                                  if ($privilege_id == '3')
+                                  if ($privilege_id == '3' AND isset($user_participate_result))
                                   {
                                     echo $ongoing_result['COUNT(evt.event_date)']; 
                                   }
@@ -296,7 +299,7 @@
                             <div class="row">
                               <p class="fs-5 fw-bold animate-up-2 title">
                                 <?php 
-                                  if ($privilege_id == '3')
+                                  if ($privilege_id == '3' AND isset($user_participate_result))
                                   {
                                     echo $complete_result['COUNT(evt.event_date)'];
                                   }
