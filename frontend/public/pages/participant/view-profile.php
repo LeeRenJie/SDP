@@ -26,19 +26,19 @@
   INNER JOIN user ON user.user_id = participant.user_id
   INNER JOIN event AS evt ON evt.event_id = tl.event_id
   WHERE user.user_id = $userid
-  AND evt.event_date < CURRENT_DATE()";
+  AND evt.active = '0'";
   $complete_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
   INNER JOIN participant ON tl.participant_id = participant.participant_id 
   INNER JOIN user ON user.user_id = participant.user_id
   INNER JOIN event AS evt ON evt.event_id = tl.event_id
   WHERE user.user_id = $userid
-  AND evt.event_date < CURRENT_DATE()";
+  AND evt.active = '0'";
   $ongoing_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
   INNER JOIN participant ON tl.participant_id = participant.participant_id 
   INNER JOIN user ON user.user_id = participant.user_id
   INNER JOIN event AS evt ON evt.event_id = tl.event_id
   WHERE user.user_id = $userid
-  AND evt.event_date > CURRENT_DATE()";
+  AND evt.active = '1'";
   // Execute the query
   $user_participate_result = mysqli_query($con, $find_event_query);
   $total_complete_result = mysqli_query($con, $complete_event_query);
@@ -244,6 +244,11 @@
                       $num_judge_query = mysqli_query($con, $judge_query);
                       // Fetch data
                       $num_judge = mysqli_fetch_assoc($num_judge_query);
+                      $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$event_id'";
+                      $participant_result = mysqli_query($con, $participant_sql);
+                      while($participant_row=mysqli_fetch_array($participant_result)){
+                        $num_participant = $participant_row["num_participant"];
+                      }
                     ?>
                     <div class="event-cont col-12 pb-3">
                       <?php
@@ -256,7 +261,9 @@
                                 <h2><?php echo ($event_query['event_name']);?></h2> <!--change event name-->
                                 <div class="status-con"> <!--change event status-->
                                   <?php
-                                    if($event_query['event_date']>$current_date){
+                                    $start_time = date("H:i",strtotime($event_query['start_time']));
+                                    $end_time = date("H:i",strtotime($event_query['end_time']));
+                                    if($event_query['active']== 1){
                                       echo "<small class='status-on'>Active</small>";
                                     }
                                     else{
@@ -271,8 +278,8 @@
                                   <p>Judges : <?php echo $num_judge['COUNT(judge.judge_id)']?> </p>
                                 </div>
                                 <div class="info-con">
-                                  <p>Time: <?php echo ($event_query['start_time'])?> ~ <?php echo ($event_query['end_time'])?> </p>
-                                  <p>Participant : <?php echo ($event_query['max_team'])?></p>
+                                  <p>Time: <?php echo $start_time?> ~ <?php echo $end_time?> </p>
+                                  <p>Participant : <?php echo $num_participant?></p>
                                 </div>
                               </div> <!--info-->
                             </div>
