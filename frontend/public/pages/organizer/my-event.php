@@ -33,11 +33,12 @@
     FROM event AS e
     JOIN judges_list AS jl ON e.judges_list_id = jl.judges_list_id
     JOIN judge AS j ON jl.judge_id = j.judge_id
-    WHERE organizer_id = '$organizer_id' or event_name LIKE '%$search_key%' ORDER BY event_id DESC
-  ");
+    WHERE organizer_id = '$organizer_id' and event_name LIKE '%$search_key%'
+    GROUP BY event_id
+    ORDER BY event_date DESC
+    ");
   $event_result = mysqli_query($con, $event_sql);
   $number_row = mysqli_num_rows($event_result);
-
   // Close the connection
   mysqli_close($con);
 ?>
@@ -61,6 +62,28 @@
     <div class="basis-10/12 overflow-auto back-shadow" style="border-radius:30px;">
       <br>
       <div class="main-container">
+        <?php if ($number_row == 0){?>
+          <div class="flex flex-column">
+            <div onclick="history.back()" class="pt-3 mr-2 cursor-pointer block">
+              <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+            </div>
+            <div class="row mt-5 justify-content-center">
+              <div class="col-6">
+                <div class="card bg-primary shadow-soft text-center border-light">
+                  <div class="card-body">
+                    <h1 class="h1 card-title">No Event Found</h1>
+                    <p class="card-text">Do not worry! Create an event by following few simple steps!</p>
+                    <a href="../organizer/create-event.php" class="mt-3 btn btn-primary btn-sm">Create Event</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php
+        }
+        else
+        {
+        ?>
         <div class="flex flex-row">
           <span onclick="history.back()" class="pt-3 mr-2 cursor-pointer">
             <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
@@ -78,16 +101,8 @@
           </form>
           <a href="../organizer/create-event.php" class="float-right btn btn-primary mr-5 cursor-pointer" >Create an event</a>
         </div>
+
         <?php
-        if($number_row == 0){
-        ?>
-          <div class="flex flex-col justify-center">
-            <h1 class="text-center">No event found</h1>
-          </div>
-        <?php
-        }
-        else
-        {
           while($row=mysqli_fetch_assoc($event_result)){
             $start_time = date("H:i",strtotime($row["start_time"]));
             $end_time = date("H:i",strtotime($row["end_time"]));
@@ -137,7 +152,7 @@
         <?php
           }
         }
-      ?>
+        ?>
       </div> <!--main container-->
     </div>
   </div>

@@ -155,7 +155,7 @@
           echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
             echo $event_id;
           echo "\">End</a>";
-          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
+          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
             echo $event_id;
             echo "\" onClick=\"return confirm('Delete ";
               echo $event_name;
@@ -166,7 +166,7 @@
       </div>
       <!-- Image of event -->
       <div class="text-center img-container ml-5">
-        <img src="../../images/default.jpg" class="mx-auto d-block img-size shadow-inset" alt="Event Image">
+        <img src="<?php echo $event_pic ?>" class="mx-auto d-block img-size shadow-inset" alt="Event Image">
       </div>
       <!-- Details of event -->
       <div class="row pl-5 pt-4">
@@ -302,8 +302,8 @@
           <h5 class="float-end opacity-50">Total: <?php echo $num_judges?></h5>
           <table class="table judge-table overflow-y-auto">
             <tr>
-              <th class="border-0" scope="col" id="name" width="32.5%">Name</th>
-              <th class="border-0" scope="col" id="code" width="52.5%">Code</th>
+              <th class="border-0" scope="col" id="name" width="52.5%">Name</th>
+              <th class="border-0" scope="col" id="code" width="32.5%">Code</th>
               <th class="border-0" scope="col" id="actions" width="15%">Actions</th>
             </tr>
             <?php
@@ -357,8 +357,8 @@
           </h5>
           <table class="table participant-table overflow-y-auto">
             <tr>
-              <th class="border-0" scope="col" id="name" width="32.5%">Name</th>
-              <th class="border-0" scope="col" id="code" width="52.5%">Code</th>
+              <th class="border-0" scope="col" id="name" width="52.5%%">Name</th>
+              <th class="border-0" scope="col" id="code" width="32.5%">Code</th>
               <th class="border-0" scope="col" id="actions" width="15%">Actions</th>
             </tr>
             <?php

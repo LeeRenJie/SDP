@@ -82,15 +82,15 @@
           $search_key = "";
           $search_key = $_POST['search_text'];
           $search_query = "SELECT * FROM event
-                    WHERE event_name LIKE '%$search_key%' 
+                    WHERE event_name LIKE '%$search_key%'
                     AND active = '1'
-                    ORDER BY event_date ASC";
+                    ORDER BY event_date DESC";
           $run_search_query = mysqli_query($con, $search_query);
           if(mysqli_num_rows($run_search_query) > 0)
           {
             foreach($run_search_query as $search_query) // Run SQL query
             {
-              //get number of judge 
+              //get number of judge
               $event_id = intval($search_query['event_id']);
               $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
               INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
@@ -171,15 +171,15 @@
           }
         }
         else{
-          $all_event_query = " SELECT * FROM event 
+          $all_event_query = " SELECT * FROM event
                     WHERE active = '1'
-                    ORDER BY event_date ASC";
+                    ORDER BY event_date DESC";
           $run_all_event_query = mysqli_query($con, $all_event_query);
           if(mysqli_num_rows($run_all_event_query) > 0)
           {
             foreach($run_all_event_query as $event_query) // Run SQL query
             {
-              //get number of judge 
+              //get number of judge
               $event_id = intval($event_query['event_id']);
               $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
               INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id

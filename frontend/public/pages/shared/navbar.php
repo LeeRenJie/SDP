@@ -93,7 +93,7 @@
 									<ul class="dropdown-menu">
 									');
 									if($_SESSION['privilege'] == 'organizer'){
-										echo('<li><a class="dropdown-item" href="../organizer/edit-profile.php">Profile</a></li>');
+										echo('<li><a class="dropdown-item" href="../organizer/view-profile.php">Profile</a></li>');
 									}
 									else if($_SESSION['privilege'] == 'participant'){
 										echo('<li><a class="dropdown-item" href="../participant/view-profile.php">Profile</a></li>');
