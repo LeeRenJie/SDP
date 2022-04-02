@@ -1,17 +1,21 @@
 .logo {
     height: 65px;
 }
+
 #cont0{
     height: 40px;
     width: 100px;
     background-color: black;
 }
+
 #cont1{
     height: 450px;
 }
+
 .form-control:focus{
     box-shadow: none;
 }
+
 .enter-btn{
     width: 125px;
     margin-right: 84px;

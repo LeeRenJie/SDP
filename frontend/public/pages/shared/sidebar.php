@@ -166,7 +166,29 @@
             </li>
           <?php
         }
-      ?>
+        elseif ($_SESSION['privilege'] == 'judge'){
+          ?>
+            <li class="cursor-pointer">
+              <a href="../judge/event(judge).php" class="sidebar-link">
+                <i class="fa fa-calendar-check"></i>
+                Event
+              </a>
+            </li>
+            <li class="cursor-pointer">
+              <a href="../judge/judgement.php" class="sidebar-link">
+              <i class="fa fa-clipboard-list"></i>
+                Judgement
+              </a>
+            </li> 
+            <li class="cursor-pointer">
+              <a href="../judge/overall-result.php" class="sidebar-link">
+              <i class="fa fa-square-poll-vertical"></i>
+                Overall Result
+              </a>
+            </li> 
+          <?php
+        }
+        ?>  
     </ul>
     <ul>
 
