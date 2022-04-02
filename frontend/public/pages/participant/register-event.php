@@ -16,9 +16,9 @@
   if($event_id == 0){
     echo("<script>window.location = '../shared/view-event.php'</script>");
   }
-  
+
   //event query
-  $evt_query = "SELECT * FROM event 
+  $evt_query = "SELECT * FROM event
   WHERE event_id = '$event_id'";
   $event_query_run = mysqli_query($con, $evt_query);
   // Fetch data
@@ -53,16 +53,16 @@
   INNER JOIN rule ON rule.rule_id = rules_list.rule_id
   INNER JOIN event on rules_list.rules_list_id = event.rules_list_id
   WHERE event_id = $event_id";
-  // get result 
+  // get result
   $event_rules = mysqli_query($con,$evt_rules);
-  
+
   //count rule
   $num_rules_query = mysqli_query($con,
     "SELECT COUNT(rule) FROM rules_list
     INNER JOIN rule ON rule.rule_id = rules_list.rule_id
     INNER JOIN event on rules_list.rules_list_id = event.rules_list_id
     WHERE event_id = $event_id");
-  // get result 
+  // get result
   $num_rules = mysqli_fetch_assoc($num_rules_query);
 
   //user data
@@ -93,7 +93,7 @@
     //convert by binaryhexa
     $unique = bin2hex($length);
     $read_unique = "SELECT unique_code FROM team_list WHERE unique_code = '$unique'";
-    // get result 
+    // get result
     $try_unique = mysqli_query($con,$read_unique);
     if(mysqli_num_rows($try_unique) == 0){
       if($event_query['participant_type'] == "team") {
@@ -112,7 +112,7 @@
           $sql1 = "SELECT * FROM team_list WHERE unique_code = '$_POST[unique_code]'";
           $runsql = mysqli_query($con, $sql1);
           $gorunsql = mysqli_fetch_assoc($runsql);
-          
+
           $participant_id = $userdata['participant_id'];
           $ipt_event = $event_id;
           $team_name = $gorunsql['team_name'];
@@ -120,7 +120,7 @@
           $sql2 = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
                   VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
           $result = mysqli_query($con, $sql2);
-          echo("<script>alert('Participated Successful');</script>");
+          echo("<script>alert('Participated Successfully');</script>");
           echo("<script>window.location = 'success-register.php?$event_id'</script>");
         }
         else {

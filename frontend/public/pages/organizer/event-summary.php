@@ -103,21 +103,15 @@
 
     // get the teams
     $team_sql = (
-      "SELECT e.event_id, tl.team_name, tl.unique_code, GROUP_CONCAT(u.name) AS team_members
+      "SELECT e.event_id, tl.team_list_id, tl.team_name, tl.unique_code, GROUP_CONCAT(u.name) AS team_members
       FROM team_list AS tl
       JOIN event AS e ON tl.event_id = e.event_id
       JOIN participant AS p ON tl.participant_id = p.participant_id
       JOIN user AS u ON p.user_id = u.user_id
       WHERE e.event_id = '$event_id'
-      GROUP BY tl.team_name"
+      GROUP BY tl.team_list_id"
     );
     $team_result = mysqli_query($con, $team_sql);
-
-    // $query_team_info = "SELECT * FROM team_list
-    //                     WHERE event_id = '$event_id'";
-    // $run_team_info = mysqli_query($con, $query_team_info);
-    // $row_team_info = intval(mysqli_num_rows($run_team_info));
-    // $team_info = mysqli_fetch_assoc($run_team_info);
 
     $rank_sql = "SELECT tl.team_list_id, tl.team_name, SUM(sc.score) AS total_score
     FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
@@ -351,10 +345,10 @@
                   foreach($participant_result as $i => $participant_row){
                     echo'<tr>';
                       echo'<td>';
-                        echo$participant_row['name'];
+                        echo $participant_row['name'];
                       echo'</td>';
                       echo'<td>';
-                        echo$participant_row['unique_code'];
+                        echo $participant_row['unique_code'];
                       echo'</td>';
                       echo('
                       <td class="text-center dropdown">
@@ -394,7 +388,7 @@
                             <p>All team members have the same unique code to join the team or view event results.</p>
                             <br/>
                             <p class="text-center">Team members are listed below👇</p>
-                        ');
+                    ');
                         // loop through all team members and display them
                         for ($x = 0; $x <= $count_team_member-1 ; $x++) {
                           echo '<p class="text-center"> • '.$team_member[$x].'</p>';
@@ -408,12 +402,15 @@
                     ');
                     echo'<tr>';
                       echo'<td>';
+                        echo $i+1;
+                      echo'</td>';
+                      echo'<td>';
                         echo $team_row['team_name'];
                       echo'</td>';
                       echo'<td>';
                         echo$team_row['unique_code'];
                       echo'</td>';
-                      echo('
+                    echo('
                       <td class="text-center dropdown">
                         <a href="#" data-toggle="dropdown">
                           <i class="fa-solid fa-ellipsis"></i>

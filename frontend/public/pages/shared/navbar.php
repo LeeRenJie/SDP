@@ -78,7 +78,7 @@
 					<ul class="navbar-nav navbar-nav-hover ml-auto">
 						<?php if(isset($_SESSION['username'])){
 							echo('
-								<li class="nav-item dropdown mr-3">
+								<li class="nav-item dropdown mr-5">
 									<a href="#" class="nav-link" data-toggle="dropdown" >
 										<span class="nav-link-inner-text">
 											<i class="fas fa-user"></i>
