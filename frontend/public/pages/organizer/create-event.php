@@ -44,7 +44,7 @@
     // get event date
     $eventDate = $_POST["event-date"];
     // validation if event date is after today's date
-    $today = strtotime(date("d/m/Y"));
+    $today = strtotime(date("m/d/Y"));
     if (strtotime($eventDate) < $today) {
       $validated = FALSE;
       echo('
@@ -52,7 +52,6 @@
             <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
               <div class="toast-header text-dark">
                 <strong class="mr-auto ml-2">Validation Warning</strong>
-                <small class="text-gray">now</small>
                 <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -464,7 +463,6 @@
           <div class="form-group mb-4">
             <label for="participant-type">Participant Type</label>
             <select class="custom-select" id="participant-select" name="participant-type" placeholder="Choose..." onchange="disp_sec()">
-                <option value="">Please select...</option>
                 <option value="solo">Solo</option>
                 <option value="team">Team</option>
             </select>

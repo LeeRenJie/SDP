@@ -10,9 +10,6 @@
 	$prizes_list_id = $get_lists__row['prizes_list_id'];
 	$rules_list_id = $get_lists__row['rules_list_id'];
 	$judges_list_id = $get_lists__row['judges_list_id'];
-	echo ($prizes_list_id);
-	echo ($rules_list_id);
-	echo ($judges_list_id);
 
 	// Delete event
 	$delete_event_result = mysqli_query($con,"DELETE FROM event WHERE event_id=$event_id");
@@ -70,5 +67,5 @@
 	// Close connection
 	mysqli_close($con);
 	// Redirect to cart page
-	// header('Location: ../organizer/my-event.php');
+	header('Location: ../organizer/my-event.php');
 ?>

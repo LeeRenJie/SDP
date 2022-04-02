@@ -302,8 +302,8 @@
           <h5 class="float-end opacity-50">Total: <?php echo $num_judges?></h5>
           <table class="table judge-table overflow-y-auto">
             <tr>
-              <th class="border-0" scope="col" id="name" width="32.5%">Name</th>
-              <th class="border-0" scope="col" id="code" width="52.5%">Code</th>
+              <th class="border-0" scope="col" id="name" width="52.5%">Name</th>
+              <th class="border-0" scope="col" id="code" width="32.5%">Code</th>
               <th class="border-0" scope="col" id="actions" width="15%">Actions</th>
             </tr>
             <?php

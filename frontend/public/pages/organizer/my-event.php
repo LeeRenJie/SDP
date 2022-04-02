@@ -63,22 +63,22 @@
       <br>
       <div class="main-container">
         <?php if ($number_row == 0){?>
-        <div class="flex flex-column">
-          <div onclick="history.back()" class="pt-3 mr-2 cursor-pointer block">
-            <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
-          </div>
-          <div class="row mt-5 justify-content-center">
-            <div class="col-6">
-              <div class="card bg-primary shadow-soft text-center border-light">
-                <div class="card-body">
-                  <h1 class="h1 card-title">No Event Found</h1>
-                  <p class="card-text">Do not worry! Create an event by following few simple steps!</p>
-                  <a href="../organizer/create-event.php" class="mt-3 btn btn-primary btn-sm">Create Event</a>
+          <div class="flex flex-column">
+            <div onclick="history.back()" class="pt-3 mr-2 cursor-pointer block">
+              <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+            </div>
+            <div class="row mt-5 justify-content-center">
+              <div class="col-6">
+                <div class="card bg-primary shadow-soft text-center border-light">
+                  <div class="card-body">
+                    <h1 class="h1 card-title">No Event Found</h1>
+                    <p class="card-text">Do not worry! Create an event by following few simple steps!</p>
+                    <a href="../organizer/create-event.php" class="mt-3 btn btn-primary btn-sm">Create Event</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
         <?php
         }
         else

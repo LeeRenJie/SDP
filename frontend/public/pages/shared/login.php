@@ -98,7 +98,7 @@ mysqli_close($con);
           <div class="form-group mb-3 px-5 pt-4">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" placeholder="Username" required="required" autofocus>
-            <small id="emailHelp" class="form-text text-muted">Username is case sensitive</small>
+            <small id="emailHelp" class="form-text text-muted">Username will be converted to lower case</small>
           </div>
           <div class="form-group px-5 pt-3">
             <label for="password">Password</label>

@@ -3,6 +3,7 @@
 if (isset($_POST['registerBtn'])) {
   // include the database connection
   include("../../../../backend/conn.php");
+  $register = TRUE;
   $username = strtolower($_POST['username']);
   $name = $_POST['name'];
   $password = $_POST['password'];
@@ -12,6 +13,9 @@ if (isset($_POST['registerBtn'])) {
   //Get all user data
   $validation_query = "SELECT * FROM user WHERE privilege_id = '2' OR privilege_id = '3'";
   $validation_query_run = mysqli_query($con, $validation_query);
+  if (!$validation_query_run){
+    die('Error validation query: ' . mysqli_error($con));
+  }
 
   //Set default image
   $defaultPic = "../../images/default.jpg";
@@ -25,7 +29,6 @@ if (isset($_POST['registerBtn'])) {
   // form validation for username to prevent repeating
   if(mysqli_num_rows($validation_query_run) > 0)
   {
-    $register = TRUE;
     foreach($validation_query_run as $row)
     {
       // ("Form Validation in PHP - javatpoint", 2021);
@@ -36,45 +39,45 @@ if (isset($_POST['registerBtn'])) {
         break;
       }
     }
+  }
 
-    if($register == TRUE){
-      // if user passed all validation, then register user
-      $username = strtolower($_POST['username']);
-      $name = $_POST['name'];
-      $password = $_POST['password'];
-      $privilege = $_POST['privilege'];
-      $privilege == "Organizer" ? $privilege=2 : $privilege=3;
-      $sql = "INSERT INTO user (privilege_id, username, name, password, email, dob, telephone)
-              VALUES ('$privilege', '$username', '$name', '$password', NULL, NULL, NULL)";
-      $result = mysqli_query($con, $sql);
-      // if user registered successfully, add data into specific user table
-      if ($result){
-        $last_id = mysqli_insert_id($con);
+  if($register){
+    // if user passed all validation, then register user
+    $username = strtolower($_POST['username']);
+    $name = $_POST['name'];
+    $password = $_POST['password'];
+    $privilege = $_POST['privilege'];
+    $privilege == "Organizer" ? $privilege=2 : $privilege=3;
+    $sql = "INSERT INTO user (privilege_id, username, name, password, email, dob, telephone)
+            VALUES ('$privilege', '$username', '$name', '$password', NULL, NULL, NULL)";
+    $result = mysqli_query($con, $sql);
+    // if user registered successfully, add data into specific user table
+    if ($result){
+      $last_id = mysqli_insert_id($con);
 
-        if ($privilege === 2) {
-          $organizer_sql = "INSERT INTO organizer (user_id, organizer_website) VALUES ('$last_id', NULL)";
-          $organizer_result = mysqli_query($con, $organizer_sql);
-          if ($organizer_result){
-            echo("<script>alert('Registered as an organizer')</script>");
-          }else{
-            echo("Error description: " . mysqli_error($con));
-          }
-        } elseif ($privilege === 3) {
-          $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, '$image')";
-          $participant_result = mysqli_query($con, $participant_sql);
-          if ($participant_result){
-            echo("<script>alert('Registered as an participant');</script>");
-          }else{
-            echo("Error description: " . mysqli_error($con));
-          }
-        };
-        //If the sql run successful, notify the user and redirect to log in page
-        echo("<script>window.location = '../shared/login.php'</script>");
-      }
-      //If the sql fail, notify user
-      else{
-        echo("Error description: " . mysqli_error($con));
-      }
+      if ($privilege === 2) {
+        $organizer_sql = "INSERT INTO organizer (user_id, organizer_website) VALUES ('$last_id', NULL)";
+        $organizer_result = mysqli_query($con, $organizer_sql);
+        if ($organizer_result){
+          echo("<script>alert('Registered as an organizer')</script>");
+        }else{
+          echo("Error description: " . mysqli_error($con));
+        }
+      } elseif ($privilege === 3) {
+        $participant_sql = "INSERT INTO participant (user_id, gender, participant_image) VALUES ('$last_id', NULL, '$image')";
+        $participant_result = mysqli_query($con, $participant_sql);
+        if ($participant_result){
+          echo("<script>alert('Registered as an participant');</script>");
+        }else{
+          echo("Error description: " . mysqli_error($con));
+        }
+      };
+      //If the sql run successful, notify the user and redirect to log in page
+      echo("<script>window.location = '../shared/login.php'</script>");
+    }
+    //If the sql fail, notify user
+    else{
+      echo("Error description: " . mysqli_error($con));
     }
   }
   // Close the database connection
