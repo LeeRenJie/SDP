@@ -51,7 +51,7 @@
   $maximum_participant = intval($max_team) * intval($max_member);
 
   // count number of teams
-  $count_team_sql= ("SELECT * FROM team_list WHERE event_id = '$event_id' GROUP BY team_list.unique_code");
+  $count_team_sql= ("SELECT * FROM team_list WHERE event_id = '$event_id' GROUP BY team_list.team_list_id");
   $count_team_result = mysqli_query($con, $count_team_sql);
   $num_team = mysqli_num_rows($count_team_result);
   

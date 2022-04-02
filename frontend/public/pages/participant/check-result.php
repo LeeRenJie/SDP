@@ -6,6 +6,8 @@
   if(!isset($_SESSION)) {
     session_start();
   }
+  //get user id from session
+  $userid = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -50,19 +52,28 @@
           // get the value of the search key
           $search_key = "";
           $search_key = $_POST['search_text'];
+          //check if the team got result or not
+
+          $check_team_info = "SELECT * FROM judgement_list
+                              INNER JOIN team_list ON team_list.team_list_id = judgement_list.team_list_id
+                              WHERE unique_code = '$search_key'
+                              GROUP BY judgement_list.team_list_id";
+          $run_query_team = mysqli_query($con, $check_team_info);
+          $row_team_info = intval(mysqli_num_rows($run_query_team));
 
           //get team info
           $query_team_info = "SELECT * FROM team_list
-                        WHERE unique_code = '$search_key'"; //
+                              WHERE unique_code = '$search_key'";
           $run_team_info = mysqli_query($con, $query_team_info);
-          $row_team_info = intval(mysqli_num_rows($run_team_info));
           $team_info = mysqli_fetch_assoc($run_team_info);
+
           if($row_team_info > 0){
           //get all criteria
           $query_cri_info = "SELECT * FROM criteria
           INNER JOIN event ON criteria.event_id = event.event_id
           INNER JOIN team_list ON team_list.event_id = event.event_id
-          WHERE team_list.team_list_id = '$team_info[team_list_id]'";
+          WHERE team_list.team_list_id = '$team_info[team_list_id]'
+          GROUP BY criteria_id";
           $run_cri_info = mysqli_query($con, $query_cri_info);
 
           //number of criteria
@@ -70,29 +81,20 @@
 
           //get overall criteria score
           $get_ovr_scr = 
-          "SELECT score.score, criteria.criteria_id FROM `result`
+          "SELECT SUM(score.score) AS total_score FROM `result`
           INNER JOIN judgement_list ON judgement_list.judgement_list_id = result.judgement_list_id
           INNER JOIN score_list ON score_list.score_list_id = judgement_list.score_list_id
           INNER JOIN score ON score_list.score_id = score.score_id
           INNER JOIN criteria ON criteria.criteria_id = score.criteria_id
           INNER JOIN team_list ON team_list.team_list_id = judgement_list.team_list_id
-          WHERE team_list.team_list_id = '$team_info[team_list_id]'
-          ORDER BY criteria.criteria_id ASC";
+          INNER JOIN participant ON participant.participant_id = team_list.participant_id
+          INNER JOIN user ON participant.user_id = user.user_id
+          WHERE team_list.unique_code = '$search_key'
+          AND user.user_id = $userid";
           $run_ovr_scr = mysqli_query($con, $get_ovr_scr);
-          // $ovr_scr = mysqli_fetch_array($run_ovr_scr);
-          //create array
-          $overall_cri_score=Array();
-          //for each row, store inside array
-          foreach($run_ovr_scr as $score) {
-            $overall_cri_score[] = $score['score'];
-          }
-          $total_scr = COUNT($overall_cri_score); //get actual number of array
-          $count_score = 0;
-          $x = 0;
-          while($x < $total_scr){
-            $count_score = $count_score + $overall_cri_score[$x]; //in final this will get total score
-            $x = $x + 1;
-          }
+          $overall_scr = mysqli_fetch_assoc($run_ovr_scr);
+
+          $count_score = $overall_scr['total_score'];
         ?>
           <div class="row">
             <!-- Result Container -->
@@ -122,7 +124,10 @@
                   INNER JOIN score ON score_list.score_id = score.score_id
                   INNER JOIN criteria ON criteria.criteria_id = score.criteria_id
                   INNER JOIN team_list ON team_list.team_list_id = judgement_list.team_list_id
-                  WHERE team_list.team_list_id = '$team_info[team_list_id]'
+                  INNER JOIN participant ON participant.participant_id = team_list.participant_id
+                  INNER JOIN user ON participant.user_id = user.user_id
+                  WHERE team_list.unique_code = '$search_key'
+                  AND user.user_id = $userid
                   AND criteria.criteria_id = $y
                   ORDER BY criteria.criteria_id ASC";
                   $run_sum_cri_score = mysqli_query($con, $sum_cri_score);
@@ -165,13 +170,13 @@
                   </label>
                   <p class="col-sm-6 col-form-label" id="rank" name="rank">
                   <?php
-                  $rank_sql = "SELECT tl.team_list_id, tl.team_name, SUM(sc.score) AS total_score 
+                  $rank_sql = "SELECT DISTINCT tl.team_list_id,  tl.team_name, SUM(sc.score) AS total_score 
                   FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                   INNER JOIN score AS sc ON sl.score_id = sc.score_id
                   INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
-                  INNER JOIN event AS ev ON tl.event_id = ev.event_id 
+                  INNER JOIN event AS ev ON tl.event_id = ev.event_id
                   WHERE ev.event_id = '$team_info[event_id]'
-                  GROUP BY tl.team_list_id
+                  GROUP BY participant_id
                   ORDER BY total_score DESC";
                   $ranking=mysqli_query($con,$rank_sql);
                   $teamname = Array();
@@ -242,7 +247,10 @@
                 $comment_sql = "SELECT * FROM comment
                 INNER JOIN judgement_list ON judgement_list.comment_id = comment.comment_id
                 INNER JOIN team_list ON judgement_list.team_list_id = team_list.team_list_id
-                WHERE team_list.unique_code = '$team_info[unique_code]'";
+                INNER JOIN participant ON participant.participant_id = team_list.participant_id
+                INNER JOIN user ON participant.user_id = user.user_id
+                WHERE team_list.unique_code = '$search_key'
+                AND user.user_id = $userid";
                 $run_comment_sql = mysqli_query($con,$comment_sql);
                 $count_comment = 0;
                 foreach($run_comment_sql as $comment) {
