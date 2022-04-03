@@ -2,6 +2,19 @@
   //Connection to Database
   include("../../../../backend/conn.php");
   include("../../../../backend/session.php");
+  
+  if ($_SESSION['privilege'] == 'judge'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../judge/event(judge).php'</script>");
+  }
+  else if ($_SESSION['privilege'] == 'participant'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../shared/view-event.php'</script>");
+  }
+  else if ($_SESSION['privilege'] == 'organizer'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../organizer/my-event.php'</script>");
+  }
 ?>
 
 <!DOCTYPE html>
