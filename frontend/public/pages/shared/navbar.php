@@ -56,7 +56,25 @@
   <body>
 		<nav id="navbar-main" class="navbar navbar-expand-lg navbar-transparent">
 			<div class="container-fluid position-relative">
-				<a href="../shared/home.php" class="mr-5">
+				<?php
+				if (isset($_SESSION['privilege'])) {
+					if($_SESSION['privilege'] == "admin"){
+						echo '<a href="../admin/home.php" class="mr-5 cursor-pointer">';
+					}
+					else if($_SESSION['privilege'] == "judge"){
+						echo '<a href="../judge/event(judge).php" class="mr-5 cursor-pointer">';
+					}
+					else if($_SESSION['privilege'] == "participant"){
+						echo '<a href="../shared/view-event.php" class="mr-5 cursor-pointer">';
+					}
+					else if ($_SESSION['privilege'] == "organizer"){
+						echo '<a href="../organizer/my-event.php" class="mr-5 cursor-pointer">';
+					}
+				}
+				else{
+					echo '<a href="../shared/home.php" class="mr-5 cursor-pointer">';
+				}
+				?>
 					<img src="../../images/logo.svg" alt="logo" class="logo" >
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
