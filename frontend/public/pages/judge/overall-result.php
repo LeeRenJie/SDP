@@ -3,6 +3,7 @@
     session_start();
     //Connection to Database
     include("../../../../backend/conn.php");
+    include("../../../../backend/session(judge).php");
 
     //Query to get team list of the event
     $teamlistsql="SELECT * FROM team_list AS tl INNER JOIN event AS ev ON tl.event_id = ev.event_id
@@ -106,7 +107,7 @@
         <?php include '../shared/navbar.php';?>
         <div class="flex flex-row h-screen" style="padding-bottom: 65px;">
             <?php include '../shared/sidebar.php';?>
-            <div class="basis-10/12 overflow-auto shadow">
+            <div class="basis-10/12 overflow-auto bg-shadow" style="border-radius:30px;">
                 <div class="maincontainer text-center">
                     <h2 class="mt-5 text-decoration-underline">Overall Result</h2>
                     <div class="card shadow-soft bg-primary border-light px-4 mx-5 my-4 rounded overflow-auto">

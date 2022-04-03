@@ -3,6 +3,7 @@
     session_start();
     //Connection to Database
     include("../../../../backend/conn.php");
+    include("../../../../backend/session(judge).php");
     //Query to get team list of the event
     $sql="SELECT * FROM team_list WHERE event_id = '$_SESSION[event_id]'";
     //Execute the query
@@ -134,11 +135,9 @@
         <?php include '../shared/navbar.php';?>
         <div class="flex flex-row h-screen" style="padding-bottom: 65px;">
             <?php include '../shared/sidebar.php';?>
-            <div class="basis-10/12 overflow-auto shadow">
+            <div class="basis-10/12 overflow-auto bg-shadow" style="border-radius:30px;">
                 <div class="maincontainer text-center mx-5" style="width: auto; justify-content: center;">
                     <h1>Judgement Form</h1>
-                    
-
                             <!-- Tab Nav -->
                             <div class="nav-wrapper position-relative mb-4 mt-3 text-center">
                                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
@@ -147,7 +146,7 @@
                                     //Create tab for each team name in team list
                                     $no = 1;
                                     while($no <= count($teamlist)){
-                                        echo '<li class="nav-item mr-sm-3 mr-md-0 p-2 noHover">
+                                        echo '<li class="nav-item mr-sm-3 mr-md-0 p-2 navteam noHover">
                                                 <a class="nav-link mb-sm-3 mb-md-0 mt-3 ';
                                                 
                                                 if($no==1){
