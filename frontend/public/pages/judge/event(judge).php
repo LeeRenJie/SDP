@@ -3,6 +3,7 @@
     session_start();
     //Connection to Database
     include("../../../../backend/conn.php");
+    include("../../../../backend/session(judge).php");
 
     //Query to get the event data
     $sql="SELECT * FROM event AS ev INNER JOIN judges_list AS jl ON ev.judges_list_id = jl.judges_list_id
@@ -58,8 +59,8 @@
         <?php include '../shared/navbar.php';?>
         <div class="flex flex-row h-screen" style="padding-bottom: 65px;">
             <?php include '../shared/sidebar.php';?>
-            <div class="basis-10/12 overflow-auto shadow">
-                <div class="maincontainer">
+            <div class="basis-10/12 overflow-auto bg-shadow" style="border-radius:30px;">
+                <div class="maincontainer mx-5">
                     <div class="card bg-primary border-light shadow-soft p-4" >
                         <div class="row">
                             <!-- Event Description -->

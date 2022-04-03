@@ -20,7 +20,7 @@
                 $judgename = $row['judge_name'];
             }
             $_SESSION['judge_id']=$judgeid;
-            $_SESSION['judge_name']=$judgename;
+            $_SESSION['username']=$judgename;
             $_SESSION['privilege']="judge"; 
             //Show the welcome message
             echo("<script>alert('Welcome, $judgename')</script>");
