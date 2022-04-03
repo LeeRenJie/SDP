@@ -75,6 +75,13 @@
     WHERE user.user_id = $userid
     ORDER BY event_date ASC";
     $organized_event_run = mysqli_query($con, $organized_event);
+
+    $organized_event_num = "SELECT COUNT(event_id) FROM event
+    INNER JOIN organizer ON organizer.organizer_id = event.organizer_id
+    INNER JOIN user ON user.user_id = organizer.user_id
+    WHERE user.user_id = $userid
+    ORDER BY event_date ASC";
+    $organized_event_no = mysqli_query($con, $organized_event_num);
   }
   //for admin
   elseif ($privilege_id == '1'){
@@ -93,11 +100,15 @@
 if ($privilege_id == '3' OR $privilege_id == '2')
 {
   $user_participate_result = mysqli_query($con, $find_event_query);
-  $total_complete_result = mysqli_query($con, $complete_event_query);
-  $total_ongoing_result = mysqli_query($con, $ongoing_event_query);
-  // Fetch data
-  $complete_result = mysqli_fetch_assoc($total_complete_result);
-  $ongoing_result = mysqli_fetch_assoc($total_ongoing_result);
+  if ($privilege_id == '3')
+  {
+    $total_complete_result = mysqli_query($con, $complete_event_query);
+    $total_ongoing_result = mysqli_query($con, $ongoing_event_query);
+
+    // Fetch data
+    $complete_result = mysqli_fetch_assoc($total_complete_result);
+    $ongoing_result = mysqli_fetch_assoc($total_ongoing_result);
+  }
 }
 
   //If no event participate, = 0
@@ -219,7 +230,11 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                       }
                       elseif ($privilege_id == '2')
                       {
-                        echo $total_organized_num['COUNT(event.event_id)'];
+                        WHILE($eventorganized = mysqli_fetch_array($organized_event_no))
+                        {
+                          echo $eventorganized[0];
+                        }
+                        
                       }
                     ?> 
                     <i class="fa-solid fa-calendar-days"></i>
