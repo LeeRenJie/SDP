@@ -15,6 +15,7 @@
   <?php include '../shared/navbar.php';?>
   <!--Connection to Database-->
   <?php include("../../../../backend/conn.php")?>
+  <?php include("../../../../backend/session.php");?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto dark_shadow">

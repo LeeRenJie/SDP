@@ -1,6 +1,7 @@
 <?php
   //Connection to Database
   include("../../../../backend/conn.php");
+  include("../../../../backend/session.php");
 ?>
 
 <!DOCTYPE html>
