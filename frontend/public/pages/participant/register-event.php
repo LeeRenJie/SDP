@@ -109,19 +109,33 @@
           echo("<script>window.location = 'success-register.php?$event_id'</script>");
         }
         elseif ($_POST['option_value'] == 'member') {
-          $sql1 = "SELECT * FROM team_list WHERE unique_code = '$_POST[unique_code]'";
+          $sql1 = "SELECT * FROM team_list WHERE unique_code = '$_POST[unique_code]' AND event_id = '$event_id'";
           $runsql = mysqli_query($con, $sql1);
           $gorunsql = mysqli_fetch_assoc($runsql);
-
+          //get data
+          $team_list_id = $gorunsql['team_list_id'];
           $participant_id = $userdata['participant_id'];
           $ipt_event = $event_id;
           $team_name = $gorunsql['team_name'];
           $ipt_uni_code = $_POST['unique_code'];
-          $sql2 = "INSERT INTO team_list (participant_id, event_id, team_name, unique_code)
-                  VALUES ('$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
-          $result = mysqli_query($con, $sql2);
-          echo("<script>alert('Participated Successfully');</script>");
-          echo("<script>window.location = 'success-register.php?$event_id'</script>");
+          //validation max team member
+          $validate_max_team = intval(mysqli_num_rows($runsql));
+          //validate unique code
+          foreach($runsql as $validate_unique) {
+            if($validate_unique['unique_code'] == $ipt_uni_code){
+              if ($event_query['max_member'] == $validate_max_team){
+                break;
+              }
+              else {
+                $sql2 = "INSERT INTO team_list (team_list_id, participant_id, event_id, team_name, unique_code)
+                        VALUES ('$team_list_id', '$participant_id', '$ipt_event', '$team_name', '$ipt_uni_code')";
+                $result = mysqli_query($con, $sql2);
+                echo("<script>alert('Participated Successful');</script>");
+                echo("<script>window.location = 'success-register.php?$event_id'</script>");
+              };
+            }
+          }
+          echo("<script>alert('This team is not exist in this event or it is full.');</script>");
         }
         else {
           echo("<script>alert('Try Again');</script>");
