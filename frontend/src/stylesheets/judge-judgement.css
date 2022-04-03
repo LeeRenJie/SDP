@@ -35,6 +35,6 @@ th{
 }
 
 .noHover:hover{
-    opacity:1.0;
-    box-shadow:none;
+  opacity:1.0;
+  box-shadow:none;
 }
