@@ -103,7 +103,13 @@
               </a>
             </div>
           </div>
-          <div class = "row">
+          <?php
+            echo '<div class = "row ';
+            if($privilege =='organizer'){
+              echo 'justify-content-center';
+            }
+            echo '">';
+          ?>
             <div class = "lft-con">
               <div class= "name-card">
                 <h2><?=$userdata['name']?> Name Card</h2>
@@ -138,43 +144,41 @@
                   </div>
                 </div>
                 <!--Gender section-->
-                <div class="input-row">
-                  <label for="gender" class="col-sm-6 col-form-label">
-                    Gender
-                  </label>
-                  <select class="custom-select col-sm-6 btn sel" name="gender">
-                    <option class="al" value=""
-                    <?php
-                    if ($userdata['gender'] == '')
-                    {
-                      'selected="selected"';
-                    }
-                    ?>
-                    >
-                      Prefer not to tell
-                    </option>
-                    <option class="al" value="male"
-                    <?php
-                    if ($userdata['gender'] == 'male')
-                    {
-                      'selected="selected"';
-                    }
-                    ?>
-                    >
-                      Male
-                    </option>
-                    <option class="al" value="female"
-                    <?php
-                    if ($userdata['gender'] == 'female')
-                    {
-                      'selected="selected"';
-                    }
-                    ?>
-                    >
-                      Female
-                    </option>
-                  </select>
-                </div>
+                <?php
+                  if ($privilege != "organizer"){
+                    echo ('<div class="input-row">
+                      <label for="gender" class="col-sm-6 col-form-label">
+                        Gender
+                      </label>');
+                      echo '<select class="custom-select col-sm-6 btn sel" name="gender">';
+                        echo '<option class="al" value=""';
+                        if ($userdata['gender'] == '')
+                        {
+                          'selected="selected"';
+                        }
+                        echo '>';
+                          echo 'Prefer not to tell';
+                        echo '</option>';
+                        echo '<option class="al" value="male"';
+                        if ($userdata['gender'] == 'male')
+                        {
+                          'selected="selected"';
+                        }
+                        echo '>';
+                          echo'Male';
+                        echo '</option>';
+                        echo '<option class="al" value="female"';
+                        if ($userdata['gender'] == 'female')
+                        {
+                          'selected="selected"';
+                        }
+                        echo ('>
+                          Female
+                        </option>
+                      </select>');
+                    echo'</div>';
+                  };
+                ?>
                 <!--change telephone-->
                 <div class="input-row">
                   <label for="telephone" class="col-sm-6 col-form-label">
@@ -222,23 +226,25 @@
                 ?>
               </div> <!--edit-con-->
             </div><!--lft-con-->
-            <div class = "right-con">
-              <div class="justify-content-center">
-                <div class="profile-container">
-                  <label for="imageUpload">
-                    <image class="imge" id="img" name="img" src="<?=$userdata['participant_image']?>" alt="Profile Pic" />
-                  </label>
+            <?php if ($privilege != "organizer"){?>
+              <div class = "right-con">
+                <div class="justify-content-center">
+                  <div class="profile-container">
+                    <label for="imageUpload">
+                      <image class="imge" id="img" name="img" src="<?=$userdata['participant_image']?>" alt="Profile Pic" />
+                    </label>
+                  </div>
+                  <div class="custom-file">
+                    <input id="imageUpload" class="imgload custom-file-input" type="file" name="profilePic" onchange="preimg(img)" capture>
+                    <label class="custom-file-label" for="imageUpload">Choose file</label>
+                  </div>
                 </div>
-                <div class="custom-file">
-                  <input id="imageUpload" class="imgload custom-file-input" type="file" name="profilePic" onchange="preimg(img)" capture>
-                  <label class="custom-file-label" for="imageUpload">Choose file</label>
+                <div class="btn-size">
+                  <input class="btn discard d-none animate-up-2" id="button" value="Discard" onclick="discard()">
+                  <input class="btn save d-none animate-up-2" id="button1" type="submit" value="Save" name="saveInfoBtn">
                 </div>
               </div>
-              <div class="btn-size">
-                <input class="btn discard d-none animate-up-2" id="button" value="Discard" onclick="discard()">
-                <input class="btn save d-none animate-up-2" id="button1" type="submit" value="Save" name="saveInfoBtn">
-              </div>
-            </div>
+            <?php } ?>
           </div>
         </div>
       </form>

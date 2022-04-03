@@ -12,14 +12,12 @@
   background: #e6e7ee;
   border: 1px solid #e6e7ee;
   transition: all .3s;
-  box-shadow: 6px 6px 12px #c5c5c5,
-              -6px -6px 12px #ffffff;
+  box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #ffffff;
 }
 
 .green-button:active {
   color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5,
-              inset -4px -4px 12px #ffffff;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }
 
 .green-button:hover {
@@ -38,14 +36,12 @@
   background: #e6e7ee;
   border: 1px solid #e6e7ee;
   transition: all .3s;
-  box-shadow: 6px 6px 12px #c5c5c5,
-              -6px -6px 12px #ffffff;
+  box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #ffffff;
 }
 
 .red-button:active {
   color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5,
-              inset -4px -4px 12px #ffffff;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }
 
 .red-button:hover {
@@ -59,8 +55,7 @@
   width: 1120px;
   height: 500px;
   border-radius: 20px;
-  box-shadow: inset 5px 5px 10px #c5c5c5,
-              inset -5px -5px 10px #fbfbfb;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #fbfbfb;
   padding-top: 10px;
 }
 
@@ -73,8 +68,7 @@
 
 .detail-container {
   border-radius: 20px;
-  box-shadow: inset 5px 5px 10px #c5c5c5,
-              inset -5px -5px 10px #fbfbfb;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #fbfbfb;
   max-width: 1120px;
 }
 

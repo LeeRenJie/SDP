@@ -33,7 +33,7 @@
 
   // get the judges' details
   $judge_sql = (
-    "SELECT e.event_id, j.judge_name , j.unique_code
+    "SELECT e.event_id, j.judge_id, j.judge_name , j.unique_code
     FROM event AS e
     JOIN judges_list AS jl ON e.judges_list_id = jl.judges_list_id
     JOIN judge AS j ON jl.judge_id = j.judge_id
@@ -92,7 +92,7 @@
 
   // get the participants
   $participant_sql = (
-    "SELECT e.event_id, tl.unique_code, u.name
+    "SELECT e.event_id, tl.team_list_id, tl.unique_code, u.name
     FROM team_list AS tl
     JOIN event AS e ON tl.event_id = e.event_id
     JOIN participant AS p ON tl.participant_id = p.participant_id
@@ -103,7 +103,7 @@
 
   // get the teams
   $team_sql = (
-    "SELECT e.event_id, tl.team_name, tl.unique_code, GROUP_CONCAT(u.name) AS team_members
+    "SELECT e.event_id, tl.team_list_id, tl.team_name, tl.unique_code, GROUP_CONCAT(u.name) AS team_members
     FROM team_list AS tl
     JOIN event AS e ON tl.event_id = e.event_id
     JOIN participant AS p ON tl.participant_id = p.participant_id
@@ -112,6 +112,19 @@
     GROUP BY tl.team_name"
   );
   $team_result = mysqli_query($con, $team_sql);
+
+  $jl_sql =(
+    "SELECT COUNT(DISTINCT jl.judgement_list_id) AS num_jl
+    FROM judgement_list as jl
+    JOIN team_list as tl
+    ON jl.team_list_id = tl.team_list_id
+    WHERE tl.event_id = '$event_id'"
+  );
+  //count number of rows
+  $jl_result = mysqli_query($con, $jl_sql);
+  while($count_jl=mysqli_fetch_array($jl_result)){
+    $num_judgements = $count_jl["num_jl"];
+  };
 
   //close database connection
   mysqli_close($con);
@@ -147,20 +160,63 @@
           ?>
         </div>
         <!-- Button actions for the event -->
-        <div class="col-4">
-          <?php
-          echo '<a class="green-button mx-2 cursor-pointer"  href="../organizer/edit-event.php?';
-            echo $event_id;
-          echo "\">Edit</a>";
-          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
-            echo $event_id;
-          echo "\">End</a>";
-          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
-            echo $event_id;
-            echo "\" onClick=\"return confirm('Delete ";
-              echo $event_name;
-            echo " event?')";
-        echo "\">Delete</a>";
+        <?php
+          if ($active == 1){
+            echo '<div class="col-4">';
+          }
+          else{
+            echo '<div class="col-3 justify-content-end">';
+          };
+            if ($active == 1){
+              echo '<a class="green-button mx-2 cursor-pointer"  href="../organizer/edit-event.php?';
+                echo $event_id;
+              echo "\">Edit</a>";
+            };
+            // Check if all participants have been judged
+            if ($active == 1){
+              if ($type == "solo"){
+                if ($num_judgements == $num_participant) {
+                  echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
+                    echo $event_id;
+                  echo "\">End</a>";
+                }
+                else
+                {
+                  echo '<button type="button" class="btn btn-primary mx-2 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Unable to end event. The judges have not judge all participant">';
+                    echo 'End';
+                  echo '</button>';
+                }
+              }
+              else{
+                if ($num_judgements == $num_team) {
+                  echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
+                    echo $event_id;
+                  echo "\">End</a>";
+                }
+                else
+                {
+                  echo '<button type="button" class="btn btn-primary mx-2 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Unable to end event. The judges have not judge all teams">';
+                    echo 'End';
+                  echo '</button>';
+                }
+              }
+            }
+            if ($active == 1){
+              echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
+                echo $event_id;
+                echo "\" onClick=\"return confirm('Delete ";
+                  echo $event_name;
+                echo "event? This will delete all the data related to this event.";
+              echo "\">Delete</a>";
+            }
+            else{
+              echo '<a class="red-button cursor-pointer"  href="../organizer/delete-event.php?';
+                echo $event_id;
+                echo "\" onClick=\"return confirm('Delete ";
+                  echo $event_name;
+                echo "event? This will delete all the data and results of this event.";
+              echo "\">Delete</a>";
+            }
           ?>
         </div>
       </div>
@@ -302,9 +358,8 @@
           <h5 class="float-end opacity-50">Total: <?php echo $num_judges?></h5>
           <table class="table judge-table overflow-y-auto">
             <tr>
-              <th class="border-0" scope="col" id="name" width="52.5%">Name</th>
-              <th class="border-0" scope="col" id="code" width="32.5%">Code</th>
-              <th class="border-0" scope="col" id="actions" width="15%">Actions</th>
+              <th class="border-0" scope="col" id="name" width="328.8px">Name</th>
+              <th class="border-0" scope="col" id="code" width="219.2px">Code</th>
             </tr>
             <?php
               if(mysqli_num_rows($judge_result) > 0 ){
@@ -316,17 +371,7 @@
                     echo'<td>';
                       echo$judge_row['unique_code'];
                     echo'</td>';
-                    echo('
-                    <td class="text-center dropdown">
-                      <a href="#" data-toggle="dropdown">
-                        <i class="fa-solid fa-ellipsis"></i>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Delete</a></li>
-                      </ul>
-                    </td>
-                  </tr>'
-                  );
+                  echo'</tr>';
                 }
               }
             ?>
@@ -379,7 +424,12 @@
                           <i class="fa-solid fa-ellipsis"></i>
                         </a>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="">Remove</a></li>
+                          <li><a class="dropdown-item" href="../organizer/delete-participant.php?');
+                          echo $participant_row['team_list_id'];
+                          echo "\" onClick=\"return confirm('Remove ";
+                            echo $participant_row['name'];
+                          echo " from the event?')";
+                          echo('">Remove</a></li>
                         </ul>
                       </td>
                     </tr>'
@@ -395,59 +445,73 @@
                     $team_member = explode(",", $team_row['team_members']);
                     // count number of team members in the team
                     $count_team_member = count($team_member);
-                    // modal to display team members
-                    echo('
-                    <!-- Modal Content -->
-                    <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h2 class="h6 modal-title mb-0" id="modal-title-default">Team members</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <p>All team members have the same unique code to join the team or view event results.</p>
-                            <br/>
-                            <p class="text-center">Team members are listed below👇</p>
-                        ');
-                        // loop through all team members and display them
-                        for ($x = 0; $x <= $count_team_member-1 ; $x++) {
-                          echo '<p class="text-center"> • '.$team_member[$x].'</p>';
-                        };
-                    echo('
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End of Modal Content -->
-                    ');
                     echo'<tr>';
                       echo'<td>';
                         echo $team_row['team_name'];
                       echo'</td>';
                       echo'<td>';
-                        echo$team_row['unique_code'];
+                        echo $team_row['unique_code'];
                       echo'</td>';
                       echo('
-                      <td class="text-center dropdown">
-                        <a href="#" data-toggle="dropdown">
-                          <i class="fa-solid fa-ellipsis"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal-default">
-                              View Team Members
-                            </button>
-                          </li>
-                          <li><a class="dropdown-item" href="">Delete</a></li>
-                        </ul>
-                      </td>
-                    </tr>'
-                    );
+                        <td class="text-center dropdown">
+                          <a href="#" data-toggle="dropdown">
+                            <i class="fa-solid fa-ellipsis"></i>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal-default_'.$i.'">
+                                View Team Members
+                              </button>
+                            </li>
+                            <li><a class="dropdown-item" href="../organizer/delete-participant.php?');
+                            echo $team_row['unique_code'];
+                            echo "\" onClick=\"return confirm('Remove ";
+                              echo $team_row['team_name'];
+                            echo " and all of its members from the event?')";
+                            echo('">Remove</a></li>
+                          </ul>
+                        </td>
+                      </tr>'
+                      );
+                       // modal to display team members
+                      echo('
+                        <!-- Modal Content -->
+                        <div class="modal fade" id="modal-default_'.$i.'" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h2 class="h6 modal-title mb-0" id="modal-title-default">Team members</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <p>All team members have the same unique code to join the team or view event results.</p>
+                                <br/>
+                                <p class="text-center">Team members are listed below👇</p>
+                          ');
+                          // loop through all team members and display them
+                          for ($x = 0; $x <= $count_team_member-1 ; $x++) {
+                            echo '<p class="text-center"> • '.$team_member[$x].'</p>';
+                          };
+                      echo('
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End of Modal Content -->
+                    ');
                   };
-                };
+                }
+                else{
+                  echo('
+                  <tr>
+                    <td colspan="3" class="text-center">
+                      <p>No team or participant found.</p>
+                    </td>
+                  </tr>
+                  ');
+                }
               };
             ?>
           </table>
@@ -455,5 +519,11 @@
       </div>
     </div>
   </div>
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
 </body>
 </html>

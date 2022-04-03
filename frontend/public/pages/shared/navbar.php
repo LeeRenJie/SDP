@@ -14,12 +14,12 @@
     //Get result row
     $row = mysqli_fetch_assoc($result);
     //Check condition of password
-    if($row['user_password'] == $_POST['currentpsw']) {
+    if($row['password'] == $_POST['currentpsw']) {
       //if first condition match
       if($_POST['newpsw'] == $_POST['confirmpsw']){
         //if second condition also match
         //Update user passowrd
-        $sql = "UPDATE user SET user_password = '$_POST[newpsw]' WHERE user_id = $userid";
+        $sql = "UPDATE user SET password = '$_POST[newpsw]' WHERE user_id = $userid";
         //Notify user sucess
         if (mysqli_query($con,$sql)) {
           echo'<script>alert("Your Password Had Changed Successfully!");</script>';
@@ -28,9 +28,7 @@
         else {
           die('Error: ' . mysqli_error($con));
         }
-        //Close connection for database
-        mysqli_close($con);
-        }
+			}
       else {
         //Notify user new password not match condition
         echo'<script>alert("New Password not match with confirm password.");</script>';
@@ -77,10 +75,11 @@
 							</div>
 						</div>
 					</div>
-					<ul class="navbar-nav navbar-nav-hover ml-auto">
-						<?php if(isset($_SESSION['username'])){
+					<ul class="navbar-nav navbar-nav-hover ml-auto mr-5 no-bullet">
+						<?php
+						if(isset($_SESSION['username'])){
 							echo('
-								<li class="nav-item dropdown mr-3">
+								<li class="nav-item dropdown mr-5">
 									<a href="#" class="nav-link" data-toggle="dropdown" >
 										<span class="nav-link-inner-text">
 											<i class="fas fa-user"></i>
@@ -93,7 +92,7 @@
 									<ul class="dropdown-menu">
 									');
 									if($_SESSION['privilege'] == 'organizer'){
-										echo('<li><a class="dropdown-item" href="../organizer/view-profile.php">Profile</a></li>');
+										echo('<li><a class="dropdown-item" href="../organizer/view-profile.php?'.$_SESSION['user_id'].'">Profile</a></li>');
 									}
 									else if($_SESSION['privilege'] == 'participant'){
 										echo('<li><a class="dropdown-item" href="../participant/view-profile.php">Profile</a></li>');
@@ -101,11 +100,13 @@
 									if(($_SESSION['privilege'] == 'admin') || ($_SESSION['privilege'] == 'participant' || $_SESSION['privilege'] == 'organizer')){
 										echo('<li><a class="dropdown-item" data-toggle="modal" data-target="#modal-form">Edit Password</a></li>');
 									}
-										echo('<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>
-									</ul>
-								</li>
-							');
-						} ?>
+									if(isset($_SESSION['privilege'])){
+										echo'<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>';
+									};
+									echo '</ul>';
+								echo '</li>';
+								};
+							?>
 						<?php
                 if(!isset($_SESSION['username'])) {
                   echo(
@@ -114,6 +115,9 @@
                   </li>
 								  <li class="nav-item">
                     <a class="btn btn-primary mr-2" href="../shared/login.php">Log In</a>
+                  </li>
+									<li class="nav-item">
+                    <a class="btn btn-primary mr-2" href="../judge/enter-event.php">Judge</a>
                   </li>
 									');
                 }
@@ -136,7 +140,7 @@
 									<h2 class="h5">Edit Password</h2>
 							</div>
 							<div class="card-body">
-								<form action="post">
+								<form method="post">
 									<div class="form-group">
 										<!-- Form -->
 										<div class="form-group">
@@ -165,7 +169,7 @@
 														<div class="input-group-prepend">
 																<span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
 														</div>
-														<input class="form-control" id="confirmpsw" placeholder="Confirm password" type="password" aria-label="confirm password" required>
+														<input class="form-control" name="confirmpsw" placeholder="Confirm password" type="password" aria-label="confirm password" required>
 												</div>
 										</div>
 										<!-- End of Form -->

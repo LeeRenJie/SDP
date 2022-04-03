@@ -33,7 +33,7 @@
     FROM event AS e
     JOIN judges_list AS jl ON e.judges_list_id = jl.judges_list_id
     JOIN judge AS j ON jl.judge_id = j.judge_id
-    WHERE organizer_id = '$organizer_id' and event_name LIKE '%$search_key%'
+    WHERE e.organizer_id = '$organizer_id' and e.event_name LIKE '%$search_key%' and e.active = '1'
     GROUP BY event_id
     ORDER BY event_date DESC
     ");
