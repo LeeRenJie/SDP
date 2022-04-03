@@ -71,7 +71,7 @@
       <section id="contact" class="contact-container">
         <div class="contact-text text-center">
           <h2 class="bold">Reach Out To Us</h2>
-          <a href="../shared/contact-us.php" class="btn btn-primary mt-5 animate-up-3">Contact Us</a>
+          <a href="mailto:judgeable.contact@gmail.com" class="btn btn-primary mt-5 animate-up-3">Contact Us</a>
         </div>
         <div class="contact-img-container">
           <img src="../../images/contact-us.png" alt="contact us image" class="contact-img">

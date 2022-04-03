@@ -1,88 +1,112 @@
 <?php
-//(Carlos Vasquez S., n.d.)
-
 require('../../../../backend/fpdf/fpdf.php');
+$con=mysqli_connect("localhost","root","","judgeable");
+$event_id = intval($_SERVER['QUERY_STRING']);
+$event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");
+$event_result = mysqli_query($con, $event_sql);
+$event_row=mysqli_fetch_array($event_result);
+$event_name = $event_row['event_name'];
+$type = $event_row['participant_type'];
 
-//Connect to your database
-include("../../../../backend/conn.php");
+class PDF extends FPDF {
+	function Header(){
+		$this ->SetFont('Arial','B',14);
+		$this ->Cell(12);
+		$con=mysqli_connect("localhost","root","","judgeable");
+		$event_id = intval($_SERVER['QUERY_STRING']);
+		$event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");
+		$event_result = mysqli_query($con, $event_sql);
+		$event_row=mysqli_fetch_array($event_result);
+		$event_name = $event_row['event_name'];
+		$type = $event_row['participant_type'];
 
-//Select the Products you want to show in your PDF file
-$result=mysql_query("select Code,Name,Price from Products ORDER BY Code",$link);
-$number_of_products = mysql_numrows($result);
+		$title = "Event Result for $event_name";
+		$this->Cell(100,10,$title,0,1);
+		$this->Ln(5);
+		$this->SetFont('Arial','B',11);
+		$this->SetFillColor(180,180,255);
+		$this->SetDrawColor(180,180,255);
+		$this->Cell(25,5,'Rank',1,0,'',true);
+		if ($type == "team") {
+			$this->Cell(40,5,'Team Name',1,0,'',true);
+			$this->Cell(65,5,'Team Members',1,0,'',true);
+		}
+		else{
+			$this->Cell(40,5,'Participant Name',1,0,'',true);
+		}
+		$this->Cell(60,5,'Total Score',1,1,'',true);
 
-//Initialize the 3 columns and the total
-$column_code = "";
-$column_name = "";
-$column_price = "";
-$total = 0;
+	}
+	function Footer(){
+		//add table's bottom line
+		$this->Cell(190,0,'','T',1,'',true);
 
-//For each row, add the field to the corresponding column
-while($row = mysql_fetch_array($result))
-{
-    $code = $row["Code"];
-    $name = substr($row["Name"],0,20);
-    $real_price = $row["Price"];
-    $price_to_show = number_format($row["Price"],',','.','.');
+		//Go to 1.5 cm from bottom
+		$this->SetY(-15);
 
-    $column_code = $column_code.$code."\n";
-    $column_name = $column_name.$name."\n";
-    $column_price = $column_price.$price_to_show."\n";
+		$this->SetFont('Arial','',8);
 
-    //Sum all the Prices (TOTAL)
-    $total = $total+$real_price;
+		//width = 0 means the cell is extended up to the right margin
+		$this->Cell(0,10,'Page '.$this->PageNo()." / {pages}",0,0,'C');
+	}
 }
-mysql_close();
 
-//Convert the Total Price to a number with (.) for thousands, and (,) for decimals.
-$total = number_format($total,',','.','.');
+$pdf = new PDF('P','mm','A4'); //use new class
 
-//Create a new PDF file
-$pdf=new FPDF();
+//define new alias for total page numbers
+$pdf->AliasNbPages('{pages}');
+
+$pdf->SetAutoPageBreak(true,15);
 $pdf->AddPage();
 
-//Fields Name position
-$Y_Fields_Name_position = 20;
-//Table position, under Fields Name
-$Y_Table_Position = 26;
+$pdf->SetFont('Arial','',9);
+$pdf->SetDrawColor(180,180,255);
 
-//First create each Field Name
-//Gray color filling each Field Name box
-$pdf->SetFillColor(232,232,232);
-//Bold Font for Field Name
-$pdf->SetFont('Arial','B',12);
-$pdf->SetY($Y_Fields_Name_position);
-$pdf->SetX(45);
-$pdf->Cell(20,6,'CODE',1,0,'L',1);
-$pdf->SetX(65);
-$pdf->Cell(100,6,'NAME',1,0,'L',1);
-$pdf->SetX(135);
-$pdf->Cell(30,6,'PRICE',1,0,'R',1);
-$pdf->Ln();
+$team_rank_sql = (
+	"SELECT tl.team_name, GROUP_CONCAT(DISTINCT u.name) AS team_members, SUM(sc.score) AS total_score
+	FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
+	INNER JOIN score AS sc ON sl.score_id = sc.score_id
+	INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
+	JOIN participant AS p ON tl.participant_id = p.participant_id
+	JOIN user AS u ON p.user_id = u.user_id
+	INNER JOIN event AS ev ON tl.event_id = ev.event_id
+	WHERE ev.event_id = '$event_id'
+	GROUP BY tl.team_list_id
+	ORDER BY total_score DESC;"
+);
 
-//Now show the 3 columns
-$pdf->SetFont('Arial','',12);
-$pdf->SetY($Y_Table_Position);
-$pdf->SetX(45);
-$pdf->MultiCell(20,6,$column_code,1);
-$pdf->SetY($Y_Table_Position);
-$pdf->SetX(65);
-$pdf->MultiCell(100,6,$column_name,1);
-$pdf->SetY($Y_Table_Position);
-$pdf->SetX(135);
-$pdf->MultiCell(30,6,$columna_price,1,'R');
-$pdf->SetX(135);
-$pdf->MultiCell(30,6,'$ '.$total,1,'R');
+$participant_sql = (
+	"SELECT u.name, SUM(sc.score) AS total_score
+	FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
+	INNER JOIN score AS sc ON sl.score_id = sc.score_id
+	INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
+	JOIN participant AS p ON tl.participant_id = p.participant_id
+	JOIN user AS u ON p.user_id = u.user_id
+	INNER JOIN event AS ev ON tl.event_id = ev.event_id
+	WHERE ev.event_id = '$event_id'
+	GROUP BY tl.team_list_id
+	ORDER BY total_score DESC;"
+);
 
-//Create lines (boxes) for each ROW (Product)
-//If you don't use the following code, you don't create the lines separating each row
-$i = 0;
-$pdf->SetY($Y_Table_Position);
-while ($i < $number_of_products)
-{
-    $pdf->SetX(45);
-    $pdf->MultiCell(120,6,'',1);
-    $i = $i +1;
+$query=mysqli_query($con, $team_rank_sql);
+$i = 1;
+if ($type=="team"){
+	while($data=mysqli_fetch_array($query)){
+		$pdf->Cell(25,5,$i,'LR',0);
+		$pdf->Cell(40,5,$data['team_name'],'LR',0);
+		$pdf->Cell(65,5,$data['team_members'],'LR',0);
+		$pdf->Cell(60,5,$data['total_score'],'LR',1);
+		$i++;
+	}
 }
+else{
+	while($data=mysqli_fetch_array($query)){
+		$pdf->Cell(25,5,$i,'LR',0);
+		$pdf->Cell(40,5,$data['name'],'LR',0);
+		$pdf->Cell(60,5,$data['total_score'],'LR',1);
+		$i++;
+	}
+};
 
 $pdf->Output();
 ?>
