@@ -13,10 +13,10 @@
 	$delete_particiant_result = mysqli_query($con,"DELETE FROM team_list WHERE unique_code=$unique_code");
 
   if ($delete_particiant_result){
-    echo("<script>alert('Judge deleted successfully.');</script>");
+    echo("<script>alert('Participant deleted successfully.');</script>");
   }
   else{
-    die('Error delete judge: ' . mysqli_error($con));
+    die('Error deleting participant: ' . mysqli_error($con));
   }
 
 

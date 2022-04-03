@@ -21,7 +21,7 @@
   $start_time = date("H:i",strtotime($event_row["start_time"]));
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
-  if ($event_pic == "" || $event_pic == NULL) {
+  if (is_null($event_pic)) {
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
@@ -68,31 +68,11 @@
 
   // If event edit execute update sql
   if(isset($_POST["editBtn"])){
+    echo("<script>alert('btn pressed')</script>");
     $validated = TRUE;
     // get the data from the form
     // get event picture name
-    if(isset($_FILES['eventPic'])){
-      $eventPicture = $_FILES['eventPic']['tmp_name'];
-      if ($_FILES['eventPic']['size'] > 0){
-        //get image type
-        $imageFileType = strtolower(pathinfo($eventPicture,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-        //encode image into base64
-        $base64_Img = base64_encode(file_get_contents($eventPicture));
-        //set image content with type and base64
-        $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
-      }
-    }
-    else {
-      // event pic is null if no image is uploaded
-      //Set default image
-      $defaultPic = "../../images/default.jpg";
-      //Read default image file type (as jpg)
-      $imageFileType = strtolower(pathinfo($defaultPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-      //Encode default image into base 64
-      $defaultImg = base64_encode(file_get_contents($defaultPic));
-      //create a format of blob image (base64)
-      $image = 'data:image/'.$imageFileType.';base64,'.$defaultImg;
-    }
+    $image = file_get_contents($_FILES['file']['tmp_name']);
 
     // get event date
     $eventDate = $_POST["event-date"];
@@ -205,6 +185,8 @@
       while($row = mysqli_fetch_assoc($organizer_result)){
         $organizer_id = $row["organizer_id"];
       };
+
+      echo("<script>alert('validated')</script>");
 
       // get rule list id, judges list id and prizes list id
       $get_lists__sql = "SELECT prizes_list_id, rules_list_id, judges_list_id from event where event_id = '$event_id'";
@@ -469,6 +451,8 @@
         if ($event_result){
           // loop through event criteria array to input same input name into database
           $criteria = $_POST["criteria"];
+          // Delete criteria that matches event id
+          $delete_criteria_sql = "DELETE FROM criteria WHERE event_id = '$event_id'";
           $number_criteria = count($_POST["criteria"]);
           if ($number_criteria > 0) {
             foreach ($criteria as $criterion) {
@@ -521,12 +505,11 @@
       </div>
       <div class="text-center img-container ml-5">
         <label for=imageUpload>
-          <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"
-          data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="eventPic" alt="Event Image">
+          <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($event_pic).'" class="mx-auto d-block img-size shadow-inset" alt="Event Image" id="img" name="img"/>';?>
         </label>
       </div>
       <div class="h-0 overflow-hidden">
-        <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
+        <input id="imageUpload" type="file" name="file" onchange="preimg(img)" capture/>
       </div>
       <label class="btn btn-primary ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
       <form class="row pl-5 mt-3 form-container">

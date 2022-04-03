@@ -97,7 +97,7 @@ if (isset($_POST['registerBtn'])) {
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-  <div class="overflow-auto h-screen back-shadow">
+  <div class="overflow-auto h-screen">
     <div class="d-flex justify-content-center signup-container pt-3">
       <div class="border-light shadow-soft w-60 px-5">
         <div class="text-center">
