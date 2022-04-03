@@ -3,6 +3,19 @@
   include("../../../../backend/conn.php");
   include("../../../../backend/session.php");
 
+  if ($_SESSION['privilege'] == 'judge'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../judge/event(judge).php'</script>");
+  }
+  else if ($_SESSION['privilege'] == 'participant'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../shared/view-event.php'</script>");
+  }
+  else if ($_SESSION['privilege'] == 'organizer'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../organizer/my-event.php'</script>");
+  }
+  
   if (isset($_POST['create_btn'])) {
     //Get all user data from database
     $validation_query = "SELECT * FROM user INNER JOIN privilege ON user.privilege_id = privilege.privilege_id ";

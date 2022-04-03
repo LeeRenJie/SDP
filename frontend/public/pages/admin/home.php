@@ -15,7 +15,20 @@
   <?php include '../shared/navbar.php';?>
   <!--Connection to Database-->
   <?php include("../../../../backend/conn.php")?>
-  <?php include("../../../../backend/session.php");?>
+  <?php include("../../../../backend/session.php");
+  if ($_SESSION['privilege'] == 'judge'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../judge/event(judge).php'</script>");
+  }
+  else if ($_SESSION['privilege'] == 'participant'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../shared/view-event.php'</script>");
+  }
+  else if ($_SESSION['privilege'] == 'organizer'){
+    echo("<script>alert('You do not have the privilege to access this page.')</script>");
+    echo("<script>window.location = '../organizer/my-event.php'</script>");
+  }
+  ?>
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 overflow-auto dark_shadow">
