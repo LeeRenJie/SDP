@@ -273,12 +273,12 @@
     function Redirect_backup()
     {
       location.href = "http://localhost:8080/phpmyadmin/index.php?route=/server/export";
-      alert("Please log into phpMyAdmin by clicking the 'Go' button, then click on the 'judgeable' database and select 'Export' from the navigation bar.");
+      alert("Log in to phpMyAdmin by clicking the 'Go' button and entering the username 'root' (no password required), then select the 'judgeable' database from the side bar and click 'Export' from the navigation bar.");
     }
     function Redirect_restore()
     {
       window.location = "http://localhost:8080/phpmyadmin/index.php?route=/server/import";
-      alert("Please log into phpMyAdmin by clicking the 'Go' button, then click on the 'judgeable' database and select 'Import' from the navigation bar.");
+      alert("Log in to phpMyAdmin by clicking the 'Go' button and entering the username 'root' (no password required), then select the 'judgeable' database from the side bar and click 'Import' from the navigation bar.");
     }
   </script>
 </body>
