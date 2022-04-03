@@ -1,6 +1,7 @@
 <?php
   //Connection to Database
   include("../../../../backend/conn.php");
+  include("../../../../backend/session.php");
 
   if (isset($_POST['create_btn'])) {
     //Get all user data from database
