@@ -18,29 +18,7 @@
     $validated = TRUE;
     // get the data from the form
     // get event picture name
-    if(isset($_FILES['eventPic'])){
-      $eventPicture = $_FILES['eventPic']['tmp_name'];
-      if ($_FILES['eventPic']['size'] > 0){
-        //get image type
-        $imageFileType = strtolower(pathinfo($eventPicture,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-        //encode image into base64
-        $base64_Img = base64_encode(file_get_contents($eventPicture));
-        //set image content with type and base64
-        $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
-      }
-    }
-    else {
-      // event pic is null if no image is uploaded
-      //Set default image
-      $defaultPic = "../../images/default.jpg";
-      //Read default image file type (as jpg)
-      $imageFileType = strtolower(pathinfo($defaultPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-      //Encode default image into base 64
-      $defaultImg = base64_encode(file_get_contents($defaultPic));
-      //create a format of blob image (base64)
-      $image = 'data:image/'.$imageFileType.';base64,'.$defaultImg;
-    }
-
+    $image = file_get_contents($_FILES['file']['tmp_name']);
     // get event date
     $eventDate = $_POST["event-date"];
     // validation if event date is after today's date
@@ -410,7 +388,7 @@
         </span>
         <h1 class="py-2 inline-block"><b>Tell Us About Your Event</b></h1>
       </div>
-      <form method="post" class="row pl-5 mt-3 form-container">
+      <form method="post" class="row pl-5 mt-3 form-container" enctype="multipart/form-data">
         <div class="col-12">
           <div class="text-center img-container">
             <label for=imageUpload>
@@ -419,7 +397,7 @@
           </div>
 
           <div class="h-0 overflow-hidden">
-            <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
+            <input id="imageUpload" type="file" name="file" onchange="preimg(img)" capture/>
           </div>
           <label class="btn btn-primary mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
         </div>

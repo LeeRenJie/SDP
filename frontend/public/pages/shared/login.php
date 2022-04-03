@@ -88,7 +88,7 @@ mysqli_close($con);
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-  <div class="overflow-auto h-screen back-shadow">
+  <div class="overflow-auto h-screen">
     <div class="d-flex justify-content-center mt-5">
       <div class="card bg-primary border-light shadow-soft w-60 card-height px-5">
         <div class="text-center">

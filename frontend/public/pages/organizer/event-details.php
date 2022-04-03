@@ -22,7 +22,8 @@
   $start_time = date("H:i",strtotime($event_row["start_time"]));
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
-  if ($event_pic == "" || $event_pic == NULL) {
+  if (is_null($event_pic)) {
+    echo "<script>alert('no image')</script>";
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
@@ -222,7 +223,7 @@
       </div>
       <!-- Image of event -->
       <div class="text-center img-container ml-5">
-        <img src="<?php echo $event_pic ?>" class="mx-auto d-block img-size shadow-inset" alt="Event Image">
+        <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($event_pic).'" class="mx-auto d-block img-size shadow-inset" alt="Event Image"/>';?>
       </div>
       <!-- Details of event -->
       <div class="row pl-5 pt-4">
