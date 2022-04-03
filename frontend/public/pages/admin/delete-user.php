@@ -13,7 +13,7 @@
 	// Connect to database
 	include("../../../../backend/conn.php");
 
-  // use query string to fetch data from previous page --> "home.php" 
+  // use query string to fetch data from previous page --> "home.php"
   $user_id = '' ;
   //$user_id = intval($_GET['']);
   $user_id = $_SERVER['QUERY_STRING'];

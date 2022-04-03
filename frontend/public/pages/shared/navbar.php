@@ -75,7 +75,7 @@
 							</div>
 						</div>
 					</div>
-					<ul class="navbar-nav navbar-nav-hover ml-auto">
+					<ul class="navbar-nav navbar-nav-hover ml-auto mr-5">
 						<?php if(isset($_SESSION['username'])){
 							echo('
 								<li class="nav-item dropdown mr-5">
@@ -91,7 +91,7 @@
 									<ul class="dropdown-menu">
 									');
 									if($_SESSION['privilege'] == 'organizer'){
-										echo('<li><a class="dropdown-item" href="../organizer/view-profile.php">Profile</a></li>');
+										echo('<li><a class="dropdown-item" href="../organizer/view-profile.php?'.$_SESSION['user_id'].'">Profile</a></li>');
 									}
 									else if($_SESSION['privilege'] == 'participant'){
 										echo('<li><a class="dropdown-item" href="../participant/view-profile.php">Profile</a></li>');

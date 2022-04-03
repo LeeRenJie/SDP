@@ -7,15 +7,15 @@
   }
 
   //get user id from url
-  // use query string to fetch data from previous page --> "users.php" 
+  // use query string to fetch data from previous page --> "users.php"
   $userid = '' ;
   $userid = $_SERVER['QUERY_STRING'];
 
 
-  $privilege_query = "SELECT privilege.privilege_id FROM privilege 
-  INNER JOIN user ON user.privilege_id = privilege.privilege_id 
+  $privilege_query = "SELECT privilege.privilege_id FROM privilege
+  INNER JOIN user ON user.privilege_id = privilege.privilege_id
   WHERE user.user_id = $userid" ;
-  $privilege_query_run = mysqli_query($con, $privilege_query); 
+  $privilege_query_run = mysqli_query($con, $privilege_query);
   foreach($privilege_query_run as $privilege_data)
   {
     $privilege_id = $privilege_data['privilege_id'];
@@ -26,27 +26,27 @@
   //Query to get all data ONLY WORK IF VIEW PARTICIPANT
   if ($privilege_id == '3'){
     $user_query = "SELECT * FROM user AS pl
-    INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id 
+    INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id
     INNER JOIN participant ON pl.user_id = participant.user_id
     WHERE pl.user_id = $userid";
 
     //Completed event, ongoing event
     $find_event_query = "SELECT tl.event_id FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id 
+    INNER JOIN participant ON tl.participant_id = participant.participant_id
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
     AND evt.event_date < CURRENT_DATE()";
 
     $complete_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id 
+    INNER JOIN participant ON tl.participant_id = participant.participant_id
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
     AND evt.event_date < CURRENT_DATE()";
 
     $ongoing_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id 
+    INNER JOIN participant ON tl.participant_id = participant.participant_id
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
@@ -55,12 +55,12 @@
   //for organizers
   elseif ($privilege_id == '2'){
     $user_query = "SELECT * FROM user AS pl
-    INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id 
+    INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id
     WHERE pl.user_id = $userid";
 
     //Queries for organizer
     $find_event_query = "SELECT tl.event_id FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id 
+    INNER JOIN participant ON tl.participant_id = participant.participant_id
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
@@ -79,7 +79,7 @@
   //for admin
   elseif ($privilege_id == '1'){
     $user_query = "SELECT * FROM user AS pl
-    INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id 
+    INNER JOIN privilege ON pl.privilege_id = privilege.privilege_id
     WHERE pl.user_id = $userid";
   }
   // Execute the query
@@ -154,7 +154,7 @@ if ($privilege_id == '3' OR $privilege_id == '2')
         <!--profile container-->
         <div class="col-2 profile-col">
           <div class="profile-container">
-            <img class="circle_img" id="img" name="img" src=<?php echo ($userdata['user_image'])?> > 
+            <img class="circle_img" id="img" name="img" src=<?php echo ($userdata['user_image'])?> >
           </div>
         </div>
         <!--label user detail-->
@@ -196,7 +196,7 @@ if ($privilege_id == '3' OR $privilege_id == '2')
             <div class="evt-dis-cont">
               <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
                 <div class="card-header">
-                  <h3 class="h5 card-title"> 
+                  <h3 class="h5 card-title">
                     <?php
                       if ($privilege_id == '3')
                       {
@@ -211,8 +211,8 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                 </div>
                 <div class="card-body">
                   <!--PHP code retrieve no of events then display-->
-                  <p> 
-                    <?php 
+                  <p>
+                    <?php
                       if ($privilege_id == '3')
                       {
                         echo $total_participate['COUNT(event_id)'] ;
@@ -221,7 +221,7 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                       {
                         echo $total_organized_num['COUNT(event.event_id)'];
                       }
-                    ?> 
+                    ?>
                     <i class="fa-solid fa-calendar-days"></i>
                   </p>
                 </div>
@@ -283,10 +283,10 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                           <div class="col col-margin">
                             <div class="row">
                               <p class="fs-5 fw-bold animate-up-2 title">
-                                <?php 
+                                <?php
                                   if ($privilege_id == '3' AND isset($user_participate_result))
                                   {
-                                    echo $ongoing_result['COUNT(evt.event_date)']; 
+                                    echo $ongoing_result['COUNT(evt.event_date)'];
                                   }
                                   else
                                   {
@@ -298,7 +298,7 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                             </div>
                             <div class="row">
                               <p class="fs-5 fw-bold animate-up-2 title">
-                                <?php 
+                                <?php
                                   if ($privilege_id == '3' AND isset($user_participate_result))
                                   {
                                     echo $complete_result['COUNT(evt.event_date)'];
@@ -330,7 +330,7 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                       {
                         foreach($run_all_event_query as $event_query) // Run SQL query
                         {
-                        //get number of judge 
+                        //get number of judge
                         $evt_id = intval($event_query['event_id']);
                         $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
                         INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
@@ -418,9 +418,9 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                         {
                           foreach($organized_event_run as $event_query) // Run SQL query
                           {
-                          //get number of judge 
+                          //get number of judge
                           $evt_id = intval($event_query['event_id']);
-                          
+
                           $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
                           INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
                           INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id

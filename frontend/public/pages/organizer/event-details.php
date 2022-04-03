@@ -113,6 +113,19 @@
   );
   $team_result = mysqli_query($con, $team_sql);
 
+  $jl_sql =(
+    "SELECT COUNT(DISTINCT jl.judgement_list_id) AS num_jl
+    FROM judgement_list as jl
+    JOIN team_list as tl
+    ON jl.team_list_id = tl.team_list_id
+    WHERE tl.event_id = '$event_id'"
+  );
+  //count number of rows
+  $jl_result = mysqli_query($con, $jl_sql);
+  while($count_jl=mysqli_fetch_array($jl_result)){
+    $num_judgements = $count_jl["num_jl"];
+  };
+
   //close database connection
   mysqli_close($con);
 ?>
@@ -147,20 +160,63 @@
           ?>
         </div>
         <!-- Button actions for the event -->
-        <div class="col-4">
-          <?php
-          echo '<a class="green-button mx-2 cursor-pointer"  href="../organizer/edit-event.php?';
-            echo $event_id;
-          echo "\">Edit</a>";
-          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
-            echo $event_id;
-          echo "\">End</a>";
-          echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
-            echo $event_id;
-            echo "\" onClick=\"return confirm('Delete ";
-              echo $event_name;
-            echo " event?')";
-        echo "\">Delete</a>";
+        <?php
+          if ($active == 1){
+            echo '<div class="col-4">';
+          }
+          else{
+            echo '<div class="col-3 justify-content-end">';
+          };
+            if ($active == 1){
+              echo '<a class="green-button mx-2 cursor-pointer"  href="../organizer/edit-event.php?';
+                echo $event_id;
+              echo "\">Edit</a>";
+            };
+            // Check if all participants have been judged
+            if ($active == 1){
+              if ($type == "solo"){
+                if ($num_judgements == $num_participant) {
+                  echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
+                    echo $event_id;
+                  echo "\">End</a>";
+                }
+                else
+                {
+                  echo '<button type="button" class="btn btn-primary mx-2 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Unable to end event. The judges have not judge all participant">';
+                    echo 'End';
+                  echo '</button>';
+                }
+              }
+              else{
+                if ($num_judgements == $num_team) {
+                  echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
+                    echo $event_id;
+                  echo "\">End</a>";
+                }
+                else
+                {
+                  echo '<button type="button" class="btn btn-primary mx-2 cursor-pointer" data-toggle="tooltip" data-placement="top" title="Unable to end event. The judges have not judge all teams">';
+                    echo 'End';
+                  echo '</button>';
+                }
+              }
+            }
+            if ($active == 1){
+              echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
+                echo $event_id;
+                echo "\" onClick=\"return confirm('Delete ";
+                  echo $event_name;
+                echo "event? This will delete all the data related to this event.";
+              echo "\">Delete</a>";
+            }
+            else{
+              echo '<a class="red-button cursor-pointer"  href="../organizer/delete-event.php?';
+                echo $event_id;
+                echo "\" onClick=\"return confirm('Delete ";
+                  echo $event_name;
+                echo "event? This will delete all the data and results of this event.";
+              echo "\">Delete</a>";
+            }
           ?>
         </div>
       </div>
@@ -417,6 +473,7 @@
                         </td>
                       </tr>'
                       );
+                       // modal to display team members
                       echo('
                         <!-- Modal Content -->
                         <div class="modal fade" id="modal-default_'.$i.'" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
@@ -462,9 +519,11 @@
       </div>
     </div>
   </div>
-  <?php
-  // modal to display team members
-
-  ?>
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
 </body>
 </html>
