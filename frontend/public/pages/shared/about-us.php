@@ -10,7 +10,7 @@
 <body>
   <?php include '../shared/navbar.php';?>
   <div class="flex flex-row h-screen">
-    <?php 
+    <?php
       if(!isset($_SESSION)) {
         session_start();
       }
@@ -31,20 +31,20 @@
                 </div>
                 <div class="p-4">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra. 
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh. 
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames. 
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl. 
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin. 
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
+                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
+                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
+                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
+                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
                     In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
                     <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra. 
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh. 
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames. 
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl. 
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin. 
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
+                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
+                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
+                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
+                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
                     In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
                     <br>
                   </p>
@@ -73,20 +73,20 @@
                 </div>
                 <div class="p-4">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra. 
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh. 
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames. 
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl. 
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin. 
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
+                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
+                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
+                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
+                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
                     In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
                     <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra. 
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh. 
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames. 
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl. 
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin. 
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
+                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
+                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
+                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
+                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
                     In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
                     <br>
                   </p>
