@@ -12,7 +12,7 @@
 
   // Change event to ended
   $end_event_sql = "UPDATE event SET active = 0 WHERE event_id = $event_id";
-  $end_event_result = mysqli_query($conn, $end_event_sql);
+  $end_event_result = mysqli_query($con, $end_event_sql);
 
   // get the individual event details
   $event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");
@@ -151,7 +151,7 @@
         </div>
         <!-- Button actions for the event -->
         <div class="col-3">
-          <a href="../organizer/generate-pdf.php?<?php echo $event_id?>" class="btn btn-primary ml-5 cursor-pointer">View As PDF</a>
+          <a href="../organizer/generate-pdf.php?<?php echo $event_id?>" target="_blank" class="btn btn-primary ml-5 cursor-pointer">View As PDF</a>
         </div>
       </div>
       <!-- Image of event -->
