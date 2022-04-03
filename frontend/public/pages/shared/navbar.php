@@ -75,7 +75,7 @@
 							</div>
 						</div>
 					</div>
-					<ul class="navbar-nav navbar-nav-hover ml-auto mr-5">
+					<ul class="navbar-nav navbar-nav-hover ml-auto mr-5 no-bullet">
 						<?php
 						if(isset($_SESSION['username'])){
 							echo('
@@ -103,10 +103,10 @@
 									if(isset($_SESSION['privilege'])){
 										echo'<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>';
 									};
+									echo '</ul>';
+								echo '</li>';
 								};
 							?>
-									</ul>
-								</li>
 						<?php
                 if(!isset($_SESSION['username'])) {
                   echo(
