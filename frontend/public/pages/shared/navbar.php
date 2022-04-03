@@ -76,7 +76,8 @@
 						</div>
 					</div>
 					<ul class="navbar-nav navbar-nav-hover ml-auto mr-5">
-						<?php if(isset($_SESSION['username'])){
+						<?php
+						if(isset($_SESSION['username'])){
 							echo('
 								<li class="nav-item dropdown mr-5">
 									<a href="#" class="nav-link" data-toggle="dropdown" >
@@ -99,11 +100,13 @@
 									if(($_SESSION['privilege'] == 'admin') || ($_SESSION['privilege'] == 'participant' || $_SESSION['privilege'] == 'organizer')){
 										echo('<li><a class="dropdown-item" data-toggle="modal" data-target="#modal-form">Edit Password</a></li>');
 									}
-										echo('<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>
+									if(isset($_SESSION['privilege'])){
+										echo'<li><a class="dropdown-item" href="../../../../backend/logout.php">Log Out</a></li>';
+									};
+								};
+							?>
 									</ul>
 								</li>
-							');
-						} ?>
 						<?php
                 if(!isset($_SESSION['username'])) {
                   echo(
@@ -112,6 +115,9 @@
                   </li>
 								  <li class="nav-item">
                     <a class="btn btn-primary mr-2" href="../shared/login.php">Log In</a>
+                  </li>
+									<li class="nav-item">
+                    <a class="btn btn-primary mr-2" href="../judge/enter-event.php">Judge</a>
                   </li>
 									');
                 }
