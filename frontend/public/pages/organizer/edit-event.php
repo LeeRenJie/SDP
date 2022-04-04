@@ -22,14 +22,14 @@
   $start_time = date("H:i",strtotime($event_row["start_time"]));
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
-  if (is_null($event_pic)) {
+  if (is_null($event_pic) || $event_pic == "") {
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
   $max_member = $event_row['max_member'];
   $max_team = $event_row['max_team'];
   $active = $event_row['active'];
-    
+
   // get the judges' details
   $judge_sql = (
     "SELECT e.event_id, j.judge_name , j.unique_code
@@ -80,7 +80,6 @@
       $base64 = base64_encode(file_get_contents($uploaded_event_pic));
       //create a format of blob image (base64)
       $image = 'data:image/'.$imageFileType.';base64,'.$base64;
-      var_dump($image);
     }
     else{
       $image = $event_pic;
@@ -245,10 +244,6 @@
           $organizer_id = $row["organizer_id"];
         };
       }
-
-
-
-
 
       // get rule list id, judges list id and prizes list id
       $get_lists__sql = "SELECT prizes_list_id, rules_list_id, judges_list_id from event where event_id = '$event_id'";
@@ -490,7 +485,6 @@
       $eventDescription = $_POST["event-description"];
 
       if($rules_entered && $judges_entered && $prizes_entered){
-          echo("<script>alert('rules judges prizes edited')</script>");
         $event_sql = (
           "UPDATE event SET
           rules_list_id = '$rules_list_id',
@@ -569,9 +563,10 @@
         <h1 class="py-2 inline-block"><b>Edit Event</b></h1>
       </div>
       <form class="row pl-5 mt-3 form-container" method="post" enctype='multipart/form-data' >
+
         <div class="text-center img-container ml-3">
           <label for=imageUpload>
-            <?php echo '<img src='.$event_pic.' class="mx-auto d-block img-size shadow-inset" alt="Event Image" id="img" name="img"/>';?>
+            <img class="mx-auto d-block img-size shadow-inset" alt="Event Image" id="img" name="img" src="<?php echo $event_pic;?>" />
           </label>
         </div>
 
