@@ -160,8 +160,8 @@
                                   {
                                     ?>
                                     <tr>
-                                      <th scope="row" id="firstyear3"><a href="User_profile.html?"> <p class="enlarge-content bold-font"><?=$privilege_result['username']?></p> </a></th>
-                                      <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><a href="User_profile.html?"><p class="enlarge-content"><?=$privilege_result['name']?></a></th>
+                                      <th scope="row" id="firstyear3"><a href="profile.php?<?=$privilege_result['user_id']?>"> <p class="enlarge-content bold-font"><?=$privilege_result['username']?></p> </a></th>
+                                      <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><a href="profile.php?<?=$privilege_result['user_id']?>"><p class="enlarge-content"><?=$privilege_result['name']?></a></th>
                                       <td headers="firstyear3 Bolter3 males3"><p class="enlarge-content"><?=$retrieve_result['user_privilege']?></a></td>
                                       <td headers="firstyear3 Bolter3 females3"><p class="enlarge-content"><?=$privilege_result['email']?></a></td>
                                       <th class="border-0" scope="row" id="firstyear3">
@@ -209,8 +209,8 @@
                                 ?>
                                 <tr>
                                   <!--Insert user id into the end of the (?) href link-->
-                                  <th scope="row" id="firstyear3"><a href="User_profile.html?"> <p class="enlarge-content bold-font"><?=$static_data['username']?></p> </a></th>
-                                  <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><p class="enlarge-content"><a href="User_profile.html?"><?=$static_data['name']?></p></a></th>
+                                  <th scope="row" id="firstyear3"><a href="profile.php?<?=$static_data['user_id']?>"> <p class="enlarge-content bold-font"><?=$static_data['username']?></p> </a></th>
+                                  <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><p class="enlarge-content"><a href="profile.php?<?=$static_data['user_id']?>"><?=$static_data['name']?></p></a></th>
                                   <td headers="firstyear3 Bolter3 males3"><p class="enlarge-content"><?=$static_data['user_privilege']?></p></td>
                                   <td headers="firstyear3 Bolter3 females3"><p class="enlarge-content"><?=$static_data['email']?></p></td>
                                   <th class="border-0" scope="row" id="firstyear3">
@@ -245,8 +245,8 @@
                               ?>
                               <tr>
                                 <!--Insert user id into the end of the (?) href link-->
-                                <th scope="row" id="firstyear3"><a href="User_profile.html?"> <p class="enlarge-content bold-font"><?=$static_data['username']?></p> </a></th>
-                                <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><a href="User_profile.html?"><p class="enlarge-content"><?=$static_data['name']?></p></a></th>
+                                <th scope="row" id="firstyear3"><a href="profile.php?<?=$static_data['user_id']?>"> <p class="enlarge-content bold-font"><?=$static_data['username']?></p> </a></th>
+                                <th scope="row" id="Bolter3" headers="firstyear3 teacher3"><a href="profile.php?<?=$static_data['user_id']?>"><p class="enlarge-content"><?=$static_data['name']?></p></a></th>
                                 <td headers="firstyear3 Bolter3 males3"><p class="enlarge-content"><?=$static_data['user_privilege']?></p></td>
                                 <td headers="firstyear3 Bolter3 females3"><p class="enlarge-content"><?=$static_data['email']?></p></td>
                                 <th class="border-0" scope="row" id="firstyear3">
@@ -292,7 +292,7 @@
     function Redirect_restore()
     {
       window.location = "http://localhost:8080/phpmyadmin/index.php?route=/server/import";
-      alert("Log in to phpMyAdmin by clicking the 'Go' button and entering the username 'root' (no password required), then select the 'judgeable' database from the side bar and click 'Import' from the navigation bar.");
+      alert("Log in to phpMyAdmin by clicking the 'Go' button and entering the username 'root' (no password required), then create a new database named 'judgeable' and click 'Import' from the navigation bar.");
     }
   </script>
 </body>
