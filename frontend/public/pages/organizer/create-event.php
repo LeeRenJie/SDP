@@ -27,7 +27,12 @@
       $image = 'data:image/'.$imageFileType.';base64,'.$base64;
     }
     else{
-      $image = NULL;
+      $default_pic = "../../images/default.jpg";
+      $imageFileType = strtolower(pathinfo($default_pic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+      //Encode image into base 64
+      $base64 = base64_encode(file_get_contents($default_pic));
+      //create a format of blob image (base64)
+      $image = 'data:image/'.$imageFileType.';base64,'.$base64;
     }
     // get event date
     $eventDate = $_POST["event-date"];
