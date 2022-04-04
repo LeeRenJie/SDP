@@ -348,64 +348,75 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                   </div>
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                     <div class="content-cont">
-                      <!--loop all participated event-->
-                      <?php
-                      $all_event_query = "SELECT * FROM event
-                      INNER JOIN team_list ON event.event_id = team_list.event_id
-                      INNER JOIN participant ON team_list.participant_id = participant.participant_id
-                      WHERE participant.participant_id = $userid
-                      ORDER BY event_date ASC";
-                      $run_all_event_query = mysqli_query($con, $all_event_query);
-                      if(mysqli_num_rows($run_all_event_query) > 0)
+                    <!--loop all participated event-->
+                    <?php
+                    $all_event_query = "SELECT * FROM event
+                    INNER JOIN team_list ON event.event_id = team_list.event_id
+                    INNER JOIN participant ON team_list.participant_id = participant.participant_id
+                    INNER JOIN user on user.user_id = participant.user_id
+                    WHERE user.user_id = '$userid'
+                    GROUP BY event.event_id
+                    ORDER BY event_date DESC";
+                    $run_all_event_query = mysqli_query($con, $all_event_query);
+                    if(mysqli_num_rows($run_all_event_query) > 0)
+                    {
+                      foreach($run_all_event_query as $event_query) // Run SQL query
                       {
-                        foreach($run_all_event_query as $event_query) // Run SQL query
-                        {
-                        //get number of judge
-                        $evt_id = intval($event_query['event_id']);
-                        $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
-                        INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
-                        INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id
-                        WHERE judges_list.judges_list_id = event.judges_list_id
-                        AND event.event_id = $evt_id";
-                        $num_judge_query = mysqli_query($con, $judge_query);
-                        // Fetch data
-                        $num_judge = mysqli_fetch_assoc($num_judge_query);
+                      //get number of judge 
+                      $event_id = intval($event_query['event_id']);
+                      $judge_query = "SELECT COUNT(judge.judge_id) FROM judge
+                      INNER JOIN judges_list ON judges_list.judge_id = judge.judge_id
+                      INNER JOIN event ON event.judges_list_id = judges_list.judges_list_id
+                      WHERE judges_list.judges_list_id = event.judges_list_id
+                      AND event.event_id = $event_id";
+                      $num_judge_query = mysqli_query($con, $judge_query);
+                      // Fetch data
+                      $num_judge = mysqli_fetch_assoc($num_judge_query);
+                      $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$event_id'";
+                      $participant_result = mysqli_query($con, $participant_sql);
+                      while($participant_row=mysqli_fetch_array($participant_result)){
+                        $num_participant = $participant_row["num_participant"];
+                      }
+                    ?>
+                    <div class="event-cont col-12 pb-3">
+                      <?php
+                        echo "<a href='../participant/event-details.php?$event_id'>"
                       ?>
-                        <div class="event-cont col-12 pb-3">
-                          <a href='../participant/event-details.php'>
-                            <button class="btn btn-primary animate-up-2" type="button">
-                              <div class="event-cont">
-                                <div class="col-8">
-                                  <div class="title-con">
-                                    <h2><?php echo ($event_query['event_name']);?></h2> <!--change event name-->
-                                    <div class="status-con"> <!--change event status-->
-                                      <?php
-                                        if($event_query['event_date']>$current_date){
-                                          echo "<small class='status-on'>Active</small>";
-                                        }
-                                        else{
-                                          echo "<small class='status-off'>End</small>";
-                                        }
-                                      ?>
-                                    </div>
-                                  </div>
-                                  <div class="details-con"> <!--event info-->
-                                    <div class="info-con">
-                                      <p>Date: <?php echo ($event_query['event_date'])?> </p>
-                                      <p>Judges : <?php echo $num_judge['COUNT(judge.judge_id)']?> </p>
-                                    </div>
-                                    <div class="info-con">
-                                      <p>Time: <?php echo ($event_query['start_time'])?> ~ <?php echo ($event_query['end_time'])?> </p>
-                                      <p>Participant : <?php echo ($event_query['max_team'])?></p>
-                                    </div>
-                                  </div> <!--info-->
-                                </div>
-                                <div class="col-4">
-                                  <i class="icon-size fa-solid fa-angle-right"></i>
+                        <button class="btn btn-primary animate-up-2" type="button">
+                          <div class="event-cont">
+                            <div class="col-8">
+                              <div class="title-con">
+                                <h2><?php echo ($event_query['event_name']);?></h2> <!--change event name-->
+                                <div class="status-con"> <!--change event status-->
+                                  <?php
+                                    $start_time = date("H:i",strtotime($event_query['start_time']));
+                                    $end_time = date("H:i",strtotime($event_query['end_time']));
+                                    if($event_query['active']== 1){
+                                      echo "<small class='status-on'>Active</small>";
+                                    }
+                                    else{
+                                      echo "<small class='status-off'>End</small>";
+                                    }
+                                  ?>
                                 </div>
                               </div>
-                            </button>
-                          </a>
+                              <div class="details-con"> <!--event info-->
+                                <div class="info-con">
+                                  <p>Date: <?php echo ($event_query['event_date'])?> </p>
+                                  <p>Judges : <?php echo $num_judge['COUNT(judge.judge_id)']?> </p>
+                                </div>
+                                <div class="info-con">
+                                  <p>Time: <?php echo $start_time?> ~ <?php echo $end_time?> </p>
+                                  <p>Participant : <?php echo $num_participant?></p>
+                                </div>
+                              </div> <!--info-->
+                            </div>
+                            <div class="col-4">
+                              <i class="icon-size fa-solid fa-angle-right"></i>
+                            </div>
+                          </div>
+                        </button>
+                      </a>
                         </div><!--event-con-->
                       <?php
                         }
