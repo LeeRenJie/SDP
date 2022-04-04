@@ -4,11 +4,13 @@
   if(!isset($_SESSION)){
     session_start();
   };
+
   if ($_SESSION['privilege'] != "admin" && $_SESSION['privilege'] != "organizer") {
     echo("<script>alert('You do not have access to this page')</script>");
     header("Location: ../shared/view-event.php");
     header("Location: ../customer/home.php");
   };
+
   // Get event id from url
   $event_id = intval($_SERVER['QUERY_STRING']);
   // get the individual event details
@@ -21,7 +23,7 @@
   $start_time = date("H:i",strtotime($event_row["start_time"]));
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
-  if ($event_pic == "" || $event_pic == NULL) {
+  if (is_null($event_pic)) {
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
@@ -71,27 +73,18 @@
     $validated = TRUE;
     // get the data from the form
     // get event picture name
-    if(isset($_FILES['eventPic'])){
-      $eventPicture = $_FILES['eventPic']['tmp_name'];
-      if ($_FILES['eventPic']['size'] > 0){
-        //get image type
-        $imageFileType = strtolower(pathinfo($eventPicture,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-        //encode image into base64
-        $base64_Img = base64_encode(file_get_contents($eventPicture));
-        //set image content with type and base64
-        $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
-      }
-    }
-    else {
-      // event pic is null if no image is uploaded
-      //Set default image
-      $defaultPic = "../../images/default.jpg";
-      //Read default image file type (as jpg)
-      $imageFileType = strtolower(pathinfo($defaultPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-      //Encode default image into base 64
-      $defaultImg = base64_encode(file_get_contents($defaultPic));
+    //if image uploaded
+    $uploaded_event_pic = $_FILES['file']['tmp_name'];
+    if ($_FILES['file']['size'] > 0){
+      $imageFileType = strtolower(pathinfo($uploaded_event_pic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+      //Encode image into base 64
+      $base64 = base64_encode(file_get_contents($uploaded_event_pic));
       //create a format of blob image (base64)
-      $image = 'data:image/'.$imageFileType.';base64,'.$defaultImg;
+      $image = 'data:image/'.$imageFileType.';base64,'.$base64;
+      var_dump($image);
+    }
+    else{
+      $image = $event_pic;
     }
 
     // get event date
@@ -192,6 +185,39 @@
           </div>
         </div>
       ');
+    };
+
+    $prizes = $_POST["prize"];
+    foreach($prizes as $key => $prize){
+      if($key == 0){
+        $first_prize = $prize;
+      }
+      elseif($key == 1){
+        $second_prize = $prize;
+      }
+      elseif($key == 2){
+        $third_prize = $prize;
+      }
+    }
+    // check if prizes are from biggest to smallest
+    if(($first_prize <=$second_prize) OR ($first_prize < $third_prize) OR ($second_prize < $third_prize)){
+      echo('
+        <div class="position-absolute bottom-2.5 right-2.5 z-10">
+          <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header text-dark">
+              <strong class="mr-auto ml-2">Validation Warning</strong>
+              <small class="text-gray">now</small>
+              <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Please enter prizes amount from largest to smallest
+            </div>
+          </div>
+        </div>
+      ');
+      $validated = FALSE;
     };
 
     // Create event SQL statement
@@ -409,6 +435,7 @@
             </div>
           </div>
         ');
+        $prizes_entered = FALSE;
       }
       else{
         // if pass validation insert each prize into database
@@ -445,6 +472,7 @@
       $eventDescription = $_POST["event-description"];
 
       if($rules_entered && $judges_entered && $prizes_entered){
+          echo("<script>alert('rules judges prizes edited')</script>");
         $event_sql = (
           "UPDATE event SET
           rules_list_id = '$rules_list_id',
@@ -469,6 +497,9 @@
         if ($event_result){
           // loop through event criteria array to input same input name into database
           $criteria = $_POST["criteria"];
+          // Delete criteria that matches event id
+          $delete_criteria_sql = "DELETE FROM criteria WHERE event_id = '$event_id'";
+          $delete_criteria_result = mysqli_query($con, $delete_criteria_sql);
           $number_criteria = count($_POST["criteria"]);
           if ($number_criteria > 0) {
             foreach ($criteria as $criterion) {
@@ -506,7 +537,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../../src/stylesheets/create-event.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <title>Create Event</title>
+  <title>Edit Event</title>
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
@@ -519,22 +550,22 @@
         </span>
         <h1 class="py-2 inline-block"><b>Edit Event</b></h1>
       </div>
-      <div class="text-center img-container ml-5">
-        <label for=imageUpload>
-          <img src="../../images/default.jpg" class="cursor-pointer mx-auto d-block img-size shadow-inset"
-          data-toggle="tooltip" data-placement="bottom" title="Recommended image size is 1100 x 480" id="img" name="eventPic" alt="Event Image">
-        </label>
-      </div>
-      <div class="h-0 overflow-hidden">
-        <input id="imageUpload" type="file" name="eventPic" onchange="preimg(img)" capture/>
-      </div>
-      <label class="btn btn-primary ml-5 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
-      <form class="row pl-5 mt-3 form-container">
+      <form class="row pl-5 mt-3 form-container" method="post" enctype='multipart/form-data' >
+        <div class="text-center img-container ml-3">
+          <label for=imageUpload>
+            <?php echo '<img src='.$event_pic.' class="mx-auto d-block img-size shadow-inset" alt="Event Image" id="img" name="img"/>';?>
+          </label>
+        </div>
+
+        <div class="h-0 overflow-hidden">
+          <input id="imageUpload" type="file" name="file" onchange="preimg(img)" capture/>
+        </div>
+        <label class="btn btn-primary ml-3 mt-3 mb-4 cursor-pointer" for="imageUpload">Choose An Image</label>
 
         <div class="col-6">
           <div class="form-group mb-4">
             <label for="event">Event Name</label>
-            <input type="text" class="form-control" id="event" placeholder="Enter your event name..." value="<?php echo $event_name ?>">
+            <input type="text" class="form-control" id="event" name="event-name" placeholder="Enter your event name..." value="<?php echo $event_name ?>">
           </div>
         </div>
 
@@ -548,14 +579,14 @@
         <div class="col-6">
           <div class="form-group mb-4">
             <label for="event-time">Event Start Time</label>
-            <input type="time" class="form-control" id="event-time" name="event-time" placeholder="hh:mm" required="required" value="<?php echo $start_time ?>">
+            <input type="time" class="form-control" id="event-time" name="event-start-time" placeholder="hh:mm" required="required" value="<?php echo $start_time ?>">
           </div>
         </div>
 
         <div class="col-6">
           <div class="form-group mb-4">
             <label for="event-time">Event End Time</label>
-            <input type="time" class="form-control" id="event-time" name="event-time" placeholder="hh:mm" required="required" value="<?php echo $end_time ?>">
+            <input type="time" class="form-control" id="event-time" name="event-end-time" placeholder="hh:mm" required="required" value="<?php echo $end_time ?>">
           </div>
         </div>
 
@@ -586,7 +617,7 @@
         <div class="col-12">
           <div class="form-group mb-4">
             <label for="description">Event Description</label>
-            <textarea class="form-control" id="description" rows="6" placeholder="Enter event description...">
+            <textarea class="form-control" id="description" name="event-description" rows="6" placeholder="Enter event description...">
               <?php echo $event_description ?>
             </textarea>
           </div>

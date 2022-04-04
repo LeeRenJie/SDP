@@ -151,7 +151,7 @@
         </div>
         <!-- Button actions for the event -->
         <div class="col-3">
-          <a href="../organizer/generate-pdf.php?<?php echo $event_id?>" class="btn btn-primary ml-5 cursor-pointer">View As PDF</a>
+          <a href="../organizer/generate-pdf.php?<?php echo $event_id?>" target="_blank" class="btn btn-primary ml-5 cursor-pointer">View As PDF</a>
         </div>
       </div>
       <!-- Image of event -->

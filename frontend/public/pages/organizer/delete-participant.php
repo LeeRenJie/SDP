@@ -1,6 +1,12 @@
 <?php
  	// Connect to database
 	include("../../../../backend/conn.php");
+
+	if ($_SESSION['privilege'] != "organizer") {
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  };
+
 	// Get event id from url
 	$unique_code = intval($_SERVER['QUERY_STRING']);
 	// get rule list id, judges list id and prizes list id
@@ -13,10 +19,10 @@
 	$delete_particiant_result = mysqli_query($con,"DELETE FROM team_list WHERE unique_code=$unique_code");
 
   if ($delete_particiant_result){
-    echo("<script>alert('Judge deleted successfully.');</script>");
+    echo("<script>alert('Participant deleted successfully.');</script>");
   }
   else{
-    die('Error delete judge: ' . mysqli_error($con));
+    die('Error deleting participant: ' . mysqli_error($con));
   }
 
 

@@ -7,6 +7,12 @@
   // include the database connections
   include("../../../../backend/conn.php");
 
+  if ($_SESSION['privilege'] != "organizer" || $_SESSION['privilege'] != "admin") {
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  };
+
+
   //get event id from url
   $event_id = intval($_SERVER['QUERY_STRING']);
 
@@ -22,7 +28,8 @@
   $start_time = date("H:i",strtotime($event_row["start_time"]));
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
-  if ($event_pic == "" || $event_pic == NULL) {
+  if (is_null($event_pic)) {
+    echo "<script>alert('no image')</script>";
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
@@ -206,7 +213,7 @@
                 echo $event_id;
                 echo "\" onClick=\"return confirm('Delete ";
                   echo $event_name;
-                echo "event? This will delete all the data related to this event.";
+                echo "? This will delete all the data related to this event.')";
               echo "\">Delete</a>";
             }
             else{
@@ -214,7 +221,7 @@
                 echo $event_id;
                 echo "\" onClick=\"return confirm('Delete ";
                   echo $event_name;
-                echo "event? This will delete all the data and results of this event.";
+                echo "event? This will delete all the data and results of this event.')";
               echo "\">Delete</a>";
             }
           ?>
@@ -222,7 +229,7 @@
       </div>
       <!-- Image of event -->
       <div class="text-center img-container ml-5">
-        <img src="<?php echo $event_pic ?>" class="mx-auto d-block img-size shadow-inset" alt="Event Image">
+        <?php echo '<img src="'.$event_pic.'" class="mx-auto d-block img-size shadow-inset" alt="Event Image"/>';?>
       </div>
       <!-- Details of event -->
       <div class="row pl-5 pt-4">

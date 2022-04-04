@@ -1,4 +1,19 @@
 <?php
+if (isset($_SESSION['privilege'])) {
+  echo("<script>alert('Please logout before creating a new account')</script>");
+  if($_SESSION['privilege'] == "admin"){
+    header('Location: ../admin/home.php');
+  }
+  else if($_SESSION['privilege'] == "judge"){
+    header('Location: ../judge/event(judge).php');
+  }
+  else if($_SESSION['privilege'] == "participant"){
+    header('Location: ../shared/view-event.php');
+  }
+  else if ($_SESSION['privilege'] == "organizer"){
+    header('Location: ../organizer/my-event.php');
+  }
+}
 //Connection to database
 if (isset($_POST['registerBtn'])) {
   // include the database connection
@@ -97,7 +112,7 @@ if (isset($_POST['registerBtn'])) {
 </head>
 <body>
   <?php include '../shared/navbar.php';?>
-  <div class="overflow-auto h-screen back-shadow">
+  <div class="overflow-auto h-screen">
     <div class="d-flex justify-content-center signup-container pt-3">
       <div class="border-light shadow-soft w-60 px-5">
         <div class="text-center">

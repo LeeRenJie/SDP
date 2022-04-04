@@ -5,6 +5,12 @@
     session_start();
   };
 
+  if ($_SESSION['privilege'] != "organizer") {
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  };
+
+
   // Restrict customer to access this page
   if ($_SESSION['privilege'] != "organizer") {
     echo("<script>alert('You do not have access to this page')</script>");
@@ -101,7 +107,7 @@
         ?>
         <!-- Event Details -->
         <div class="event-con">
-          <a href="../organizer/event-details.php?<?=$row['event_id']?>"> <!--href to event-->
+          <a href="../organizer/event-summary.php?<?=$row['event_id']?>"> <!--href to event-->
             <button class="btn btn-primary animate-up-2" type="button">
               <div class="event-con">
                 <div class="col-8">
