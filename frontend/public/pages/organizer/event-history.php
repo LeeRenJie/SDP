@@ -10,13 +10,6 @@
     header("Location: ../shared/view-event.php");
   };
 
-
-  // Restrict customer to access this page
-  if ($_SESSION['privilege'] != "organizer") {
-    echo("<script>alert('You do not have access to this page')</script>");
-    header("Location: ../shared/view-event.php");
-  };
-
   // Get organizer id
   $organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
   $organizer_result = mysqli_query($con, $organizer_sql);
@@ -44,6 +37,7 @@
   ");
   $event_result = mysqli_query($con, $event_sql);
   $number_row = mysqli_num_rows($event_result);
+  $row=mysqli_fetch_assoc($event_result);
 
   // Close the connection
   mysqli_close($con);
@@ -86,7 +80,7 @@
           <a href="../organizer/create-event.php" class="float-right btn btn-primary mr-5 cursor-pointer" >Create an event</a>
         </div>
         <?php
-        if($number_row == 0){
+        if($number_row == 0 || is_null($row["event_name"])){
         ?>
           <div class="flex flex-col justify-center">
             <h1 class="text-center">No event history found</h1>
@@ -95,7 +89,7 @@
         }
         else
         {
-          while($row=mysqli_fetch_assoc($event_result)){
+          while($row){
             $start_time = date("H:i",strtotime($row["start_time"]));
             $end_time = date("H:i",strtotime($row["end_time"]));
             $event_date = date("d-m-Y",strtotime($row["event_date"]));
