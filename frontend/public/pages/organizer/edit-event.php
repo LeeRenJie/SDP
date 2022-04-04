@@ -29,7 +29,7 @@
   $max_member = $event_row['max_member'];
   $max_team = $event_row['max_team'];
   $active = $event_row['active'];
-
+    
   // get the judges' details
   $judge_sql = (
     "SELECT e.event_id, j.judge_name , j.unique_code
@@ -221,15 +221,34 @@
 
     // Create event SQL statement
     if($validated){
-      // Get organizer id
-      $organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
-      $organizer_result = mysqli_query($con, $organizer_sql);
-      if ($organizer_result){
-        $organizer_row = mysqli_num_rows($organizer_result);
-      };
-      while($row = mysqli_fetch_assoc($organizer_result)){
-        $organizer_id = $row["organizer_id"];
-      };
+      if ($_SESSION['privilege'] == 'admin')
+      {
+        $getorganizer = "SELECT organizer_id FROM event WHERE event_id = '$event_id'";
+        $getorganizer_run = mysqli_query($con, $getorganizer);
+        if ($getorganizer_run){
+          $getorganizer_row = mysqli_num_rows($getorganizer_run);
+        };
+        while($row = mysqli_fetch_assoc($getorganizer_run)){
+          $organizer_id = $row["organizer_id"];
+          var_dump($organizer_id);
+        };
+      }
+      else
+      {
+        // Get organizer id
+        $organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
+        $organizer_result = mysqli_query($con, $organizer_sql);
+        if ($organizer_result){
+          $organizer_row = mysqli_num_rows($organizer_result);
+        };
+        while($row = mysqli_fetch_assoc($organizer_result)){
+          $organizer_id = $row["organizer_id"];
+        };
+      }
+
+
+
+
 
       // get rule list id, judges list id and prizes list id
       $get_lists__sql = "SELECT prizes_list_id, rules_list_id, judges_list_id from event where event_id = '$event_id'";

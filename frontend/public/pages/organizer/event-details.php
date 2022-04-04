@@ -29,7 +29,6 @@
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
   if (is_null($event_pic)) {
-    echo "<script>alert('no image')</script>";
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
