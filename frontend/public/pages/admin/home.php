@@ -333,7 +333,7 @@
           <div class="row-3-col-3">
             <div class="card bg-primary shadow-soft text-center border-light animate-up-2">
               <div class="card-header" style="height:87px">
-                <h4 class="h5 card-title">Active Event Count</h4>
+                <h4 class="h5 card-title">Ongoing Event Count</h4>
               </div>
               <div class="card-body">
                 <!--PHP code retrieve no of active events(events that had not pass the start date) then display-->
