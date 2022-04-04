@@ -1,5 +1,12 @@
 <?php
 require('../../../../backend/fpdf/fpdf.php');
+
+if ($_SESSION['privilege'] != "admin" && $_SESSION['privilege'] != "organizer") {
+	echo("<script>alert('You do not have access to this page')</script>");
+	header("Location: ../shared/view-event.php");
+};
+
+
 $con=mysqli_connect("localhost","root","","judgeable");
 $event_id = intval($_SERVER['QUERY_STRING']);
 $event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");

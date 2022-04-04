@@ -7,7 +7,7 @@
   // include the database connections
   include("../../../../backend/conn.php");
 
-  if ($_SESSION['privilege'] != "organizer" || $_SESSION['privilege'] != "admin") {
+  if ($_SESSION['privilege'] != "organizer" && $_SESSION['privilege'] != "admin") {
     echo("<script>alert('You do not have access to this page')</script>");
     header("Location: ../shared/view-event.php");
   };
