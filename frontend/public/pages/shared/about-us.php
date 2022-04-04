@@ -31,21 +31,10 @@
                 </div>
                 <div class="p-4">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
-                    In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
-                    In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
+                    Judgeable is a one-stop web application that allows organisers to organize competitions, participants to join the competitions, and judges to judge the competitions.
+                    Organisers can easily create competitions with banners, specific rules, date, time, prizes and more!
+                    After creating the competition, it will be listed on our all events page which can be accessed by participants to join.
+                    Judges can enter their unique code provided by the organizer to join the event and provide scores for each criteria and comment for each participant or team.
                     <br>
                   </p>
                 </div>
@@ -73,21 +62,10 @@
                 </div>
                 <div class="p-4">
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
-                    In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra.
-                    At tellus at urna condimentum mattis pellentesque id. Diam in arcu cursus euismod quis viverra nibh.
-                    Etiam erat velit scelerisque in dictum non consectetur. Morbi tristique senectus et netus et malesuada fames.
-                    Iaculis eu non diam phasellus vestibulum lorem. Sodales neque sodales ut etiam sit amet nisl.
-                    Tincidunt praesent semper feugiat nibh sed pulvinar proin.
-                    In dictum non consectetur a erat. Tortor at auctor urna nunc id cursus. Lacus laoreet non curabitur gravida arcu ac tortor.
+                    Judgeable is a one-stop web application that allows organisers to organize competitions, participants to join the competitions, and judges to judge the competitions.
+                    Organisers can easily create competitions with banners, specific rules, date, time, prizes and more!
+                    After creating the competition, it will be listed on our all events page which can be accessed by participants to join.
+                    Judges can enter their unique code provided by the organizer to join the event and provide scores for each criteria and comment for each participant or team.
                     <br>
                   </p>
                 </div>

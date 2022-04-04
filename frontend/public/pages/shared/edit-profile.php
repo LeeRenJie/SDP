@@ -188,6 +188,7 @@
                     <input type="tel" class="form-control" id="telephone" name="telephone" value="<?=$userdata['telephone']?>" placeholder="Telephone" required="required">
                   </div>
                 </div>
+                <?php if ($privilege != 'organizer'){?>
                 <!--change dob-->
                 <div class="input-row">
                   <label for="dob" class="col-sm-6 col-form-label">
@@ -197,6 +198,7 @@
                     <input type="date" class="form-control" id="dob" name="dob" value="<?=$userdata['dob']?>" placeholder="dob" required="required">
                   </div>
                 </div>
+                <?php };?>
                 <!--change privilege-->
                 <div class="input-row">
                   <label for="privilege" class="col-sm-6 col-form-label">
@@ -220,6 +222,10 @@
                       <input type="text" class="form-control" id="website" name="website" value="<?=$userdata['organizer_website']?>" placeholder="" required="required">
                       </fieldset>
                     </div>
+                  </div>
+                  <div class="input-row justify-content-center">
+                    <input class="btn discard animate-up-2" id="button" value="Discard" onclick="discard()">
+                    <input class="btn save animate-up-2" id="button1" type="submit" value="Save" name="saveInfoBtn">
                   </div>
                   <?php
                   }

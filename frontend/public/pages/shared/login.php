@@ -3,6 +3,23 @@
 if(!isset($_SESSION)) {
   session_start();
 }
+
+if (isset($_SESSION['privilege'])) {
+  echo("<script>alert('You are already logged in!')</script>");
+  if($_SESSION['privilege'] == "admin"){
+    header('Location: ../admin/home.php');
+  }
+  else if($_SESSION['privilege'] == "judge"){
+    header('Location: ../judge/event(judge).php');
+  }
+  else if($_SESSION['privilege'] == "participant"){
+    header('Location: ../shared/view-event.php');
+  }
+  else if ($_SESSION['privilege'] == "organizer"){
+    header('Location: ../organizer/my-event.php');
+  }
+}
+
 //Connection to database
 include("../../../../backend/conn.php");
 

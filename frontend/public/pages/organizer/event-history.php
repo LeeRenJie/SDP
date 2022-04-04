@@ -5,6 +5,12 @@
     session_start();
   };
 
+  if ($_SESSION['privilege'] != "organizer") {
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  };
+
+
   // Restrict customer to access this page
   if ($_SESSION['privilege'] != "organizer") {
     echo("<script>alert('You do not have access to this page')</script>");
