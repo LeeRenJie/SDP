@@ -12,7 +12,7 @@
 
   // Change event to ended
   $end_event_sql = "UPDATE event SET active = 0 WHERE event_id = $event_id";
-  $end_event_result = mysqli_query($conn, $end_event_sql);
+  $end_event_result = mysqli_query($con, $end_event_sql);
 
   // get the individual event details
   $event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");

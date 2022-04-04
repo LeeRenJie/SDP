@@ -28,7 +28,7 @@
   $max_member = $event_row['max_member'];
   $max_team = $event_row['max_team'];
   $active = $event_row['active'];
-
+    
   // get the judges' details
   $judge_sql = (
     "SELECT e.event_id, j.judge_name , j.unique_code
