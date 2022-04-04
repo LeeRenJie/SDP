@@ -8,7 +8,6 @@
   if ($_SESSION['privilege'] != "admin" && $_SESSION['privilege'] != "organizer") {
     echo("<script>alert('You do not have access to this page')</script>");
     header("Location: ../shared/view-event.php");
-    header("Location: ../customer/home.php");
   };
 
   // Get event id from url
