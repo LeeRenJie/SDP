@@ -1,6 +1,12 @@
 <?php
  	// Connect to database
 	include("../../../../backend/conn.php");
+
+	if ($_SESSION['privilege'] != "organizer") {
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  };
+
 	// Get event id from url
 	$event_id = intval($_SERVER['QUERY_STRING']);
 	// get rule list id, judges list id and prizes list id

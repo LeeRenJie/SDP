@@ -1,4 +1,19 @@
 <?php
+if (isset($_SESSION['privilege'])) {
+  echo("<script>alert('Please logout before creating a new account')</script>");
+  if($_SESSION['privilege'] == "admin"){
+    header('Location: ../admin/home.php');
+  }
+  else if($_SESSION['privilege'] == "judge"){
+    header('Location: ../judge/event(judge).php');
+  }
+  else if($_SESSION['privilege'] == "participant"){
+    header('Location: ../shared/view-event.php');
+  }
+  else if ($_SESSION['privilege'] == "organizer"){
+    header('Location: ../organizer/my-event.php');
+  }
+}
 //Connection to database
 if (isset($_POST['registerBtn'])) {
   // include the database connection

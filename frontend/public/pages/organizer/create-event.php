@@ -18,7 +18,17 @@
     $validated = TRUE;
     // get the data from the form
     // get event picture name
-    $image = file_get_contents($_FILES['file']['tmp_name']);
+    $event_pic = $_FILES['file']['tmp_name'];
+    if ($_FILES['file']['size'] > 0){
+      $imageFileType = strtolower(pathinfo($event_pic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+      //Encode image into base 64
+      $base64 = base64_encode(file_get_contents($event_pic));
+      //create a format of blob image (base64)
+      $image = 'data:image/'.$imageFileType.';base64,'.$base64;
+    }
+    else{
+      $image = NULL;
+    }
     // get event date
     $eventDate = $_POST["event-date"];
     // validation if event date is after today's date
@@ -354,13 +364,13 @@
           //If the sql fail, notify user
           else
           {
-            die('Error: ' . mysqli_error($con));
+            die('Error criteria: ' . mysqli_error($con));
           }
         }
         //If the sql fail, notify user
         else
         {
-          die('Error: ' . mysqli_error($con));
+          die('Error event: ' . mysqli_error($con));
         }
       }
     };
