@@ -89,7 +89,7 @@
         }
         else
         {
-          while($row){
+          foreach($event_result as $row){
             $start_time = date("H:i",strtotime($row["start_time"]));
             $end_time = date("H:i",strtotime($row["end_time"]));
             $event_date = date("d-m-Y",strtotime($row["event_date"]));
