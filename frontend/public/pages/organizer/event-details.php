@@ -7,7 +7,7 @@
   // include the database connections
   include("../../../../backend/conn.php");
 
-  if ($_SESSION['privilege'] != "organizer" || $_SESSION['privilege'] != "admin") {
+  if ($_SESSION['privilege'] != "organizer" && $_SESSION['privilege'] != "admin") {
     echo("<script>alert('You do not have access to this page')</script>");
     header("Location: ../shared/view-event.php");
   };
@@ -29,7 +29,6 @@
   $end_time = date("H:i",strtotime($event_row["end_time"]));
   $event_pic = $event_row['event_picture'];
   if (is_null($event_pic)) {
-    echo "<script>alert('no image')</script>";
     $event_pic = "../../images/default.jpg";
   }
   $type = $event_row['participant_type'];
