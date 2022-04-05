@@ -19,7 +19,7 @@
     $eventdescription = $event['event_description'];
     $eventdate = $event['event_date'];
     $eventpicture=$event['event_picture'];
-    //Change to default.png if the event picture is not found
+    //Change to default.png if the event picture was not found
     if (is_null($eventpicture) or $eventpicture =="") {
         $eventpicture = "../../images/default.jpg";
     }
