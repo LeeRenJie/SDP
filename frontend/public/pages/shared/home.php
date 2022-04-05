@@ -80,7 +80,7 @@
       </section>
       <section id="faq" class="faq-container mt-5">
         <div class="faq-text">
-          <h2 class="bold mb-5">Frequently Asked Questions</h2>
+          <h2 class="bold mb-5 text-center">Frequently Asked Questions</h2>
           <div class="accordion shadow-soft rounded" id="accordionExample1">
             <div class="card card-sm card-body bg-primary border-light mb-0">
               <a href="#panel-1" data-target="#panel-1" class="accordion-panel-header" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="panel-1">

@@ -6,7 +6,6 @@ if ($_SESSION['privilege'] != "admin" && $_SESSION['privilege'] != "organizer") 
 	header("Location: ../shared/view-event.php");
 };
 
-
 $con=mysqli_connect("localhost","root","","judgeable");
 $event_id = intval($_SERVER['QUERY_STRING']);
 $event_sql = ("SELECT * FROM event WHERE event_id = '$event_id'");
@@ -14,6 +13,22 @@ $event_result = mysqli_query($con, $event_sql);
 $event_row=mysqli_fetch_array($event_result);
 $event_name = $event_row['event_name'];
 $type = $event_row['participant_type'];
+$event_organizer_id = $event_row['organizer_id'];
+
+// Get organizer id
+$organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
+$organizer_result = mysqli_query($con, $organizer_sql);
+if ($organizer_result){
+	$organizer_row = mysqli_num_rows($organizer_result);
+}
+while($row = mysqli_fetch_assoc($organizer_result)){
+	$organizer_id = $row["organizer_id"];
+}
+
+if ($event_organizer_id != $organizer_id) {
+	echo("<script>alert('You do not have access to this page')</script>");
+	header("Location: ../shared/view-event.php");
+}
 
 class PDF extends FPDF {
 	function Header(){
@@ -33,15 +48,15 @@ class PDF extends FPDF {
 		$this->SetFont('Arial','B',11);
 		$this->SetFillColor(180,180,255);
 		$this->SetDrawColor(180,180,255);
-		$this->Cell(25,5,'Rank',1,0,'',true);
+		$this->Cell(25,5,'Rank',1,0,'C',true);
 		if ($type == "team") {
-			$this->Cell(40,5,'Team Name',1,0,'',true);
-			$this->Cell(65,5,'Team Members',1,0,'',true);
+			$this->Cell(40,5,'Team Name',1,0,'C',true);
+			$this->Cell(65,5,'Team Members',1,0,'C',true);
 		}
 		else{
-			$this->Cell(40,5,'Participant Name',1,0,'',true);
+			$this->Cell(100,5,'Participant Name',1,0,'C',true);
 		}
-		$this->Cell(60,5,'Total Score',1,1,'',true);
+		$this->Cell(65,5,'Total Score',1,1,'C',true);
 
 	}
 	function Footer(){
@@ -96,21 +111,22 @@ $participant_sql = (
 );
 
 $query=mysqli_query($con, $team_rank_sql);
+$participant_query = mysqli_query($con, $participant_sql);
 $i = 1;
 if ($type=="team"){
 	while($data=mysqli_fetch_array($query)){
 		$pdf->Cell(25,5,$i,'LR',0);
-		$pdf->Cell(40,5,$data['team_name'],'LR',0);
-		$pdf->Cell(65,5,$data['team_members'],'LR',0);
-		$pdf->Cell(60,5,$data['total_score'],'LR',1);
+		$pdf->Cell(40,5,$data['team_name'],'LR', 0, 'C');
+		$pdf->Cell(65,5,$data['team_members'],'LR',0, 'C');
+		$pdf->Cell(60,5,$data['total_score'],'LR',1, 'C');
 		$i++;
 	}
 }
 else{
-	while($data=mysqli_fetch_array($query)){
-		$pdf->Cell(25,5,$i,'LR',0);
-		$pdf->Cell(40,5,$data['name'],'LR',0);
-		$pdf->Cell(60,5,$data['total_score'],'LR',1);
+	while($data=mysqli_fetch_array($participant_query)){
+		$pdf->Cell(25,5,$i,'LR',0, 'C');
+		$pdf->Cell(100,5,$data['name'],'LR',0,'C');
+		$pdf->Cell(65,5,$data['total_score'],'LR',1,'C');
 		$i++;
 	}
 };
