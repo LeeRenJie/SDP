@@ -66,7 +66,12 @@
       mysqli_close($con);
       // Notify user details had updated
       echo'<script>alert("Your Details Have Been Updated Successfully!");</script>';
-      echo("<script>window.location = 'home.php'</script>");
+      if ($_SESSION['privilege'] == 'participant'){
+        echo("<script>window.location = '../shared/view-event.php'</script>");
+      }
+      else if ($_SESSION['privilege'] == 'organizer'){
+        echo("<script>window.location = '../organizer/my-event.php'</script>");
+      }
     }
     else {
       // Display Error
