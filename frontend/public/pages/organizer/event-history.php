@@ -33,11 +33,14 @@
     JOIN judges_list AS jl ON e.judges_list_id = jl.judges_list_id
     JOIN judge AS j ON jl.judge_id = j.judge_id
     WHERE e.organizer_id = '$organizer_id' and e.event_name LIKE '%$search_key%' and e.active = '0'
-    ORDER BY event_id DESC
+    GROUP BY event_id
+    ORDER BY event_date DESC
   ");
   $event_result = mysqli_query($con, $event_sql);
   $number_row = mysqli_num_rows($event_result);
   $row=mysqli_fetch_assoc($event_result);
+
+  // Get number of judges
 
   // Close the connection
   mysqli_close($con);

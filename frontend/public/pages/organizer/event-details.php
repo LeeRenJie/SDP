@@ -35,7 +35,22 @@
   $max_member = $event_row['max_member'];
   $max_team = $event_row['max_team'];
   $active = $event_row['active'];
+  $event_organizer_id = $event_row['organizer_id'];
 
+  // Get organizer id
+  $organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
+  $organizer_result = mysqli_query($con, $organizer_sql);
+  if ($organizer_result){
+    $organizer_row = mysqli_num_rows($organizer_result);
+  }
+  while($row = mysqli_fetch_assoc($organizer_result)){
+    $organizer_id = $row["organizer_id"];
+  }
+
+  $current_organizer = TRUE;
+  if ($event_organizer_id != $organizer_id) {
+    $current_organizer = FALSE;
+  }
 
   // get the judges' details
   $judge_sql = (
@@ -173,13 +188,13 @@
           else{
             echo '<div class="col-3 justify-content-end">';
           };
-            if ($active == 1){
+            if ($active == 1 && $current_organizer){
               echo '<a class="green-button mx-2 cursor-pointer"  href="../organizer/edit-event.php?';
                 echo $event_id;
               echo "\">Edit</a>";
             };
             // Check if all participants have been judged
-            if ($active == 1){
+            if ($active == 1 && $current_organizer){
               if ($type == "solo"){
                 if ($num_judgements == $num_participant) {
                   echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/event-summary.php?';
@@ -207,7 +222,7 @@
                 }
               }
             }
-            if ($active == 1){
+            if ($active == 1 && $current_organizer){
               echo '<a class="red-button mx-2 cursor-pointer"  href="../organizer/delete-event.php?';
                 echo $event_id;
                 echo "\" onClick=\"return confirm('Delete ";
@@ -215,7 +230,7 @@
                 echo "? This will delete all the data related to this event.')";
               echo "\">Delete</a>";
             }
-            else{
+            else if ($active == 0 && $current_organizer){
               echo '<a class="red-button cursor-pointer"  href="../organizer/delete-event.php?';
                 echo $event_id;
                 echo "\" onClick=\"return confirm('Delete ";

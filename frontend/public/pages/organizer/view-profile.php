@@ -10,6 +10,11 @@
   // use query string to fetch data from previous page --> "users.php"
   $userid = $_SERVER['QUERY_STRING'];
 
+  if($userid != $_SESSION['user_id']){
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  }
+
   //get organizer data from database
   $user_query = "SELECT u.* , o.organizer_website, p.user_privilege as privilege
   FROM user AS u
@@ -220,9 +225,16 @@
                     ?>
                     <div class="event-cont col-12 pb-3">
                       <?php
-                        echo '<a href="../organizer/event-details.php?';
-                          echo $event_query['event_id'];
-                        echo'">';
+                        if($event_query["active"] == "1"){
+                          echo '<a href="../organizer/event-details.php?';
+                            echo $event_query['event_id'];
+                          echo'">';
+                        }
+                        else{
+                          echo '<a href="../organizer/event-summary.php?';
+                            echo $event_query['event_id'];
+                          echo'">';
+                        }
                       ?>
                         <button class="btn btn-primary animate-up-2" type="button">
                           <div class="event-cont">
@@ -235,7 +247,13 @@
                                     $end_time = date("H:i",strtotime($event_query['end_time']));
                                     $event_date = date("d-m-Y",strtotime($event_query["event_date"]));
                                     $today_date = date("d-m-Y",strtotime($current_date));
-                                    if($event_date > $today_date){
+                                    $active = $event_query["active"];
+                                    $participant_sql= "SELECT COUNT(participant_id) AS num_participant FROM team_list WHERE event_id = '$event_query[event_id]'";
+                                    $participant_result = mysqli_query($con, $participant_sql);
+                                    while($participant_row=mysqli_fetch_array($participant_result)){
+                                      $num_participant = $participant_row["num_participant"];
+                                    }
+                                    if($active == '1'){
                                       echo "<small class='status-on'>Active</small>";
                                     }
                                     else{
@@ -251,7 +269,7 @@
                                 </div>
                                 <div class="info-con">
                                   <p>Time: <?php echo $start_time?> ~ <?php echo $end_time?> </p>
-                                  <p>Participant : <?php echo $event_query['max_team']?></p>
+                                  <p>Participant : <?php echo $num_participant?></p>
                                 </div>
                               </div> <!--info-->
                             </div>

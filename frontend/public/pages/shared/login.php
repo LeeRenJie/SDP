@@ -3,6 +3,11 @@
 if(!isset($_SESSION)) {
   session_start();
 }
+else{
+  if ($_SESSION['privilege'] == ""){
+    $_SESSION['privilege'] = NULL;
+  }
+}
 
 if (isset($_SESSION['privilege'])) {
   echo("<script>alert('You are already logged in!')</script>");

@@ -38,6 +38,22 @@
   $max_member = $event_row['max_member'];
   $max_team = $event_row['max_team'];
   $active = $event_row['active'];
+  $event_organizer_id = $event_row['organizer_id'];
+
+  // Get organizer id
+  $organizer_sql = "SELECT * FROM organizer WHERE user_id = '$_SESSION[user_id]'";
+  $organizer_result = mysqli_query($con, $organizer_sql);
+  if ($organizer_result){
+    $organizer_row = mysqli_num_rows($organizer_result);
+  }
+  while($row = mysqli_fetch_assoc($organizer_result)){
+    $organizer_id = $row["organizer_id"];
+  }
+
+  if ($event_organizer_id != $organizer_id) {
+    echo("<script>alert('You do not have access to this page')</script>");
+    header("Location: ../shared/view-event.php");
+  }
 
 
   // get the judges' details
@@ -146,8 +162,10 @@
   <div class="flex flex-row h-screen">
     <?php include '../shared/sidebar.php';?>
     <div class="basis-10/12 bg-shadow overflow-auto" style="border-radius:30px;">
-      <div onclick="history.back()" class="pl-5 cursor-pointer pt-4">
-        <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+      <div class="pt-4">
+        <span onclick="history.back()" class="pl-5 cursor-pointer">
+          <i class="fa-solid fa-circle-arrow-left fa-2xl"></i>
+        </span>
       </div>
       <div class="row pt-4 pl-5">
         <!-- Event name and status -->
