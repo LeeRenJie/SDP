@@ -75,7 +75,7 @@
     }
     else {
       // Display Error
-      die('Error: ' . mysqli_error($con));
+      echo'<script>alert("Your username has been used!");</script>';
     }
     //Close connection for database
     mysqli_close($con);
