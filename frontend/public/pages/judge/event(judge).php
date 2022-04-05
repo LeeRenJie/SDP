@@ -14,8 +14,8 @@
     $event=mysqli_fetch_array($result);
     $eventid = $event['event_id'];
     $eventname = $event['event_name'];
-    $starttime = date("H:i",strtotime($event["start_time"]));
-    $endtime = date("H:i",strtotime($event["end_time"]));
+    $starttime = date("H:i",strtotime($event['start_time']));
+    $endtime = date("H:i",strtotime($event['end_time']));
     $eventdescription = $event['event_description'];
     $eventdate = $event['event_date'];
     $eventpicture=$event['event_picture'];
