@@ -14,11 +14,15 @@
     $event=mysqli_fetch_array($result);
     $eventid = $event['event_id'];
     $eventname = $event['event_name'];
-    $starttime = $event['start_time'];
-    $endtime = $event['end_time'];
+    $starttime = date("H:i",strtotime($event["start_time"]));
+    $endtime = date("H:i",strtotime($event["end_time"]));
     $eventdescription = $event['event_description'];
     $eventdate = $event['event_date'];
     $eventpicture=$event['event_picture'];
+    //Change to default.png if the event picture was not found
+    if (is_null($eventpicture) or $eventpicture =="") {
+        $eventpicture = "../../images/default.jpg";
+    }
     //Store event id to session
     $_SESSION["event_id"] = $eventid;
 
@@ -84,7 +88,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="collapse mt-3" id="collapse1">
-                                            <div class="card2 bg-primary p-4">
+                                            <div class="card2 bg-primary py-4 px-3">
                                                 <div class="row">
                                                     <!-- Event Date -->
                                                     <div class="col-6">
@@ -103,7 +107,7 @@
                                                                 <i class="fa-solid fa-clock"></i>
                                                                 Time
                                                             </span>
-                                                            <p class="pt-3"><?php echo $starttime; ?></p>
+                                                            <p class="pt-3"><?php echo $starttime?> ~ <?php echo $endtime?></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,7 +147,7 @@
                             </div>
                             <!-- Event Picture -->
                             <div class="col-4">
-                                <?php echo '<image src="data:image;base64, '.base64_encode($eventpicture).'">'?>
+                                <?php echo '<image src="'.$eventpicture.'">'?>
                             </div>
                         </div>
                     </div>
