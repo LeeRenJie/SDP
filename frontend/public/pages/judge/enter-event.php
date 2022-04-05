@@ -21,11 +21,27 @@
             }
             $_SESSION['judge_id']=$judgeid;
             $_SESSION['username']=$judgename;
-            $_SESSION['privilege']="judge"; 
-            //Show the welcome message
-            echo("<script>alert('Welcome, $judgename')</script>");
-            //Redirected to event(judge) page
-            echo("<script>window.location = 'event(judge).php'</script>");
+            $_SESSION['privilege']="judge";
+            
+            //Query to get the event data
+            $sql="SELECT * FROM event AS ev INNER JOIN judges_list AS jl ON ev.judges_list_id = jl.judges_list_id
+            INNER JOIN judge AS jg ON jl.judge_id = jg.judge_id WHERE jg.judge_id = '$_SESSION[judge_id]'";
+            //Execute the query
+            $result=mysqli_query($con,$sql);
+            //Fetch data
+            $event=mysqli_fetch_array($result);
+            //If the event is still active
+            if ($event['active']==1){
+                //Show the welcome message
+                echo "<script>alert('Welcome, $judgename')</script>";
+                //Redirected to event(judge) page
+                echo "<script>window.location = 'event(judge).php'</script>";
+            }
+            else{
+                //Show the alert message to indicate judge that the event is ended
+                echo "<script>alert('Sorry, the event is already ended.');</script>";
+                session_unset();
+            }
         }
 
         //If the unique code does not exist
