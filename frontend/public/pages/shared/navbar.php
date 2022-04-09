@@ -31,12 +31,12 @@
 			}
       else {
         //Notify user new password not match condition
-        echo'<script>alert("New Password not match with confirm password.");</script>';
+        echo'<script>alert("New Password does not match with confirm password.");</script>';
       }
     }
     else{
       //Notify user current password not match
-      echo'<script>alert("Current password not match.");</script>';
+      echo'<script>alert("Current password does not match.");</script>';
     }
   }
 ?>
