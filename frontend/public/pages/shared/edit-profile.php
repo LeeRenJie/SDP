@@ -18,18 +18,62 @@
   // fetch the result in array format
   $userdata = mysqli_fetch_assoc($result);
 
-
   if (isset($_POST['saveInfoBtn'])) {
-    //get file
-    $userProPic = $_FILES['profilePic']['tmp_name'];
-    //check either got image or not
-    if ($_FILES['profilePic']['size'] > 0){
-      //get image type
-      $imageFileType = strtolower(pathinfo($userProPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
-      //encode image into base64
-      $base64_Img = base64_encode(file_get_contents($userProPic));
-      //set image content with type and base64
-      $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
+    $edit = TRUE;
+    //Get all user data
+    $validation_query = "SELECT * FROM user WHERE privilege_id = '2' OR privilege_id = '3'";
+    $validation_query_run = mysqli_query($con, $validation_query);
+    if (!$validation_query_run){
+      die('Error validation query: ' . mysqli_error($con));
+    }
+
+    // form validation for username to prevent repeating
+    if(mysqli_num_rows($validation_query_run) > 0)
+    {
+      foreach($validation_query_run as $row)
+      {
+        // ("Form Validation in PHP - javatpoint", 2021);
+        if($row['username'] == $_POST['username'])
+        {
+          echo("<script>alert('Username already exists!')</script>");
+          $edit = FALSE;
+          break;
+        }
+      }
+    }
+
+    if($edit){
+      //get file
+      $userProPic = $_FILES['profilePic']['tmp_name'];
+      //check either got image or not
+      if ($_FILES['profilePic']['size'] > 0){
+        //get image type
+        $imageFileType = strtolower(pathinfo($userProPic,PATHINFO_EXTENSION)); //(Newbedev, 2021)
+        //encode image into base64
+        $base64_Img = base64_encode(file_get_contents($userProPic));
+        //set image content with type and base64
+        $image = 'data:image/'.$imageFileType.';base64,'.$base64_Img;
+        $sql = "UPDATE user SET
+        username = '$_POST[username]',
+        name = '$_POST[name]',
+        email = '$_POST[email]',
+        dob = '$_POST[dob]',
+        telephone = '$_POST[telephone]'
+        WHERE user_id=$userid;";
+        //user_image = '$image', gender
+        $sql2 = "UPDATE participant SET gender = '$_POST[gender]', participant_image = '$image' WHERE user_id = $userid ";
+      }
+      elseif ($privilege == 'organizer'){
+        $sql = "UPDATE user SET
+        username = '$_POST[username]',
+        name = '$_POST[name]',
+        email = '$_POST[email]',
+        dob = '$_POST[dob]',
+        telephone = '$_POST[telephone]'
+        WHERE user_id=$userid;";
+        $sql2 = "UPDATE organizer SET organizer_website = '$_POST[website]' WHERE user_id = $userid ";
+      }
+      else {
       $sql = "UPDATE user SET
       username = '$_POST[username]',
       name = '$_POST[name]',
@@ -37,45 +81,25 @@
       dob = '$_POST[dob]',
       telephone = '$_POST[telephone]'
       WHERE user_id=$userid;";
-      //user_image = '$image', gender
-      $sql2 = "UPDATE participant SET gender = '$_POST[gender]', participant_image = '$image' WHERE user_id = $userid ";
-    }
-    elseif ($privilege == 'organizer'){
-      $sql = "UPDATE user SET
-      username = '$_POST[username]',
-      name = '$_POST[name]',
-      email = '$_POST[email]',
-      dob = '$_POST[dob]',
-      telephone = '$_POST[telephone]'
-      WHERE user_id=$userid;";
-      $sql2 = "UPDATE organizer SET organizer_website = '$_POST[website]' WHERE user_id = $userid ";
-    }
-    else {
-    $sql = "UPDATE user SET
-    username = '$_POST[username]',
-    name = '$_POST[name]',
-    email = '$_POST[email]',
-    dob = '$_POST[dob]',
-    telephone = '$_POST[telephone]'
-    WHERE user_id=$userid;";
-    $sql2 = "UPDATE participant SET gender = '$_POST[gender]' WHERE user_id = $userid ";
-    }
-    // Execute query to update user details
-    if (mysqli_query($con,$sql)) {
-      mysqli_query($con, $sql2);
-      mysqli_close($con);
-      // Notify user details had updated
-      echo'<script>alert("Your Details Have Been Updated Successfully!");</script>';
-      if ($_SESSION['privilege'] == 'participant'){
-        echo("<script>window.location = '../shared/view-event.php'</script>");
+      $sql2 = "UPDATE participant SET gender = '$_POST[gender]' WHERE user_id = $userid ";
       }
-      else if ($_SESSION['privilege'] == 'organizer'){
-        echo("<script>window.location = '../organizer/my-event.php'</script>");
+      // Execute query to update user details
+      if (mysqli_query($con,$sql)) {
+        mysqli_query($con, $sql2);
+        mysqli_close($con);
+        // Notify user details had updated
+        echo'<script>alert("Your Details Have Been Updated Successfully!");</script>';
+        if ($_SESSION['privilege'] == 'participant'){
+          echo("<script>window.location = '../shared/view-event.php'</script>");
+        }
+        else if ($_SESSION['privilege'] == 'organizer'){
+          echo("<script>window.location = '../organizer/my-event.php'</script>");
+        }
       }
-    }
-    else {
-      // Display Error
-      echo'<script>alert("Your username has been used!");</script>';
+      else {
+        // Display Error
+        echo'<script>alert("Your username has been used!");</script>';
+      }
     }
     //Close connection for database
     mysqli_close($con);
