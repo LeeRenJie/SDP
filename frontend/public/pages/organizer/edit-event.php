@@ -538,7 +538,7 @@
           };
           // check if the query is successful
           if($criterion_result){
-            echo('<script>alert("Event successfully updated"</script>');
+            echo('<script>alert("Event successfully updated")</script>');
             header("Location: ../organizer/event-details.php?$event_id");
           }
           //If the sql fail, notify user
@@ -646,9 +646,7 @@
         <div class="col-12">
           <div class="form-group mb-4">
             <label for="description">Event Description</label>
-            <textarea class="form-control" id="description" name="event-description" rows="6" placeholder="Enter event description...">
-              <?php echo $event_description ?>
-            </textarea>
+            <textarea class="form-control" id="description" name="event-description" rows="6" placeholder="Enter event description..."><?php echo $event_description ?></textarea>
           </div>
         </div>
 

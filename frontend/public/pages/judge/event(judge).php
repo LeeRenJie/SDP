@@ -41,7 +41,7 @@
     $result3=mysqli_query($con,$sql3);
 
     //Query to get the teams data
-    $sql4="SELECT * FROM team_list WHERE event_id = $eventid";
+    $sql4="SELECT DISTINCT team_name, team_list_id, unique_code FROM team_list WHERE event_id = $eventid";
     //Execute the query
     $result4=mysqli_query($con,$sql4);
 
@@ -52,12 +52,12 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/a96430977f.js" crossorigin="anonymous"></script>
-        <link href="../../../src/stylesheets/judge-view-event.css" rel="stylesheet"> 
+        <link href="../../../src/stylesheets/judge-view-event.css" rel="stylesheet">
         <link href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
-        <title>Judge Event Page</title>    
+        <title>Judge Event Page</title>
     </head>
     <body>
         <?php include '../shared/navbar.php';?>
@@ -73,7 +73,7 @@
                                 <p><?php echo $eventdescription; ?></p>
                                 <div class="row">
                                     <!-- Event Time -->
-                                    <div class="col-6">    
+                                    <div class="col-6">
                                         <button class="normal_button mt-3" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
                                             Event Time
                                         </button>
@@ -126,7 +126,7 @@
                                                         <div class="pt-3">
                                                             <?php
                                                             //Create array
-                                                            $p1=Array(); 
+                                                            $p1=Array();
                                                             //Fetch data
                                                             while($prize=mysqli_fetch_array($result2)){
                                                                 //Store data into array
@@ -164,7 +164,7 @@
                                     $nor=0;
                                     while($rule=mysqli_fetch_array($result3)){
                                         $nor=$nor+1;
-                                        echo "<p class='fs-5 mt-2'> $nor. $rule[rule]</p>";  
+                                        echo "<p class='fs-5 mt-2'> $nor. $rule[rule]</p>";
                                     }
                                 ?>
                             </div>
@@ -178,16 +178,16 @@
                                 </span>
                                 <?php
                                     //Fetch and display data
-                                    $nop=0; 
+                                    $nop=0;
                                     while($participant=mysqli_fetch_array($result4)){
                                         $nop=$nop+1;
-                                        echo "<p class='fs-5 mt-2'> $nop. $participant[team_name]</p>";  
+                                        echo "<p class='fs-5 mt-2'> $nop. $participant[team_name]</p>";
                                     }
                                 ?>
                             </div>
                         </div>
                     </div>
-                </div>               
+                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

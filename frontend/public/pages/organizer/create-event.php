@@ -300,6 +300,7 @@
             </div>
           </div>
         ');
+        $prizes_entered = FALSE;
       }
       else{
         // if pass validation insert each prize into database
@@ -362,8 +363,8 @@
           };
           // check if the query is successful
           if($criterion_result){
-            echo('<script>alert("Event successfully created"</script>');
-            header("Location: ../organizer/event-details.php?$event_id");
+            echo('<script>alert("Event successfully created")</script>');
+            echo('<script>window.location.href = "../organizer/event-details.php?'.$event_id.'"</script>');
           }
           //If the sql fail, notify user
           else

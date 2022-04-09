@@ -26,7 +26,7 @@ if (isset($_POST['registerBtn'])) {
   $privilege == "Organizer" ? $privilege=2 : $privilege=3;
 
   //Get all user data
-  $validation_query = "SELECT * FROM user WHERE privilege_id = '2' OR privilege_id = '3'";
+  $validation_query = "SELECT * FROM user";
   $validation_query_run = mysqli_query($con, $validation_query);
   if (!$validation_query_run){
     die('Error validation query: ' . mysqli_error($con));
