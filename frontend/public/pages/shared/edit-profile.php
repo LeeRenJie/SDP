@@ -86,7 +86,6 @@
       // Execute query to update user details
       if (mysqli_query($con,$sql)) {
         mysqli_query($con, $sql2);
-        mysqli_close($con);
         // Notify user details had updated
         echo'<script>alert("Your Details Have Been Updated Successfully!");</script>';
         if ($_SESSION['privilege'] == 'participant'){
@@ -98,7 +97,7 @@
       }
       else {
         // Display Error
-        echo'<script>alert("Your username has been used!");</script>';
+        die('Error sql query: ' . mysqli_error($con));
       }
     }
     //Close connection for database
