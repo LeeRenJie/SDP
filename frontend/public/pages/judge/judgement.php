@@ -74,6 +74,9 @@
                 if($no5==1){
                     $scorelistsql="INSERT INTO score_list (score_id) VALUES (".$scoreidlist[$no5-1].")";
                     mysqli_query($con,$scorelistsql);
+                    $scorelistidsql="SELECT * FROM score_list WHERE score_id = ".$scoreidlist[0]."";
+                    $sqlresult = mysqli_fetch_array(mysqli_query($con,$scorelistidsql));
+                    $scorelistid = $sqlresult["score_list_id"];
                 }
                 else{
                     $scorelistidsql="SELECT * FROM score_list WHERE score_id = ".$scoreidlist[0]."";
@@ -121,8 +124,6 @@
         }
         $noteam = $noteam + 1;
     }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -204,7 +205,9 @@
                                                                     $no3 = 1;
                                                                     while($no3 < $no2){
                                                                         echo '<td headers="criteria'.$no3.'"><input type="number" class="form-control" ';
-
+                                                                        //Count the maximum score for each criteria
+                                                                        $maxscore = 100/count($criterialist);
+                                                                        
                                                                         //Check if the judgement record of the team existed in database
                                                                         $sql3 = "SELECT * FROM judgement_list AS jl INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
                                                                                 WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamname."'";
@@ -220,7 +223,7 @@
                                                                         else{
                                                                             echo '';
                                                                         }
-                                                                        echo 'name="'.$teamname.'score'.$no3.'" required></td>';
+                                                                        echo 'name="'.$teamname.'score'.$no3.'" max='.$maxscore.' required></td>';
                                                                         $no3 = $no3 + 1;
                                                                     }
 

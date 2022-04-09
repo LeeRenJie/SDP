@@ -27,8 +27,7 @@
         //if edit button is clicked
         if (isset($_POST["".$teamlist[$noteam]."editbtn"])){
             //Query to get the score id based on judge id and team name
-            $scoreidsql="SELECT DISTINCT tl.team_name, sc.score
-                        FROM judgement_list AS jl
+            $scoreidsql="SELECT DISTINCT tl.team_name, sc.score, sc.score_id FROM judgement_list AS jl
                         INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                         INNER JOIN score AS sc ON sl.score_id = sc.score_id
                         INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
@@ -78,8 +77,8 @@
         echo("<script>window.location = 'judgement.php'</script>");
     }
 
-    //Query to get the ranking and total score of the teamt
-    $rankingsql="SELECT DISTINCT tl.team_name, tl.team_list_id , SUM(sc.score) AS total_score
+    //Query to get the ranking of the teamt
+    $rankingsql="SELECT tl.team_name, tl.team_list_id , SUM(sc.score) AS total_score
                 FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                 INNER JOIN score AS sc ON sl.score_id = sc.score_id
                 INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
@@ -88,13 +87,11 @@
                 ORDER BY total_score DESC";
     $ranking=mysqli_query($con,$rankingsql);
 
-    //Create arrays for the team name and total score
+    //Create arrays for the team name 
     $teamname = Array();
-    $totalscore = Array();
-    //Save the ranking result and total score of each team into the arrays
+    //Save the ranking result into the arrays
     while($rankingresult=mysqli_fetch_array($ranking)){
         $teamname[] = $rankingresult["team_name"];
-        $totalscore[] = $rankingresult["total_score"];
     }
 ?>
 
@@ -133,7 +130,7 @@
                                 echo '<tr class="shadow-inset bg-primary border-light p-4 rounded">
                                     <!-- Show the team name -->
                                     <td class="border-0 align-middle font-weight-bold" scope="row">'.$teamname[$no-1].'</td>
-                                    <td class="border-0 p-0 align-middle">
+                                    <td class="border-0 p-0 align-middle ">
 
                                         <table class="table mt-3">
                                             <tr>';
@@ -195,7 +192,16 @@
 
                                     </td>
                                     <!-- Show the total score -->
-                                    <td class="border-0 align-middle font-weight-bold" scope="row">'.$totalscore[$no-1].'</td>
+                                    <td class="border-0 align-middle font-weight-bold" scope="row">';
+                                    //Count the total score for the participant
+                                    $noscore = 0;
+                                    $totalscore = 0;
+                                    while ($noscore < count($scorelist)){
+                                        $totalscore = $totalscore + $scorelist[$noscore];
+                                        $noscore = $noscore + 1;
+                                    }
+                                    echo ''.$totalscore.'';
+                                    echo'</td>
                                     <!-- Show the rank -->
                                     <td class="border-0 align-middle font-weight-bold" scope="row">'.$no.'</td>
                                     <td class="border-0 align-middle" scope="row"><button type="button" class="normal_button" data-toggle="modal" data-target="#modal-form-edit'.$no.'"><i class="fa-solid fa-pen-to-square fa-2xl"></i></button></td>
