@@ -349,7 +349,6 @@
         $event_result = mysqli_query($con, $event_sql);
         if ($event_result){
           // get last inserted event id
-          echo('<script>alert("judges added successfully"</script>');
           $event_id = mysqli_insert_id($con);
           // loop through event criteria array to input same input name into database
           $criteria = $_POST["criteria"];
@@ -363,7 +362,7 @@
           };
           // check if the query is successful
           if($criterion_result){
-            echo('<script>alert("criteria successfully created"</script>');
+            echo('<script>alert("Event successfully created"</script>');
             header("Location: ../organizer/event-details.php?$event_id");
           }
           //If the sql fail, notify user

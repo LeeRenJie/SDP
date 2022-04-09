@@ -538,7 +538,7 @@
           };
           // check if the query is successful
           if($criterion_result){
-            echo('<script>alert("criteria successfully created"</script>');
+            echo('<script>alert("Event successfully updated"</script>');
             header("Location: ../organizer/event-details.php?$event_id");
           }
           //If the sql fail, notify user
