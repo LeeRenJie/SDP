@@ -5,6 +5,11 @@
     include("../../../../backend/conn.php");
     include("../../../../backend/session(judge).php");
 
+    if ($_SESSION['privilege'] != "judge") {
+        echo("<script>alert('You do not have access to this page')</script>");
+        echo('<script>window.location.href = "../shared/view-event.php";</script>');
+    };
+
     //Query to get the event data
     $sql="SELECT * FROM event AS ev INNER JOIN judges_list AS jl ON ev.judges_list_id = jl.judges_list_id
     INNER JOIN judge AS jg ON jl.judge_id = jg.judge_id WHERE jg.judge_id = '$_SESSION[judge_id]'";

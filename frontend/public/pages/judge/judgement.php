@@ -4,6 +4,12 @@
     //Connection to Database
     include("../../../../backend/conn.php");
     include("../../../../backend/session(judge).php");
+
+    if ($_SESSION['privilege'] != "judge") {
+        echo("<script>alert('You do not have access to this page')</script>");
+        echo('<script>window.location.href = "../shared/view-event.php";</script>');
+    };
+
     //Query to get team list of the event
     $sql="SELECT DISTINCT team_name,team_list_id, unique_code FROM team_list WHERE event_id = '$_SESSION[event_id]'";
     //Execute the query
@@ -207,7 +213,7 @@
                                                                         $rownum=mysqli_num_rows($check);
 
                                                                         //If judgement record existed
-                                                                        if($rownum==1){
+                                                                        if($rownum>=1){
                                                                             //Disable the input field
                                                                             echo 'readonly="readonly" ';
                                                                         }
@@ -231,7 +237,7 @@
                                                         $check=mysqli_query($con,$sql4);
                                                         $rownum=mysqli_num_rows($check);
                                                         //If judgement record existed
-                                                        if($rownum==1){
+                                                        if($rownum>=1){
                                                             //Disable the input field
                                                             echo 'readonly="readonly" ';
                                                         }
@@ -243,7 +249,7 @@
                                                     <div class="text-end mt-4">
                                                         <input type="submit" name="'.$teamname.'submitbtn" class="btn submitbtn" ';
                                                         //If judgement record existed
-                                                        if($rownum==1){
+                                                        if($rownum>=1){
                                                             //Disable the submit button
                                                             echo "disabled='disabled'";
                                                         }

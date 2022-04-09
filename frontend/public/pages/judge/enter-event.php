@@ -11,7 +11,7 @@
         $sql="SELECT * FROM judge WHERE unique_code='$uniquecode'";
         $result=mysqli_query($con,$sql);
         $rownum=mysqli_num_rows($result);
-        
+
         //If the unique code existed
         if($rownum==1){
             //Store the judge data into session
@@ -22,7 +22,7 @@
             $_SESSION['judge_id']=$judgeid;
             $_SESSION['username']=$judgename;
             $_SESSION['privilege']="judge";
-            
+
             //Query to get the event data
             $sql="SELECT * FROM event AS ev INNER JOIN judges_list AS jl ON ev.judges_list_id = jl.judges_list_id
             INNER JOIN judge AS jg ON jl.judge_id = jg.judge_id WHERE jg.judge_id = '$_SESSION[judge_id]'";
@@ -50,10 +50,10 @@
             echo "<script>alert('Your unique code is invalid. Please try again');</script>";
         }
         //Close connection of database
-        mysqli_close($con);        
+        mysqli_close($con);
     }
-    
-    
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,12 +89,12 @@
                                 </div>
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-dark enter-btn">Enter</button>
-                                </div> 
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>

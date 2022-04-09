@@ -5,8 +5,13 @@
     include("../../../../backend/conn.php");
     include("../../../../backend/session(judge).php");
 
+    if ($_SESSION['privilege'] != "judge") {
+      echo("<script>alert('You do not have access to this page')</script>");
+      echo('<script>window.location.href = "../shared/view-event.php";</script>');
+    };
+
     //Query to get team list of the event
-    $teamlistsql="SELECT * FROM team_list AS tl INNER JOIN event AS ev ON tl.event_id = ev.event_id
+    $teamlistsql="SELECT DISTINCT team_name, team_list_id, unique_code FROM team_list AS tl INNER JOIN event AS ev ON tl.event_id = ev.event_id
                   WHERE ev.event_id = '$_SESSION[event_id]'";
     $teamlistsqlresult=mysqli_query($con,$teamlistsql);
     //Create array for team list
@@ -22,13 +27,15 @@
         //if edit button is clicked
         if (isset($_POST["".$teamlist[$noteam]."editbtn"])){
             //Query to get the score id based on judge id and team name
-            $scoreidsql="SELECT * FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
+            $scoreidsql="SELECT DISTINCT tl.team_name, sc.score
+                        FROM judgement_list AS jl
+                        INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                         INNER JOIN score AS sc ON sl.score_id = sc.score_id
                         INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
-                        INNER JOIN event AS ev ON tl.event_id = ev.event_id 
+                        INNER JOIN event AS ev ON tl.event_id = ev.event_id
                         WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamlist[$noteam]."'";
             $scoreidresult=mysqli_query($con,$scoreidsql);
-            //Create array for score id 
+            //Create array for score id
             $scoreidlist = Array();
             //Save all the score id into the array
             while($scoreid=mysqli_fetch_array($scoreidresult)){
@@ -42,14 +49,14 @@
                 mysqli_query($con,$updatescore);
                 $no5 = $no5 + 1;
             }
-            
+
             //Query to get the comment id based on judge id and team name
             $commentidsql="SELECT * FROM judgement_list AS jl INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
-                           INNER JOIN event AS ev ON tl.event_id = ev.event_id
-                           WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamlist[$noteam]."'";
+                          INNER JOIN event AS ev ON tl.event_id = ev.event_id
+                          WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamlist[$noteam]."'";
             $commentidsqlresult=mysqli_query($con,$commentidsql);
             $commentid=mysqli_fetch_array($commentidsqlresult);
-            
+
             //Update the comment based on the comment id
             $updatecomment="UPDATE comment SET comment = '".$_POST["".$teamlist[$noteam]."comment"]."' WHERE comment_id = ".$commentid["comment_id"]."";
             mysqli_query($con,$updatecomment);
@@ -72,7 +79,7 @@
     }
 
     //Query to get the ranking and total score of the teamt
-    $rankingsql="SELECT tl.team_list_id, tl.team_name, SUM(sc.score) AS total_score 
+    $rankingsql="SELECT DISTINCT tl.team_name, tl.team_list_id , SUM(sc.score) AS total_score
                 FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                 INNER JOIN score AS sc ON sl.score_id = sc.score_id
                 INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
@@ -81,7 +88,7 @@
                 ORDER BY total_score DESC";
     $ranking=mysqli_query($con,$rankingsql);
 
-    //Create arrays for the team name and total score 
+    //Create arrays for the team name and total score
     $teamname = Array();
     $totalscore = Array();
     //Save the ranking result and total score of each team into the arrays
@@ -96,12 +103,12 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/a96430977f.js" crossorigin="anonymous"></script>
-        <link href="../../../src/stylesheets/judge-overall-result.css" rel="stylesheet"> 
+        <link href="../../../src/stylesheets/judge-overall-result.css" rel="stylesheet">
         <link href="../../../src/stylesheets/neumorphism.css" rel="stylesheet">
-        <title>Overall Result</title>    
+        <title>Overall Result</title>
     </head>
     <body>
         <?php include '../shared/navbar.php';?>
@@ -127,14 +134,14 @@
                                     <!-- Show the team name -->
                                     <td class="border-0 align-middle font-weight-bold" scope="row">'.$teamname[$no-1].'</td>
                                     <td class="border-0 p-0 align-middle">
-                                
+
                                         <table class="table mt-3">
                                             <tr>';
                                                 //Query to read all the criteria of the event
                                                 $criteriasql="SELECT * FROM criteria AS cr INNER JOIN event AS ev ON cr.event_id = ev.event_id
                                                               WHERE ev.event_id = '$_SESSION[event_id]'";
                                                 $criteriaresult=mysqli_query($con,$criteriasql);
-                                                
+
                                                 //Create array for criteria
                                                 $criterialist = Array();
                                                 //Save all the criteria into the array
@@ -151,14 +158,15 @@
                                       echo '</tr>
                                             <tr>';
                                                 //Query to read all the score in judgement record
-                                                $scoresql="SELECT * FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
+                                                $scoresql="SELECT DISTINCT tl.team_name, sc.score, sc.score_id FROM judgement_list AS jl
+                                                          INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                                                           INNER JOIN score AS sc ON sl.score_id = sc.score_id
                                                           INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
-                                                          INNER JOIN event AS ev ON tl.event_id = ev.event_id 
+                                                          INNER JOIN event AS ev ON tl.event_id = ev.event_id
                                                           WHERE jl.judge_id = ".$_SESSION["judge_id"]." AND tl.team_name = '".$teamname[$no-1]."'";
                                                 $scoreresult=mysqli_query($con,$scoresql);
 
-                                                //Create array for score 
+                                                //Create array for score
                                                 $scorelist = Array();
                                                 //Save all the score into the array
                                                 while($score=mysqli_fetch_array($scoreresult)){
@@ -191,7 +199,7 @@
                                     <!-- Show the rank -->
                                     <td class="border-0 align-middle font-weight-bold" scope="row">'.$no.'</td>
                                     <td class="border-0 align-middle" scope="row"><button type="button" class="normal_button" data-toggle="modal" data-target="#modal-form-edit'.$no.'"><i class="fa-solid fa-pen-to-square fa-2xl"></i></button></td>
-                                    
+
                                     <!-- Modal Content for Edit Score & Comment -->
                                     <div class="modal fade" id="modal-form-edit'.$no.'" tabindex="-1" role="dialog" aria-labelledby="modal-form-signup" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -203,7 +211,7 @@
                                                         </button>
                                                         <div class="card-header text-center pb-0">
                                                             <h2 class="mb-0 h5 font-weight-bold">Edit Score & Comment</h2><br>
-                                                            <h3 class="mb-0 h5">'.$teamname[$no-1].'</h3>                               
+                                                            <h3 class="mb-0 h5">'.$teamname[$no-1].'</h3>
                                                         </div>
                                                         <div class="card-body">
                                                             <form method="post">
@@ -212,7 +220,7 @@
                                                                 //Show all the scores of the team
                                                                 $no4 = 1;
                                                                 while($no4 <= count($scorelist)){
-                                                                    
+
                                                                     echo'<div class="form-group text-start">
                                                                             <label for="score'.$no4.'">Score '.$no4.'</label>
                                                                             <div class="input-group mb-4">
@@ -220,12 +228,12 @@
                                                                                     <span class="input-group-text"><span class="fas fa-clipboard-check"></span></span>
                                                                                 </div>
                                                                                 <input class="form-control" id="score'.$no4.'" name="'.$teamname[$no-1].'score'.$no4.'" value='.$scorelist[$no4-1].' type="number" aria-label="score'.$no4.'" required>
-                                                                            </div> 
+                                                                            </div>
                                                                         </div>';
                                                                     $no4 = $no4 + 1;
                                                                 }
-                                    
-                                                                
+
+
                                                             echo'<h3 class="mb-0 h5 text-decoration-underline">Comment</h3>
                                                                 <div class="form-group text-start">
                                                                     <label for="comment">Comment</label>
@@ -246,7 +254,7 @@
                                         </div>
                                     </div>
                                 <!-- End of Modal Content -->
-                                
+
                                 </tr>';
                                 $no = $no + 1;
                             }
@@ -254,7 +262,7 @@
                         </table>
                     </div>
                 </div>
-            </div> 
-        </div>           
+            </div>
+        </div>
     </body>
 </html>
