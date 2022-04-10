@@ -1,6 +1,10 @@
 <?php
 require('../../../../backend/fpdf/fpdf.php');
 
+if(!isset($_SESSION)) {
+  session_start();
+}
+
 if ($_SESSION['privilege'] != "admin" && $_SESSION['privilege'] != "organizer") {
 	echo("<script>alert('You do not have access to this page')</script>");
 	header("Location: ../shared/view-event.php");

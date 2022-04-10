@@ -47,25 +47,25 @@
 
     //Completed event, ongoing event
     $find_event_query = "SELECT tl.event_id FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id
+    INNER JOIN participant ON tl.participant_id = participant.participant_id 
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
-    AND evt.event_date < CURRENT_DATE()";
+    AND evt.active = '0'";
 
     $complete_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id
+    INNER JOIN participant ON tl.participant_id = participant.participant_id 
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
-    AND evt.event_date < CURRENT_DATE()";
+    AND evt.active = '0'";
 
     $ongoing_event_query = "SELECT tl.event_id, COUNT(evt.event_date) FROM team_list AS tl
-    INNER JOIN participant ON tl.participant_id = participant.participant_id
+    INNER JOIN participant ON tl.participant_id = participant.participant_id 
     INNER JOIN user ON user.user_id = participant.user_id
     INNER JOIN event AS evt ON evt.event_id = tl.event_id
     WHERE user.user_id = $userid
-    AND evt.event_date > CURRENT_DATE()";
+    AND evt.active = '1'";
   }
   //for organizers
   elseif ($privilege_id == '2'){
@@ -480,7 +480,8 @@ if ($privilege_id == '3' OR $privilege_id == '2')
                                       <h2><?php echo ($event_query['event_name']);?></h2> <!--change event name-->
                                       <div class="status-con"> <!--change event status-->
                                         <?php
-                                          if($event_query['event_date']>$current_date){
+                                          //if($event_query['event_date']>$current_date){
+                                          if($event_query['active'] == "1"){
                                             echo "<small class='status-on'>Active</small>";
                                           }
                                           else{
