@@ -78,23 +78,6 @@
 
           //number of criteria
           $num_cri_info = mysqli_num_rows($run_cri_info);
-
-          //get overall criteria score
-          $get_ovr_scr = 
-          "SELECT SUM(score.score) AS total_score FROM `result`
-          INNER JOIN judgement_list ON judgement_list.judgement_list_id = result.judgement_list_id
-          INNER JOIN score_list ON score_list.score_list_id = judgement_list.score_list_id
-          INNER JOIN score ON score_list.score_id = score.score_id
-          INNER JOIN criteria ON criteria.criteria_id = score.criteria_id
-          INNER JOIN team_list ON team_list.team_list_id = judgement_list.team_list_id
-          INNER JOIN participant ON participant.participant_id = team_list.participant_id
-          INNER JOIN user ON participant.user_id = user.user_id
-          WHERE team_list.unique_code = '$search_key'
-          AND user.user_id = $userid";
-          $run_ovr_scr = mysqli_query($con, $get_ovr_scr);
-          $overall_scr = mysqli_fetch_assoc($run_ovr_scr);
-
-          $count_score = $overall_scr['total_score'];
         ?>
           <div class="row">
             <!-- Result Container -->
@@ -117,8 +100,9 @@
                 <?php
                 $y = 1;
                 $z = 0;
+                $count_score = 0;
                 while ($y <= $num_cri_info) {
-                  $sum_cri_score = "SELECT score.score, criteria.criteria_id FROM `result`
+                  $sum_cri_score = "SELECT AVG(score.score) as sum_crit, criteria.criteria_id FROM `result`
                   INNER JOIN judgement_list ON judgement_list.judgement_list_id = result.judgement_list_id
                   INNER JOIN score_list ON score_list.score_list_id = judgement_list.score_list_id
                   INNER JOIN score ON score_list.score_id = score.score_id
@@ -127,37 +111,33 @@
                   INNER JOIN participant ON participant.participant_id = team_list.participant_id
                   INNER JOIN user ON participant.user_id = user.user_id
                   WHERE team_list.unique_code = '$search_key'
-                  AND user.user_id = $userid
-                  AND criteria.criteria_id = $y
-                  ORDER BY criteria.criteria_id ASC";
+                  GROUP BY criteria_id";
                   $run_sum_cri_score = mysqli_query($con, $sum_cri_score);
-                  // $sum_cri_result = mysqli_fetch_assoc($run_sum_cri_score);
-                  // $num_cri_score = mysqli_num_rows($run_sum_cri_score);
-                  $sum_crit = 0;
-                  foreach($run_sum_cri_score as $sum){
-                    $sum_crit = $sum_crit + intval($sum['score']);
-                  }
+                  $sum_cri_result = mysqli_fetch_assoc($run_sum_cri_score);
                   //create array
                   $criteria_name = Array();
                   //for each row, store inside array
                   foreach($run_cri_info as $cri) {
                     $criteria_name[] = $cri['criteria_name'];
                   }
+                  foreach($run_sum_cri_score as $criScore){
+                    $criteriaScore[] = $criScore['sum_crit'];
+                  }
                   echo "<div class='row'>";
                     echo "<label for='criteria' class='col-sm-6 col-form-label'> <!--criteria name-->";
                         echo $criteria_name[$z]; //criteria name
                     echo "</label>";
                     echo "<p class='col-sm-6 col-form-label' id='criteria' name='criteria'> <!--overall criteria name-->";
-                      echo $sum_crit;
+                      echo $criteriaScore[$z];
                     echo "</p>";
                   echo " </div>";
-                  
+                  $count_score = $count_score + $criteriaScore[$z];
                   $y = $y + 1;
                   $z = $z + 1;
                 }
                 ?>
                 <div class="row">
-                  <label for="total-score" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                  <label for="total-score" class="col-sm-6 col-form-label"> 
                     Total Score
                   </label>
                     <p class="col-sm-6 col-form-label" id="total-score" name="total-score">
@@ -165,12 +145,12 @@
                     </p>
                 </div>
                 <div class="row">
-                  <label for="rank" class="col-sm-6 col-form-label"> <!--maybe getting criteria name-->
+                  <label for="rank" class="col-sm-6 col-form-label"> 
                     Rank
                   </label>
                   <p class="col-sm-6 col-form-label" id="rank" name="rank">
                   <?php
-                  $rank_sql = "SELECT DISTINCT tl.team_list_id,  tl.team_name, SUM(sc.score) AS total_score 
+                  $rank_sql = "SELECT DISTINCT tl.team_list_id,  tl.team_name, AVG(sc.score) AS total_score 
                   FROM judgement_list AS jl INNER JOIN score_list AS sl ON jl.score_list_id = sl.score_list_id
                   INNER JOIN score AS sc ON sl.score_id = sc.score_id
                   INNER JOIN team_list AS tl ON jl.team_list_id = tl.team_list_id
@@ -244,13 +224,12 @@
               <h2>Comments</h2>
               <div class="comment-details">
                 <?php
-                $comment_sql = "SELECT * FROM comment
+                $comment_sql = "SELECT DISTINCT comment.comment_id, comment FROM comment
                 INNER JOIN judgement_list ON judgement_list.comment_id = comment.comment_id
                 INNER JOIN team_list ON judgement_list.team_list_id = team_list.team_list_id
                 INNER JOIN participant ON participant.participant_id = team_list.participant_id
                 INNER JOIN user ON participant.user_id = user.user_id
-                WHERE team_list.unique_code = '$search_key'
-                AND user.user_id = $userid";
+                WHERE team_list.unique_code = '$search_key'";
                 $run_comment_sql = mysqli_query($con,$comment_sql);
                 $count_comment = 0;
                 foreach($run_comment_sql as $comment) {
